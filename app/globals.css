@@ -1,0 +1,848 @@
+* {
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+}
+
+html,
+body {
+  min-height: 100%;
+}
+
+body {
+  min-height: 100vh;
+  font-family: Arial, Helvetica, sans-serif;
+  background: #e9e9e9;
+  color: #222;
+}
+
+/* MOBILE APP SHELL */
+
+.login-page,
+.signup-page,
+.onboarding-page {
+  width: 100%;
+  min-height: 100vh;
+
+  background: #ffffff;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  padding: 32px 24px;
+}
+
+.login-card,
+.signup-card,
+.onboarding-card {
+  width: 100%;
+  max-width: 390px;
+}
+
+/* LOGIN PAGE */
+
+.login-page {
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 24px;
+}
+
+.login-card {
+  width: 100%;
+  max-width: 400px;
+  text-align: center;
+}
+
+/* LOGO */
+
+.logo {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 5px;
+  margin-bottom: 40px;
+}
+
+.logo-korea {
+  color: #3976b8;
+  font-size: 42px;
+  font-weight: 700;
+}
+
+.logo-go {
+  color: #f28c28;
+  font-size: 42px;
+  font-weight: 800;
+}
+
+/* WELCOME */
+
+.welcome-text h1 {
+  font-size: 25px;
+  margin-bottom: 8px;
+}
+
+.welcome-text p {
+  font-size: 18px;
+  color: #555;
+}
+
+/* TEMPORARY MASCOT */
+
+.mascot-placeholder {
+  font-size: 80px;
+  margin: 30px 0;
+}
+
+/* FORM */
+
+.login-form {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.login-form input {
+  width: 100%;
+  padding: 14px 16px;
+
+  border: 1px solid #ccc;
+  border-radius: 10px;
+
+  font-size: 16px;
+}
+
+.login-form input:focus {
+  outline: 2px solid #3976b8;
+  border-color: transparent;
+}
+
+.login-form button {
+  padding: 14px;
+
+  border: none;
+  border-radius: 10px;
+
+  background: #f28c28;
+  color: white;
+
+  font-size: 17px;
+  font-weight: bold;
+
+  cursor: pointer;
+}
+
+.login-form button:hover {
+  opacity: 0.9;
+}
+
+/* SIGN UP */
+
+.signup-text {
+  margin-top: 22px;
+  color: #555;
+}
+
+.signup-text a {
+  color: #3976b8;
+  font-weight: bold;
+  text-decoration: none;
+}
+
+.signup-text a:hover {
+  text-decoration: underline;
+}
+
+/* SIGN UP PAGE */
+
+.signup-page {
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 24px;
+}
+
+.signup-card {
+  width: 100%;
+  max-width: 400px;
+  text-align: center;
+}
+
+.small-logo {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 4px;
+  margin-bottom: 35px;
+  text-decoration: none;
+}
+
+.small-logo .logo-korea,
+.small-logo .logo-go {
+  font-size: 30px;
+}
+
+.signup-heading h1 {
+  font-size: 30px;
+  margin-bottom: 6px;
+}
+
+.signup-heading p {
+  color: #666;
+  font-size: 17px;
+}
+
+.signup-form {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.signup-form input {
+  width: 100%;
+  padding: 14px 16px;
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  font-size: 16px;
+}
+
+.signup-form input:focus {
+  outline: 2px solid #3976b8;
+  border-color: transparent;
+}
+
+.primary-button {
+  display: block;
+  padding: 14px;
+  border-radius: 10px;
+
+  background: #f28c28;
+  color: white;
+
+  font-size: 17px;
+  font-weight: bold;
+  text-decoration: none;
+}
+
+.primary-button:hover {
+  opacity: 0.9;
+}
+
+.login-text {
+  margin-top: 22px;
+  color: #555;
+}
+
+.login-text a {
+  color: #3976b8;
+  font-weight: bold;
+  text-decoration: none;
+}
+
+.login-text a:hover {
+  text-decoration: underline;
+}
+
+/* ONBOARDING PAGE */
+
+.onboarding-page {
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 24px;
+}
+
+.onboarding-card {
+  width: 100%;
+  max-width: 420px;
+  text-align: center;
+}
+
+.intro-text {
+  margin-bottom: 35px;
+}
+
+.intro-text h1 {
+  font-size: 28px;
+  margin-bottom: 10px;
+}
+
+.intro-text p {
+  color: #555;
+  font-size: 17px;
+  line-height: 1.5;
+}
+
+.level-section {
+  margin-bottom: 20px;
+}
+
+.level-section h2 {
+  font-size: 19px;
+  margin-bottom: 15px;
+}
+
+.level-section select {
+  width: 100%;
+  padding: 14px 16px;
+
+  border: 1px solid #ccc;
+  border-radius: 10px;
+
+  background: white;
+  color: #222;
+
+  font-size: 16px;
+  cursor: pointer;
+}
+
+.level-section select:focus {
+  outline: 2px solid #3976b8;
+  border-color: transparent;
+}
+
+.placement-option {
+  margin-top: 25px;
+}
+
+.placement-option p {
+  color: #666;
+  font-size: 14px;
+  margin-bottom: 5px;
+}
+
+.placement-option a {
+  color: #3976b8;
+  font-weight: bold;
+  text-decoration: none;
+}
+
+.placement-option a:hover {
+  text-decoration: underline;
+}
+
+/* DASHBOARD */
+
+.dashboard-page {
+  width: 100%;
+  min-height: 100vh;
+  background: #ffffff;
+}
+
+.dashboard-container {
+  width: 100%;
+  max-width: 430px;
+  margin: 0 auto;
+  padding: 24px 20px 40px;
+}
+
+/* HEADER */
+
+.dashboard-header {
+  display: grid;
+  grid-template-columns: 50px 1fr 50px;
+  align-items: center;
+  margin-bottom: 32px;
+}
+
+.dashboard-logo {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 3px;
+}
+
+.dashboard-logo .logo-korea,
+.dashboard-logo .logo-go {
+  font-size: 24px;
+}
+
+.settings-button {
+  font-size: 22px;
+  text-decoration: none;
+  color: #333;
+}
+
+.streak {
+  text-align: right;
+  font-weight: bold;
+  font-size: 16px;
+}
+
+/* GREETING */
+
+.dashboard-greeting {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  margin-bottom: 30px;
+}
+
+.dashboard-greeting h1 {
+  font-size: 25px;
+  margin-bottom: 5px;
+}
+
+.dashboard-greeting p {
+  color: #666;
+  font-size: 16px;
+}
+
+.dashboard-mascot {
+  font-size: 55px;
+}
+
+/* MAIN PROGRESS */
+
+.progress-section {
+  background: #f4f7fb;
+  border-radius: 18px;
+  padding: 20px;
+  margin-bottom: 32px;
+}
+
+.progress-label {
+  display: flex;
+  justify-content: space-between;
+
+  font-size: 14px;
+  font-weight: bold;
+
+  margin-bottom: 10px;
+}
+
+.progress-track {
+  width: 100%;
+  height: 12px;
+
+  background: #dedede;
+  border-radius: 20px;
+
+  overflow: hidden;
+}
+
+.progress-fill {
+  height: 100%;
+  background: #f28c28;
+  border-radius: 20px;
+}
+
+.progress-section p {
+  margin-top: 13px;
+
+  font-size: 14px;
+  line-height: 1.4;
+
+  color: #555;
+}
+
+/* LESSON SECTION */
+
+.lesson-section h2 {
+  font-size: 21px;
+  margin-bottom: 15px;
+}
+
+.lesson-card {
+  width: 100%;
+
+  display: flex;
+  align-items: center;
+  gap: 14px;
+
+  padding: 16px;
+  margin-bottom: 14px;
+
+  border: 1px solid #e3e3e3;
+  border-radius: 16px;
+
+  background: white;
+
+  color: #222;
+  text-decoration: none;
+}
+
+.lesson-card:active {
+  transform: scale(0.98);
+}
+
+.lesson-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  width: 48px;
+  height: 48px;
+
+  flex-shrink: 0;
+
+  background: #f4f7fb;
+  border-radius: 14px;
+
+  font-size: 24px;
+}
+
+.lesson-info {
+  flex: 1;
+}
+
+.lesson-title-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  margin-bottom: 5px;
+}
+
+.lesson-title-row h3 {
+  font-size: 17px;
+}
+
+.lesson-title-row span {
+  font-size: 13px;
+  color: #666;
+}
+
+.lesson-info p {
+  color: #777;
+  font-size: 13px;
+  margin-bottom: 9px;
+}
+
+.lesson-progress-track {
+  width: 100%;
+  height: 7px;
+
+  background: #e5e5e5;
+  border-radius: 20px;
+
+  overflow: hidden;
+}
+
+.lesson-progress-fill {
+  height: 100%;
+
+  background: #3976b8;
+
+  border-radius: 20px;
+}
+
+.lesson-arrow {
+  font-size: 24px;
+  color: #999;
+}
+
+.lesson-card.locked {
+  opacity: 0.55;
+  cursor: default;
+}
+
+/* DESKTOP */
+
+@media (min-width: 600px) {
+  .dashboard-page {
+    width: 430px;
+    min-height: 850px;
+
+    margin: 40px auto;
+
+    border-radius: 24px;
+
+    box-shadow:
+      0 8px 30px rgba(0, 0, 0, 0.12);
+  }
+}
+
+/* DESKTOP DISPLAY */
+
+@media (min-width: 600px) {
+  .login-page,
+  .signup-page,
+  .onboarding-page {
+    width: 430px;
+    min-height: 850px;
+
+    margin: 40px auto;
+
+    border-radius: 24px;
+
+    box-shadow:
+      0 8px 30px rgba(0, 0, 0, 0.12);
+  }
+}
+
+/* BASIC APP PAGES */
+
+.basic-page {
+  width: 100%;
+  min-height: 100vh;
+  background: white;
+}
+
+.basic-container {
+  width: 100%;
+  max-width: 430px;
+  margin: 0 auto;
+  padding: 28px 22px 50px;
+}
+
+.basic-container h1 {
+  font-size: 28px;
+  margin-bottom: 10px;
+}
+
+.page-description {
+  color: #666;
+  line-height: 1.5;
+  margin-bottom: 28px;
+}
+
+.back-button {
+  display: inline-block;
+  margin-bottom: 30px;
+
+  color: #3976b8;
+  font-weight: bold;
+  text-decoration: none;
+}
+
+/* PLACEMENT TEST */
+
+.question-card {
+  margin: 25px 0;
+}
+
+.question-number {
+  color: #777;
+  font-size: 14px;
+  margin-bottom: 10px;
+}
+
+.question-card h2 {
+  font-size: 20px;
+  margin-bottom: 20px;
+}
+
+.answer-button {
+  width: 100%;
+  padding: 14px;
+  margin-bottom: 10px;
+
+  background: white;
+
+  border: 1px solid #ddd;
+  border-radius: 12px;
+
+  font-size: 16px;
+  text-align: left;
+
+  cursor: pointer;
+}
+
+/* LESSON */
+
+.lesson-label {
+  color: #f28c28;
+  font-weight: bold;
+  margin-bottom: 6px;
+}
+
+.lesson-content-card {
+  background: #f4f7fb;
+
+  padding: 22px;
+  margin: 25px 0;
+
+  border-radius: 18px;
+}
+
+.lesson-content-card h2 {
+  margin-bottom: 20px;
+}
+
+.hangul-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+
+  gap: 12px;
+
+  margin-bottom: 20px;
+}
+
+.hangul-grid div {
+  background: white;
+
+  padding: 18px;
+
+  border-radius: 12px;
+
+  text-align: center;
+
+  font-size: 30px;
+  font-weight: bold;
+}
+
+/* SETTINGS */
+
+.settings-list {
+  margin-top: 30px;
+}
+
+.settings-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  padding: 18px 5px;
+
+  border-bottom: 1px solid #eee;
+
+  color: #222;
+  text-decoration: none;
+}
+
+.logout-button {
+  display: block;
+
+  margin-top: 50px;
+
+  color: #d04444;
+
+  text-align: center;
+  font-weight: bold;
+  text-decoration: none;
+}
+
+/* PROFILE */
+
+.profile-header {
+  text-align: center;
+  margin-bottom: 30px;
+}
+
+.profile-avatar {
+  width: 80px;
+  height: 80px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  margin: 0 auto 15px;
+
+  background: #f4f7fb;
+  border-radius: 50%;
+
+  font-size: 35px;
+}
+
+.profile-header p {
+  color: #777;
+}
+
+.profile-card {
+  border: 1px solid #eee;
+  border-radius: 16px;
+
+  padding: 5px 20px;
+
+  margin-bottom: 20px;
+}
+
+.profile-card p {
+  display: flex;
+  justify-content: space-between;
+
+  padding: 16px 0;
+
+  border-bottom: 1px solid #eee;
+}
+
+.profile-card p:last-child {
+  border-bottom: none;
+}
+
+.profile-card span {
+  color: #666;
+}
+
+.secondary-button {
+  width: 100%;
+
+  padding: 14px;
+
+  background: white;
+
+  border: 2px solid #3976b8;
+  border-radius: 10px;
+
+  color: #3976b8;
+
+  font-size: 16px;
+  font-weight: bold;
+}
+
+/* ACHIEVEMENTS */
+
+.achievement-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+
+  gap: 14px;
+}
+
+.achievement-card {
+  min-height: 160px;
+
+  padding: 20px 15px;
+
+  border: 1px solid #eee;
+  border-radius: 16px;
+
+  text-align: center;
+}
+
+.achievement-card > span {
+  display: block;
+
+  margin-bottom: 12px;
+
+  font-size: 35px;
+}
+
+.achievement-card h3 {
+  font-size: 15px;
+  margin-bottom: 7px;
+}
+
+.achievement-card p {
+  color: #777;
+  font-size: 12px;
+  line-height: 1.4;
+}
+
+.locked-achievement {
+  opacity: 0.45;
+}
+
+/* DESKTOP PHONE CONTAINER */
+
+@media (min-width: 600px) {
+  .basic-page {
+    width: 430px;
+    min-height: 850px;
+
+    margin: 40px auto;
+
+    border-radius: 24px;
+
+    box-shadow:
+      0 8px 30px rgba(0, 0, 0, 0.12);
+  }
+}
