@@ -1,21 +1,27 @@
-import Link from "next/link";
 
-export default function LessonPage() {
+import LessonViewer from "../../../components/LessonViewer";
+import { lessons } from "../../../data/lessons";
+
+export default async function LessonPage({
+  params,
+}: {
+  params: Promise<{ lessonId: string }>;
+}) {
+  const { lessonId } = await params;
+
+  const lesson = lessons.find(
+    (item) => item.id === lessonId
+  );
+
   return (
-    <main className="basic-page">
-      <div className="basic-container">
-
-        <Link href="/dashboard" className="back-button">
-          ← Dashboard
-        </Link>
-
-        <h1>This is where Lesson 1 will go!</h1>
-
-        <Link href="/dashboard" className="primary-button">
-          Continue
-        </Link>
-
-      </div>
-    </main>
+    <LessonViewer
+      lessonId={lessonId}
+      title={lesson?.title ?? "Lesson Coming Soon"}
+      description={
+        lesson?.description ??
+        "This lesson is currently being developed."
+      }
+      items={lesson?.vocabulary ?? []}
+    />
   );
 }

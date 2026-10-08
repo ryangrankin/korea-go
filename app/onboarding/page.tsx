@@ -1,62 +1,61 @@
+
+"use client";
+
+import { useState } from "react";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 
 export default function OnboardingPage() {
+  const router = useRouter();
+  const [level, setLevel] = useState("Beginner");
+
+  function continueToDashboard() {
+    localStorage.setItem("koreaGoLevel", level);
+    router.push("/dashboard");
+  }
+
   return (
-    <main className="onboarding-page">
-      <div className="onboarding-card">
+    <main className="basic-page">
+      <div className="basic-container">
+        <Link href="/signup" className="back-button">
+          ← Back
+        </Link>
 
-        <div className="small-logo">
-          <span className="logo-korea">korea</span>
-          <span className="logo-go">GO!</span>
-        </div>
+        <h1>Let's Get Started!</h1>
 
-        <div className="mascot-placeholder">
-          🐶
-        </div>
+        <p>
+          Doori is excited to help you start learning.
+        </p>
 
-        <div className="intro-text">
-          <h1>Nice to meet you!</h1>
+        <div className="onboarding-level">
+          <label htmlFor="level">
+            What's your current Korean level?
+          </label>
 
-          <p>
-            I&apos;m <strong>두리 (Doori)</strong>, your Korea travel
-            language friend!
-          </p>
-        </div>
-
-        <div className="level-section">
-          <h2>What&apos;s your current Korean level?</h2>
-
-          <select defaultValue="">
-            <option value="" disabled>
-              Choose your level
-            </option>
-
-            <option value="beginner">
-              Beginner
-            </option>
-
-            <option value="intermediate">
-              Intermediate
-            </option>
-
-            <option value="advanced">
-              Advanced
-            </option>
+          <select
+            id="level"
+            value={level}
+            onChange={(event) =>
+              setLevel(event.target.value)
+            }
+          >
+            <option value="Beginner">Beginner</option>
+            <option value="Intermediate">Intermediate</option>
+            <option value="Advanced">Advanced</option>
           </select>
         </div>
 
-        <Link href="/dashboard" className="primary-button">
-          Continue
+        <button
+          type="button"
+          className="primary-button"
+          onClick={continueToDashboard}
+        >
+          Continue →
+        </button>
+
+        <Link href="/placement" className="back-button">
+          Take a Placement Test
         </Link>
-
-        <div className="placement-option">
-          <p>Not sure what level you are?</p>
-
-          <Link href="/placement">
-            Take a placement test
-          </Link>
-        </div>
-
       </div>
     </main>
   );

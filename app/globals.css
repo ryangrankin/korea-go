@@ -788,6 +788,91 @@ body {
   font-weight: bold;
 }
 
+/* Profile Page */
+
+.profile-container {
+  padding-bottom: 32px;
+}
+
+.profile-header {
+  text-align: center;
+  margin: 20px 0 32px;
+}
+
+.profile-avatar {
+  width: 80px;
+  height: 80px;
+  background: #eaf3fc;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 38px;
+  margin: 0 auto 16px;
+}
+
+.profile-header p {
+  color: #777;
+  margin-top: 8px;
+  font-size: 14px;
+}
+
+.profile-section {
+  margin-top: 28px;
+}
+
+.profile-section h2 {
+  font-size: 19px;
+  margin-bottom: 14px;
+}
+
+.profile-card {
+  background: white;
+  border: 1px solid #e5e7eb;
+  border-radius: 14px;
+  padding: 18px;
+}
+
+.profile-card p {
+  color: #777;
+  font-size: 14px;
+  line-height: 1.6;
+}
+
+.profile-row {
+  display: flex;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 12px 0;
+}
+
+.profile-row + .profile-row {
+  border-top: 1px solid #e5e7eb;
+}
+
+.profile-row span {
+  color: #666;
+  font-size: 14px;
+}
+
+.profile-row strong {
+  font-size: 14px;
+  text-align: right;
+}
+
+.profile-friends-link {
+  display: block;
+  margin-top: 28px;
+  padding: 16px;
+  background: #3976b8;
+  color: white;
+  text-align: center;
+  text-decoration: none;
+  border-radius: 12px;
+  font-weight: 600;
+}
+
+
 /* ACHIEVEMENTS */
 
 .achievement-grid {
@@ -845,4 +930,509 @@ body {
     box-shadow:
       0 8px 30px rgba(0, 0, 0, 0.12);
   }
+}
+
+
+/* Lesson Viewer */
+
+.lesson-progress-track {
+  width: 100%;
+  height: 10px;
+  background: #e5e7eb;
+  border-radius: 20px;
+  overflow: hidden;
+  margin: 24px 0;
+}
+
+.lesson-progress-fill {
+  height: 100%;
+  background: #3976b8;
+  border-radius: 20px;
+  transition: width 0.3s ease;
+}
+
+.lesson-content-card {
+  background: white;
+  border: 1px solid #e5e7eb;
+  border-radius: 16px;
+  padding: 30px 20px;
+  text-align: center;
+  margin: 24px 0;
+}
+
+.lesson-content-card h2 {
+  margin-bottom: 16px;
+}
+
+.lesson-content-card p {
+  margin-bottom: 16px;
+}
+
+.lesson-navigation {
+  display: flex;
+  gap: 12px;
+  margin-top: 24px;
+}
+
+.lesson-navigation button {
+  flex: 1;
+  padding: 14px;
+  border-radius: 12px;
+  border: none;
+  background: #3976b8;
+  color: white;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.lesson-navigation button:disabled {
+  background: #d1d5db;
+  cursor: not-allowed;
+}
+
+
+/* Practice Questions */
+
+.practice-count {
+  margin-top: 20px;
+  font-size: 14px;
+  color: #666;
+}
+
+.practice-question-card {
+  background: white;
+  border: 1px solid #e5e7eb;
+  border-radius: 16px;
+  padding: 24px 18px;
+  margin: 24px 0;
+}
+
+.practice-question-card h2 {
+  font-size: 20px;
+  margin-bottom: 24px;
+}
+
+.practice-options {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.practice-option {
+  width: 100%;
+  padding: 16px;
+  border: 2px solid #e5e7eb;
+  border-radius: 12px;
+  background: white;
+  color: #333;
+  text-align: left;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+.practice-option.selected {
+  border-color: #3976b8;
+  background: #eaf3fc;
+}
+
+.practice-next-button {
+  display: block;
+  width: 100%;
+  padding: 14px;
+  margin: 16px 0;
+  border: none;
+  border-radius: 12px;
+  background: #3976b8;
+  color: white;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+
+/* Onboarding Level Selection */
+
+.onboarding-level {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin: 24px 0;
+}
+
+.onboarding-level label {
+  font-size: 15px;
+  font-weight: 600;
+}
+
+.onboarding-level select {
+  width: 100%;
+  padding: 14px;
+  border: 1px solid #d1d5db;
+  border-radius: 12px;
+  background: white;
+  color: #333;
+  font-size: 16px;
+}
+
+/* Dashboard Level */
+
+.dashboard-level {
+  background: #eaf3fc;
+  border-radius: 12px;
+  padding: 14px 18px;
+  margin: 16px 0;
+}
+
+.dashboard-level p {
+  font-size: 13px;
+  color: #555;
+  margin-bottom: 4px;
+}
+
+.dashboard-level strong {
+  color: #3976b8;
+  font-size: 18px;
+}
+
+
+/* Friends Page */
+
+.friends-section {
+  margin-top: 28px;
+}
+
+.friends-section h2 {
+  font-size: 19px;
+  margin-bottom: 16px;
+}
+
+.friend-card {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  background: white;
+  border: 1px solid #e5e7eb;
+  border-radius: 14px;
+  padding: 16px;
+  margin-bottom: 12px;
+}
+
+.friend-avatar {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  background: #eaf3fc;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 24px;
+  flex-shrink: 0;
+}
+
+.friend-info {
+  flex: 1;
+  min-width: 0;
+}
+
+.friend-info h3 {
+  font-size: 16px;
+  margin-bottom: 4px;
+}
+
+.friend-info p {
+  color: #666;
+  font-size: 13px;
+}
+
+.friend-info span {
+  display: block;
+  margin-top: 5px;
+  color: #f28c28;
+  font-size: 13px;
+}
+
+.friend-arrow {
+  font-size: 26px;
+  color: #999;
+}
+
+.friends-search {
+  width: 100%;
+  padding: 14px;
+  border: 1px solid #d1d5db;
+  border-radius: 12px;
+  font-size: 15px;
+  background: white;
+  color: #333;
+}
+
+.friends-search-results {
+  margin-top: 16px;
+}
+
+.friend-add-button {
+  border: none;
+  border-radius: 10px;
+  padding: 10px 12px;
+  background: #e5e7eb;
+  color: #666;
+}
+
+.friends-note {
+  font-size: 13px;
+  color: #777;
+  margin-top: 14px;
+}
+
+.dashboard-page,
+.basic-page {
+  padding-bottom: 100px;
+}
+
+
+/* Bottom Navigation */
+
+.dashboard-page,
+.basic-page {
+  padding-bottom: 0;
+}
+
+.dashboard-container,
+.basic-container {
+  padding-bottom: 24px;
+}
+
+.bottom-nav {
+  position: relative;
+  width: 100%;
+  max-width: 430px;
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  background: white;
+  border-top: 1px solid #e5e7eb;
+  border-radius: 0 0 24px 24px;
+  padding: 16px 8px 20px;
+  z-index: 10;
+  box-sizing: border-box;
+}
+
+.bottom-nav-item {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+  color: #777;
+  text-decoration: none;
+  font-size: 12px;
+}
+
+.bottom-nav-icon {
+  font-size: 23px;
+}
+
+.bottom-nav-item.active {
+  color: #3976b8;
+  font-weight: 700;
+}
+
+
+/* SETTINGS PAGE */
+
+.settings-container {
+  padding-bottom: 32px;
+}
+
+.settings-back {
+  display: inline-block;
+  margin-bottom: 24px;
+  color: #3976b8;
+  text-decoration: none;
+  font-weight: 600;
+}
+
+.settings-subtitle {
+  color: #777;
+  margin-top: 8px;
+}
+
+.settings-section {
+  margin-top: 32px;
+}
+
+.settings-section h2 {
+  font-size: 19px;
+  margin-bottom: 14px;
+}
+
+.settings-card {
+  background: #fff;
+  border: 1px solid #e5e7eb;
+  border-radius: 14px;
+  padding: 18px;
+}
+
+.settings-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 16px;
+}
+
+.settings-row strong {
+  font-size: 16px;
+}
+
+.settings-row p {
+  color: #777;
+  font-size: 13px;
+  margin-top: 5px;
+}
+
+.settings-select {
+  width: 100%;
+  margin-top: 16px;
+  padding: 12px;
+  border: 1px solid #d1d5db;
+  border-radius: 10px;
+  background: white;
+  color: #333;
+  font-size: 15px;
+}
+
+.settings-checkbox {
+  width: 22px;
+  height: 22px;
+  accent-color: #3976b8;
+  cursor: pointer;
+}
+
+.settings-logout {
+  display: block;
+  width: 100%;
+  margin-top: 36px;
+  padding: 15px;
+  background: #f28c28;
+  color: white;
+  border: none;
+  border-radius: 12px;
+  font-size: 16px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+
+/* Additional Settings Styles */
+
+.settings-card label {
+  display: block;
+}
+
+.settings-card label strong {
+  font-size: 16px;
+}
+
+.settings-card label p {
+  color: #777;
+  font-size: 13px;
+  margin-top: 5px;
+}
+
+.settings-divider {
+  height: 1px;
+  background: #e5e7eb;
+  margin: 22px 0;
+}
+
+.settings-select {
+  display: block;
+  width: 100%;
+  margin-top: 12px;
+  box-sizing: border-box;
+}
+
+.settings-note {
+  color: #888;
+  font-size: 12px;
+  line-height: 1.5;
+  margin-top: 18px;
+}
+
+.settings-checkbox {
+  flex-shrink: 0;
+}
+
+
+/* Collapsible Settings */
+
+.settings-accordion {
+  background: white;
+  border: 1px solid #e5e7eb;
+  border-radius: 14px;
+  margin-top: 14px;
+  overflow: hidden;
+}
+
+.settings-accordion summary {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  list-style: none;
+}
+
+.settings-accordion summary::-webkit-details-marker {
+  display: none;
+}
+
+.accordion-arrow {
+  font-size: 22px;
+  color: #777;
+  transition: transform 0.2s;
+}
+
+.settings-accordion[open] .accordion-arrow {
+  transform: rotate(180deg);
+}
+
+.accordion-content {
+  border-top: 1px solid #e5e7eb;
+  padding: 20px;
+}
+
+.accordion-content > label:not(.settings-toggle-row) {
+  display: block;
+  font-size: 14px;
+  font-weight: 600;
+  margin-top: 18px;
+}
+
+.accordion-content > label:first-child {
+  margin-top: 0;
+}
+
+.settings-toggle-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-top: 20px;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.settings-toggle-row input {
+  width: 20px;
+  height: 20px;
+  accent-color: #3976b8;
+}
+
+.accordion-content .settings-select {
+  margin-top: 8px;
 }
