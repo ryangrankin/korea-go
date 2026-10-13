@@ -1,6 +1,9 @@
+export const instant = false;
+
 import { Suspense } from "react";
 import LessonViewer from "../../../components/LessonViewer";
 import { lessons } from "../../../data/lessons";
+
 
 type PageProps = {
   params: Promise<{ lessonId: string }>;

@@ -1,4 +1,7 @@
 
+export const instant = false; 
+
+
 import PracticeViewer from "../../../components/PracticeViewer";
 
 export default async function PracticePage({
