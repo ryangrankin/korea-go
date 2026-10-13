@@ -155,3 +155,101 @@ export default function PracticeViewer({
     </main>
   );
 }
+
+/*
+  PracticeQuestionCard: one multiple-choice question with instant feedback.
+  Used inside sectioned lessons (missions, the airport game, listening).
+  - Wrong answer: shows a hint and lets the learner try again.
+  - Right answer: shows an explanation and a "Next" button.
+  - onDone(firstTry) says whether it was right on the first try.
+*/
+type PracticeQuestionCardProps = {
+  options: string[];
+  answer: string;
+  hints?: Record<string, string>;
+  explanation?: string;
+  onOptionClick?: (option: string) => void; // e.g. play the option's audio
+  optionLang?: string; // "ko" when the options are Korean
+  nextLabel?: string;
+  onDone: (firstTry: boolean) => void;
+};
+
+export function PracticeQuestionCard({
+  options,
+  answer,
+  hints = {},
+  explanation,
+  onOptionClick,
+  optionLang,
+  nextLabel = "Next →",
+  onDone,
+}: PracticeQuestionCardProps) {
+  const [wrongPicks, setWrongPicks] = useState<string[]>([]);
+  const [lastWrong, setLastWrong] = useState<string | null>(null);
+  const [solved, setSolved] = useState(false);
+
+  function choose(option: string) {
+    if (solved) return;
+    onOptionClick?.(option);
+
+    if (option === answer) {
+      setSolved(true);
+      setLastWrong(null);
+    } else {
+      setLastWrong(option);
+      if (!wrongPicks.includes(option)) {
+        setWrongPicks([...wrongPicks, option]);
+      }
+    }
+  }
+
+  return (
+    <div>
+      <div className="practice-options">
+        {options.map((option) => {
+          let state = "";
+          if (solved && option === answer) state = "correct";
+          else if (wrongPicks.includes(option)) state = "wrong";
+
+          return (
+            <button
+              key={option}
+              type="button"
+              lang={optionLang}
+              className={`practice-option ${state}`}
+              onClick={() => choose(option)}
+              disabled={solved && option !== answer}
+            >
+              {option}
+              {onOptionClick && (
+                <span className="korean-text-icon" aria-hidden="true"> 🔊</span>
+              )}
+            </button>
+          );
+        })}
+      </div>
+
+      {lastWrong && !solved && (
+        <p className="feedback feedback-wrong" role="status">
+          ❌ Not quite. {hints[lastWrong] ?? "Try again!"}
+        </p>
+      )}
+
+      {solved && (
+        <>
+          <p className="feedback feedback-right" role="status">
+            ✅ {wrongPicks.length === 0 ? "Correct! " : "You got it! "}
+            {explanation}
+          </p>
+          <button
+            type="button"
+            className="practice-next-button"
+            onClick={() => onDone(wrongPicks.length === 0)}
+          >
+            {nextLabel}
+          </button>
+        </>
+      )}
+    </div>
+  );
+}

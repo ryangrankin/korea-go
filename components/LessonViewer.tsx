@@ -4,6 +4,8 @@
 import { useEffect, useState } from "react";
 import Link from "next/link";
 import { completeLesson } from "../lib/lessonProgress";
+import type { LessonSections } from "../data/lessons";
+import SectionedLesson from "./lesson/SectionedLesson";
 
 type LessonViewerProps = {
   lessonId: string;
@@ -15,6 +17,8 @@ type LessonViewerProps = {
     romanization?: string;
     audioUrl?: string;
   }[];
+  // Lessons with sections (conversation, missions, game, review)
+  sections?: LessonSections;
 };
 
 export default function LessonViewer({
@@ -22,6 +26,7 @@ export default function LessonViewer({
   title,
   description,
   items,
+  sections,
 }: LessonViewerProps) {
   const [currentStep, setCurrentStep] = useState(0);
 
@@ -39,6 +44,19 @@ export default function LessonViewer({
       setShowRomanization(true);
     }
   }, []);
+
+  // Sectioned lessons use their own layout (same romanization setting).
+  if (sections) {
+    return (
+      <SectionedLesson
+        lessonId={lessonId}
+        title={title}
+        description={description}
+        sections={sections}
+        showRomanization={showRomanization}
+      />
+    );
+  }
 
   const totalSteps = items.length;
   const isComplete = totalSteps > 0 && currentStep >= totalSteps;

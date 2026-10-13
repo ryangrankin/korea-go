@@ -1,8 +1,23 @@
 
+import { Suspense } from "react";
 import LessonViewer from "../../../components/LessonViewer";
 import { lessons } from "../../../data/lessons";
 
-export default async function LessonPage({
+export default function LessonPage({
+  params,
+}: {
+  params: Promise<{ lessonId: string }>;
+}) {
+  // Suspense lets the build finish: the lesson id is only known
+  // when someone opens the page.
+  return (
+    <Suspense fallback={<main className="basic-page" />}>
+      <LessonContent params={params} />
+    </Suspense>
+  );
+}
+
+async function LessonContent({
   params,
 }: {
   params: Promise<{ lessonId: string }>;
@@ -22,6 +37,7 @@ export default async function LessonPage({
         "This lesson is currently being developed."
       }
       items={lesson?.vocabulary ?? []}
+      sections={lesson?.sections}
     />
   );
 }
