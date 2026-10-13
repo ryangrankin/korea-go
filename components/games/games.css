@@ -100,7 +100,30 @@
   }
 }
 
-.match-new-best {
+.wp-finish .match-new-best {
   color: #c4660f;
   font-weight: 700;
+}
+
+.wp-finish .match-points {
+  color: #2e7d32;
+  font-size: 22px;
+  font-weight: 700;
+}
+
+.match-stats {
+  grid-template-columns: repeat(3, 1fr);
+}
+
+.match-stats strong {
+  font-size: 20px;
+}
+
+.match-leaderboard-link {
+  display: block;
+  margin: 4px 0 8px;
+  color: #3976b8;
+  font-weight: 700;
+  text-align: center;
+  text-decoration: none;
 }

@@ -5,12 +5,15 @@
   Pick a set (one lesson's letters and words, or every letter), then
   match each Korean tile on the left to its sound or meaning on the
   right, 5 pairs per round. Pairs you get wrong come back in a review
-  round at the end. Your best time for each set is saved on this device.
+  round at the end. Each game earns points, and results are saved with
+  lib/gameScores.ts, which also feeds the leaderboard on the Friends tab.
 */
 
-import { useEffect, useState, useSyncExternalStore } from "react";
-import { units } from "../../data/lessons";
-import { practiceItems, sayOf, type PracticeWord } from "../../lib/practiceItems";
+import { useEffect, useState } from "react";
+import Link from "next/link";
+import { formatTime, recordGameResult, useGameStats } from "../../lib/gameScores";
+import { lessonSets, MATCH_SETS, type MatchSet } from "../../lib/matchSets";
+import { sayOf, type PracticeWord } from "../../lib/practiceItems";
 import { speakKorean } from "../../lib/speak";
 import KoreanText from "../KoreanText";
 import SpeechNotice from "../SpeechNotice";
@@ -20,46 +23,6 @@ import "./games.css";
 // ---------- Settings ----------
 const PAIRS_PER_ROUND = 5;
 const MAX_PAIRS = 15; // big sets use a random 15, so a game stays short
-const BEST_KEY = "koreaGoMatchBest";
-
-// ---------- The sets, straight from the Hangeul lessons ----------
-type MatchSet = { id: string; title: string; subtitle: string; items: PracticeWord[] };
-
-// Keep one of each Korean and each meaning, so every pair has one answer.
-function unique(items: PracticeWord[]): PracticeWord[] {
-  const seen = new Set<string>();
-  return items.filter((item) => {
-    if (seen.has(item.korean) || seen.has(item.meaning)) return false;
-    seen.add(item.korean);
-    seen.add(item.meaning);
-    return true;
-  });
-}
-
-const hangeulUnit = units.find((unit) => unit.id === "hangeul");
-const lessonSets: MatchSet[] = (hangeulUnit?.lessons ?? [])
-  .map((lesson, index) => ({
-    id: lesson.id,
-    title: lesson.title,
-    subtitle: `Lesson ${index + 1}`,
-    items: unique((lesson.sections?.study ?? []).flatMap(practiceItems)),
-  }))
-  .filter((set) => set.items.length >= 3);
-
-const allLetters: MatchSet = {
-  id: "all-letters",
-  title: "All letters",
-  subtitle: "Mix",
-  items: unique(
-    (hangeulUnit?.lessons ?? []).flatMap((lesson) =>
-      (lesson.sections?.study ?? [])
-        .filter((section) => section.wordsQuizBy === "romanization")
-        .flatMap((section) => practiceItems(section).filter((item) => item.group === "words"))
-    )
-  ),
-};
-
-const SETS: MatchSet[] = [...lessonSets, allLetters];
 
 // ---------- Helpers ----------
 function shuffle<T>(items: T[]): T[] {
@@ -77,57 +40,17 @@ function chunk<T>(items: T[], size: number): T[][] {
   return chunks;
 }
 
-// Best times, read from this device. useSyncExternalStore keeps the
-// page in sync without reading storage during the server render.
-function subscribe(onChange: () => void) {
-  window.addEventListener("storage", onChange);
-  window.addEventListener(BEST_KEY, onChange);
-  return () => {
-    window.removeEventListener("storage", onChange);
-    window.removeEventListener(BEST_KEY, onChange);
-  };
-}
-
-function readBestRaw(): string | null {
-  try {
-    return localStorage.getItem(BEST_KEY);
-  } catch {
-    return null;
-  }
-}
-
-function parseBest(raw: string | null): Record<string, number> {
-  try {
-    return raw ? JSON.parse(raw) : {};
-  } catch {
-    return {};
-  }
-}
-
-function saveBest(setId: string, seconds: number) {
-  try {
-    const best = parseBest(readBestRaw());
-    best[setId] = seconds;
-    localStorage.setItem(BEST_KEY, JSON.stringify(best));
-    window.dispatchEvent(new Event(BEST_KEY));
-  } catch {
-    // Saving is a nice extra; the game works without it.
-  }
-}
-
 // The time right now (only called from taps and timers, never while drawing).
 function clock(): number {
   return Date.now();
 }
 
-const formatTime = (seconds: number) =>
-  `${Math.floor(seconds / 60)}:${String(seconds % 60).padStart(2, "0")}`;
-
 // ---------- The game ----------
 type Tile = { side: "korean" | "meaning"; item: number }; // item = index into `items`
 
 export default function HangeulMatch() {
-  const best = parseBest(useSyncExternalStore(subscribe, readBestRaw, () => null));
+  const stats = useGameStats();
+  const best = stats.bestTimes;
 
   const [set, setSet] = useState<MatchSet | null>(null);
   const [items, setItems] = useState<PracticeWord[]>([]); // this game's pairs
@@ -145,6 +68,7 @@ export default function HangeulMatch() {
   const [now, setNow] = useState(0);
   const [finalSeconds, setFinalSeconds] = useState<number | null>(null);
   const [newBest, setNewBest] = useState(false);
+  const [pointsEarned, setPointsEarned] = useState(0);
 
   const playing = set !== null && finalSeconds === null;
   const seconds = Math.floor((now - startedAt) / 1000);
@@ -209,12 +133,19 @@ export default function HangeulMatch() {
       return;
     }
 
-    // Game over: save the time if it's a new best.
+    // Game over: save the result (points, time) for the leaderboard.
     const total = Math.floor((clock() - startedAt) / 1000);
     setFinalSeconds(total);
-    if (set && (best[set.id] === undefined || total < best[set.id])) {
-      setNewBest(best[set.id] !== undefined);
-      saveBest(set.id, total);
+    if (set) {
+      setNewBest(best[set.id] !== undefined && total < best[set.id]);
+      const result = recordGameResult({
+        game: "hangeul-match",
+        setId: set.id,
+        pairs: items.length,
+        mistakes,
+        seconds: total,
+      });
+      setPointsEarned(result.points);
     }
   }
 
@@ -261,7 +192,7 @@ export default function HangeulMatch() {
         </p>
         <div className="unit-card">
           <ol className="unit-lessons">
-            {SETS.map((option, index) => (
+            {MATCH_SETS.map((option, index) => (
               <li key={option.id}>
                 <button type="button" className="unit-lesson match-set" onClick={() => start(option)}>
                   <span className="unit-lesson-number">{index < lessonSets.length ? index + 1 : "★"}</span>
@@ -292,7 +223,9 @@ export default function HangeulMatch() {
         <h2>{set.title}: done!</h2>
         {newBest && <p className="match-new-best">🏆 New best time!</p>}
 
-        <div className="wp-stats">
+        <p className="match-points">+{pointsEarned.toLocaleString()} points</p>
+
+        <div className="wp-stats match-stats">
           <div>
             <strong>{formatTime(finalSeconds)}</strong>
             <span>time</span>
@@ -301,7 +234,15 @@ export default function HangeulMatch() {
             <strong>{mistakes}</strong>
             <span>{mistakes === 1 ? "mistake" : "mistakes"}</span>
           </div>
+          <div>
+            <strong>{stats.weeklyPoints.toLocaleString()}</strong>
+            <span>points this week</span>
+          </div>
         </div>
+
+        <Link href="/friends" className="match-leaderboard-link">
+          See how you rank with friends →
+        </Link>
 
         {missed.length > 0 ? (
           <>

@@ -3,31 +3,46 @@
 
 import { useState } from "react";
 import Link from "next/link";
+import { sampleFriends } from "../../data/sampleFriends";
+import { formatTime, useGameStats } from "../../lib/gameScores";
+import { MATCH_SETS } from "../../lib/matchSets";
 
-type Friend = {
+type Board = "points" | "times";
+
+type Row = {
   id: string;
-  username: string;
-  level: string;
-  streak: number;
+  name: string;
+  isYou: boolean;
+  value: number | undefined; // points, or seconds for best times
 };
 
-const sampleFriends: Friend[] = [
-  {
-    id: "1",
-    username: "friend_one",
-    level: "Beginner",
-    streak: 5,
-  },
-  {
-    id: "2",
-    username: "friend_two",
-    level: "Intermediate",
-    streak: 12,
-  },
-];
+const MEDALS = ["🥇", "🥈", "🥉"];
 
 export default function FriendsPage() {
   const [search, setSearch] = useState("");
+  const [board, setBoard] = useState<Board>("points");
+  const [setId, setSetId] = useState(MATCH_SETS[0]?.id ?? "");
+  const stats = useGameStats();
+
+  // Leaderboard rows: you plus your friends.
+  // Points: highest first. Times: fastest first, no time yet at the bottom.
+  const rows: Row[] = [
+    {
+      id: "you",
+      name: "You",
+      isYou: true,
+      value: board === "points" ? stats.weeklyPoints : stats.bestTimes[setId],
+    },
+    ...sampleFriends.map((friend) => ({
+      id: friend.id,
+      name: friend.username,
+      isYou: false,
+      value: board === "points" ? friend.weeklyPoints : friend.bestTimes[setId],
+    })),
+  ].sort((a, b) => {
+    if (board === "points") return (b.value ?? 0) - (a.value ?? 0);
+    return (a.value ?? Infinity) - (b.value ?? Infinity);
+  });
 
   const filteredFriends = sampleFriends.filter((friend) =>
     friend.username.toLowerCase().includes(search.toLowerCase())
@@ -43,6 +58,73 @@ export default function FriendsPage() {
         <h1>Friends</h1>
         <p>Learn Korean together!</p>
 
+        {/* LEADERBOARD: mini game scores */}
+        <div className="friends-section">
+          <h2>Leaderboard</h2>
+
+          <div className="leaderboard-toggle" role="group" aria-label="Leaderboard type">
+            <button
+              type="button"
+              className={board === "points" ? "active" : ""}
+              aria-pressed={board === "points"}
+              onClick={() => setBoard("points")}
+            >
+              🏅 This week&apos;s points
+            </button>
+            <button
+              type="button"
+              className={board === "times" ? "active" : ""}
+              aria-pressed={board === "times"}
+              onClick={() => setBoard("times")}
+            >
+              ⏱ Best times
+            </button>
+          </div>
+
+          {/* Which Hangeul Match set to compare times for */}
+          {board === "times" && (
+            <div className="leaderboard-sets">
+              {MATCH_SETS.map((option) => (
+                <button
+                  key={option.id}
+                  type="button"
+                  className={option.id === setId ? "active" : ""}
+                  aria-pressed={option.id === setId}
+                  onClick={() => setSetId(option.id)}
+                >
+                  {option.title}
+                </button>
+              ))}
+            </div>
+          )}
+
+          <ol className="leaderboard">
+            {rows.map((row, index) => (
+              <li key={row.id} className={row.isYou ? "you" : ""}>
+                <span className="leaderboard-rank">
+                  {row.value === undefined ? "–" : MEDALS[index] ?? index + 1}
+                </span>
+                <span className="leaderboard-avatar" aria-hidden="true">
+                  {row.isYou ? "⭐" : "👤"}
+                </span>
+                <span className="leaderboard-name">{row.name}</span>
+                <span className="leaderboard-value">
+                  {row.value === undefined
+                    ? "No time yet"
+                    : board === "points"
+                    ? `${row.value.toLocaleString()} pts`
+                    : formatTime(row.value)}
+                </span>
+              </li>
+            ))}
+          </ol>
+
+          <p className="friends-note">
+            {stats.gamesPlayed === 0 ? "Play a mini game to get on the board. " : ""}
+            <Link href="/games/hangeul-match">Play Hangeul Match →</Link>
+          </p>
+        </div>
+
         <div className="friends-section">
           <h2>My Friends</h2>
 
@@ -53,7 +135,10 @@ export default function FriendsPage() {
               <div className="friend-info">
                 <h3>{friend.username}</h3>
                 <p>{friend.level}</p>
-                <span>🔥 {friend.streak} day streak</span>
+                <span>
+                  🔥 {friend.streak} day streak · 🎮{" "}
+                  {friend.weeklyPoints.toLocaleString()} pts this week
+                </span>
               </div>
 
               <span className="friend-arrow">›</span>

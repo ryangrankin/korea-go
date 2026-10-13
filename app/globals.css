@@ -1218,6 +1218,116 @@ body {
   margin-bottom: 16px;
 }
 
+/* FRIENDS LEADERBOARD */
+
+.leaderboard-toggle {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 6px;
+  margin-bottom: 12px;
+}
+
+.leaderboard-toggle button,
+.leaderboard-sets button {
+  border: 2px solid #e5e7eb;
+  border-radius: 12px;
+  background: white;
+  color: #555;
+  cursor: pointer;
+}
+
+.leaderboard-toggle button {
+  padding: 10px 6px;
+  font-size: 14px;
+}
+
+.leaderboard-toggle button.active,
+.leaderboard-sets button.active {
+  border-color: #3976b8;
+  background: #eaf3fc;
+  color: #1f4f82;
+  font-weight: 700;
+}
+
+.leaderboard-sets {
+  display: flex;
+  gap: 6px;
+  margin-bottom: 12px;
+  overflow-x: auto;
+  padding-bottom: 4px;
+}
+
+.leaderboard-sets button {
+  flex-shrink: 0;
+  padding: 6px 12px;
+  border-radius: 20px;
+  font-size: 13px;
+}
+
+.leaderboard {
+  list-style: none;
+  border: 1px solid #e5e7eb;
+  border-radius: 14px;
+  background: white;
+  overflow: hidden;
+}
+
+.leaderboard li {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 16px;
+}
+
+.leaderboard li + li {
+  border-top: 1px solid #f1f1f1;
+}
+
+.leaderboard li.you {
+  background: #fff8ef;
+}
+
+.leaderboard-rank {
+  width: 26px;
+  text-align: center;
+  font-size: 18px;
+  font-weight: 700;
+  color: #888;
+}
+
+.leaderboard-avatar {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: #eaf3fc;
+  font-size: 18px;
+}
+
+.leaderboard-name {
+  flex: 1;
+  font-size: 15px;
+}
+
+.leaderboard li.you .leaderboard-name {
+  font-weight: 700;
+}
+
+.friends-section .friends-note a {
+  color: #3976b8;
+  font-weight: 700;
+  text-decoration: none;
+}
+
+.leaderboard-value {
+  color: #1f4f82;
+  font-size: 14px;
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+}
+
 .friend-card {
   display: flex;
   align-items: center;
