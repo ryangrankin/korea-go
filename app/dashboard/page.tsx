@@ -164,21 +164,37 @@ export default function DashboardPage() {
 
             <span className="lesson-arrow">›</span>
           </Link>
-
-          {/* FOOD & DINING */}
-          <div className="lesson-card locked">
-            <div className="lesson-icon">🍜</div>
+          
+          {/*food and dining unlocked page*/}
+           {/* AIRPORT */}
+          <Link
+            href="/lessons/airport"
+            className="lesson-card"
+          >
+            <div className="lesson-icon">✈️</div>
 
             <div className="lesson-info">
               <div className="lesson-title-row">
-                <h3>Food & Dining</h3>
+                <h3>Food and Dining</h3>
+                <span>
+                  {airportComplete
+                    ? "Completed ✓"
+                    : "Not Started"}
+                </span>
               </div>
 
               <p>Order food and understand menus</p>
-            </div>
 
-            <span className="lesson-arrow">🔒</span>
-          </div>
+              <div className="lesson-progress-track">
+                <div
+                  className="lesson-progress-fill"
+                  style={{
+                    width: airportComplete ? "100%" : "0%",
+                  }}
+                />
+              </div>
+            </div>
+          </Link>
         </section>
 
         {/* BOTTOM NAVIGATION */}
