@@ -1,5 +1,8 @@
 
 import { Suspense } from "react";
+export const instant = false; 
+
+
 import PracticeViewer from "../../../components/PracticeViewer";
 
 export default function PracticePage({

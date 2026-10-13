@@ -1,3 +1,4 @@
+export const instant = false;
 
 import { Suspense } from "react";
 import LessonViewer from "../../../components/LessonViewer";
@@ -20,24 +21,39 @@ export default function LessonPage({
 async function LessonContent({
   params,
 }: {
+
+type PageProps = {
   params: Promise<{ lessonId: string }>;
-}) {
+};
+
+async function LessonContent({ params }: PageProps) {
   const { lessonId } = await params;
 
-  const lesson = lessons.find(
-    (item) => item.id === lessonId
-  );
+  const lesson = lessons.find((item) => item.id === lessonId);
 
   return (
     <LessonViewer
       lessonId={lessonId}
       title={lesson?.title ?? "Lesson Coming Soon"}
-      description={
-        lesson?.description ??
-        "This lesson is currently being developed."
-      }
+      description={lesson?.description ?? "Content will be added soon."}
       items={lesson?.vocabulary ?? []}
       sections={lesson?.sections}
     />
+  );
+}
+
+export default function LessonPage({ params }: PageProps) {
+  return (
+    <Suspense
+      fallback={
+        <main className="basic-page">
+          <div className="basic-container">
+            <p>Loading lesson...</p>
+          </div>
+        </main>
+      }
+    >
+      <LessonContent params={params} />
+    </Suspense>
   );
 }
