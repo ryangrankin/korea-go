@@ -13,13 +13,14 @@ import { PracticeQuestionCard } from "../PracticeViewer";
 import KoreanText from "../KoreanText";
 
 type NavigationGameProps = {
-  game: LessonSections["game"];
+  game: NonNullable<LessonSections["game"]>;
   speakers: Record<string, Speaker>;
   showRomanization: boolean;
+  finishLabel: string;
   onComplete: () => void;
 };
 
-export default function NavigationGame({ game, speakers, showRomanization, onComplete }: NavigationGameProps) {
+export default function NavigationGame({ game, speakers, showRomanization, finishLabel, onComplete }: NavigationGameProps) {
   const [started, setStarted] = useState(false);
   const [stepIndex, setStepIndex] = useState(0);
 
@@ -42,7 +43,7 @@ export default function NavigationGame({ game, speakers, showRomanization, onCom
       <div className="lesson-content-card">
         <p>{game.finish}</p>
         <button type="button" className="practice-next-button" onClick={onComplete}>
-          Go to the review →
+          {finishLabel}
         </button>
       </div>
     );

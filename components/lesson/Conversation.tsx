@@ -15,12 +15,13 @@ type ConversationProps = {
   lines: ConversationLine[];
   speakers: Record<string, Speaker>;
   showRomanization: boolean;
+  showAll?: boolean; // start with every line showing (when coming back)
   onFinish: () => void;
 };
 
-export default function Conversation({ lines, speakers, showRomanization, onFinish }: ConversationProps) {
+export default function Conversation({ lines, speakers, showRomanization, showAll, onFinish }: ConversationProps) {
   // How many lines are showing right now.
-  const [shown, setShown] = useState(1);
+  const [shown, setShown] = useState(showAll ? lines.length : 1);
   const allShown = shown >= lines.length;
 
   function nextLine() {

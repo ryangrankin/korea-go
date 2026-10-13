@@ -543,6 +543,118 @@ body {
   cursor: default;
 }
 
+/* UNITS (a group of short lessons) */
+
+.unit-card {
+  margin-bottom: 16px;
+
+  border: 1px solid #e3e3e3;
+  border-radius: 16px;
+
+  background: white;
+
+  overflow: hidden;
+}
+
+.unit-header {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+
+  padding: 16px;
+}
+
+.unit-label {
+  margin-bottom: 2px !important;
+
+  color: #f28c28 !important;
+  font-size: 11px !important;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.unit-lessons {
+  list-style: none;
+
+  border-top: 1px solid #eee;
+}
+
+.unit-lesson {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+
+  padding: 11px 16px;
+
+  color: #222;
+  text-decoration: none;
+}
+
+.unit-lessons li + li .unit-lesson {
+  border-top: 1px solid #f3f3f3;
+}
+
+.unit-lesson:hover {
+  background: #f8fafc;
+}
+
+.unit-lesson-number {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  width: 28px;
+  height: 28px;
+  flex-shrink: 0;
+
+  border-radius: 50%;
+  background: #f1f1f1;
+
+  color: #666;
+  font-size: 13px;
+  font-weight: 700;
+}
+
+.unit-lesson.complete .unit-lesson-number {
+  background: #e3f4e6;
+  color: #2e7d32;
+}
+
+.unit-lesson.next .unit-lesson-number {
+  background: #3976b8;
+  color: white;
+}
+
+.unit-lesson-title {
+  flex: 1;
+  font-size: 15px;
+}
+
+.unit-lesson.next .unit-lesson-title {
+  font-weight: 700;
+}
+
+.unit-lesson-meta {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+
+  color: #888;
+  font-size: 12px;
+  white-space: nowrap;
+}
+
+.unit-lesson-badge {
+  padding: 2px 8px;
+
+  border-radius: 20px;
+  background: #eaf3fc;
+
+  color: #1f4f82;
+  font-weight: 700;
+}
+
 /* DESKTOP */
 
 @media (min-width: 600px) {

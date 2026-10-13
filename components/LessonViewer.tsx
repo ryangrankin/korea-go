@@ -19,6 +19,8 @@ type LessonViewerProps = {
   }[];
   // Lessons with sections (conversation, missions, game, review)
   sections?: LessonSections;
+  eyebrow?: string; // e.g. "Unit 1 · Lesson 2"
+  nextLesson?: { id: string; title: string };
 };
 
 export default function LessonViewer({
@@ -27,6 +29,8 @@ export default function LessonViewer({
   description,
   items,
   sections,
+  eyebrow,
+  nextLesson,
 }: LessonViewerProps) {
   const [currentStep, setCurrentStep] = useState(0);
 
@@ -52,8 +56,10 @@ export default function LessonViewer({
         lessonId={lessonId}
         title={title}
         description={description}
+        eyebrow={eyebrow}
         sections={sections}
         showRomanization={showRomanization}
+        nextLesson={nextLesson}
       />
     );
   }

@@ -5,6 +5,11 @@ import { useEffect, useState } from "react";
 import Link from "next/link";
 import BottomNav from "../../components/BottomNav";
 import {
+  estimateMinutes,
+  lessons,
+  units,
+} from "../../data/lessons";
+import {
   getLessonProgress,
   type LessonProgress,
 } from "../../lib/lessonProgress";
@@ -24,20 +29,20 @@ export default function DashboardPage() {
     setCompletedLessons(getLessonProgress());
   }, []);
 
-  const greetingsComplete =
-    completedLessons["lesson-1"] === true;
+  const isComplete = (lessonId: string) =>
+    completedLessons[lessonId] === true;
 
-  const airportComplete =
-    completedLessons.airport === true;
+  const totalLessons = lessons.length;
 
-  const completedCount = [
-    greetingsComplete,
-    airportComplete,
-  ].filter(Boolean).length;
+  const completedCount =
+    lessons.filter((lesson) => isComplete(lesson.id)).length;
 
   const overallProgress = Math.round(
-    (completedCount / 2) * 100
+    (completedCount / totalLessons) * 100
   );
+
+  // The first lesson not finished yet
+  const nextUp = lessons.find((lesson) => !isComplete(lesson.id));
 
   return (
     <main className="dashboard-page">
@@ -91,110 +96,109 @@ export default function DashboardPage() {
           <p>
             {completedCount === 0
               ? "Complete your first lesson to start tracking progress!"
-              : completedCount === 2
+              : completedCount === totalLessons
               ? "Great job! You've completed all available lessons!"
-              : `${completedCount} of 2 lessons completed. Keep going!`}
+              : `${completedCount} of ${totalLessons} lessons completed. Keep going!`}
           </p>
         </section>
 
-        {/* LESSONS */}
+        {/* LESSONS, grouped into units */}
         <section className="lesson-section">
           <h2>Your Lessons</h2>
 
-          {/* GREETINGS */}
-          <Link
-            href="/lessons/lesson-1"
-            className="lesson-card"
-          >
-            <div className="lesson-icon">👋</div>
+          {units.map((unit, unitIndex) => {
+            // Units with no lessons yet
+            if (unit.lessons.length === 0) {
+              return (
+                <div key={unit.id} className="lesson-card locked">
+                  <div className="lesson-icon">{unit.icon}</div>
 
-            <div className="lesson-info">
-              <div className="lesson-title-row">
-                <h3>Lesson 1: Greetings + Airport</h3>
-                <span>
-                  {greetingsComplete
-                    ? "Completed ✓"
-                    : "Not Started"}
-                </span>
+                  <div className="lesson-info">
+                    <p className="unit-label">Unit {unitIndex}</p>
+                    <div className="lesson-title-row">
+                      <h3>{unit.title}</h3>
+                      <span>Coming soon</span>
+                    </div>
+                    <p>{unit.description}</p>
+                  </div>
+
+                  <span className="lesson-arrow">🔒</span>
+                </div>
+              );
+            }
+
+            const unitDone = unit.lessons.filter((lesson) =>
+              isComplete(lesson.id)
+            ).length;
+
+            return (
+              <div key={unit.id} className="unit-card">
+                {/* UNIT HEADER */}
+                <div className="unit-header">
+                  <div className="lesson-icon" lang="ko">
+                    {unit.icon}
+                  </div>
+
+                  <div className="lesson-info">
+                    <p className="unit-label">Unit {unitIndex}</p>
+                    <div className="lesson-title-row">
+                      <h3>{unit.title}</h3>
+                      <span>
+                        {unitDone === unit.lessons.length
+                          ? "Completed ✓"
+                          : `${unitDone} of ${unit.lessons.length}`}
+                      </span>
+                    </div>
+
+                    <p>{unit.description}</p>
+
+                    <div className="lesson-progress-track">
+                      <div
+                        className="lesson-progress-fill"
+                        style={{
+                          width: `${(unitDone / unit.lessons.length) * 100}%`,
+                        }}
+                      />
+                    </div>
+                  </div>
+                </div>
+
+                {/* SHORT LESSONS IN THIS UNIT */}
+                <ol className="unit-lessons">
+                  {unit.lessons.map((lesson, index) => {
+                    const complete = isComplete(lesson.id);
+                    const isNext = lesson.id === nextUp?.id;
+
+                    return (
+                      <li key={lesson.id}>
+                        <Link
+                          href={`/lessons/${lesson.id}`}
+                          className={`unit-lesson ${complete ? "complete" : ""} ${
+                            isNext ? "next" : ""
+                          }`}
+                        >
+                          <span className="unit-lesson-number">
+                            {complete ? "✓" : index + 1}
+                          </span>
+
+                          <span className="unit-lesson-title">
+                            {lesson.title}
+                          </span>
+
+                          <span className="unit-lesson-meta">
+                            {isNext && (
+                              <span className="unit-lesson-badge">Up next</span>
+                            )}
+                            ~{estimateMinutes(lesson)} min
+                          </span>
+                        </Link>
+                      </li>
+                    );
+                  })}
+                </ol>
               </div>
-
-              <p>Say hello and get through the airport</p>
-
-              <div className="lesson-progress-track">
-                <div
-                  className="lesson-progress-fill"
-                  style={{
-                    width: greetingsComplete ? "100%" : "0%",
-                  }}
-                />
-              </div>
-            </div>
-
-            <span className="lesson-arrow">›</span>
-          </Link>
-
-          {/* AIRPORT */}
-          <Link
-            href="/lessons/airport"
-            className="lesson-card"
-          >
-            <div className="lesson-icon">✈️</div>
-
-            <div className="lesson-info">
-              <div className="lesson-title-row">
-                <h3>Airport</h3>
-                <span>
-                  {airportComplete
-                    ? "Completed ✓"
-                    : "Not Started"}
-                </span>
-              </div>
-
-              <p>Navigate the airport in Korean</p>
-
-              <div className="lesson-progress-track">
-                <div
-                  className="lesson-progress-fill"
-                  style={{
-                    width: airportComplete ? "100%" : "0%",
-                  }}
-                />
-              </div>
-            </div>
-
-            <span className="lesson-arrow">›</span>
-          </Link>
-          
-          {/*food and dining unlocked page*/}
-           {/* AIRPORT */}
-          <Link
-            href="/lessons/airport"
-            className="lesson-card"
-          >
-            <div className="lesson-icon">✈️</div>
-
-            <div className="lesson-info">
-              <div className="lesson-title-row">
-                <h3>Food and Dining</h3>
-                <span>
-                  {airportComplete
-                    ? "Completed ✓"
-                    : "Not Started"}
-                </span>
-              </div>
-
-              <p>Order food and understand menus</p>
-
-              <div className="lesson-progress-track">
-                <div
-                  className="lesson-progress-fill"
-                  style={{
-                    width: airportComplete ? "100%" : "0%",
-                  }}
-                />
-              </div>
-            </div>
-          </Link>
+            );
+          })}
         </section>
 
         {/* BOTTOM NAVIGATION */}

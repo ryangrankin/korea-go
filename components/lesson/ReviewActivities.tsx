@@ -1,10 +1,10 @@
 "use client";
 
 /*
-  ReviewActivities: Section 4.
+  ReviewActivities: the review at the end of a unit.
   Part A: flashcards (tap to flip, 🔊 to hear).
   Part B: listening questions (hear Korean, pick the English).
-  Then a final score.
+  Then a final score and a button to finish the lesson.
 */
 
 import { useState } from "react";
@@ -12,7 +12,7 @@ import type { LessonSections } from "../../data/lessons";
 import { speakKorean } from "../../lib/speak";
 import { PracticeQuestionCard } from "../PracticeViewer";
 
-type Review = LessonSections["review"];
+type Review = NonNullable<LessonSections["review"]>;
 
 // ---------- Part A: Flashcards ----------
 function Flashcards({ cards, showRomanization, onDone }: { cards: Review["flashcards"]; showRomanization: boolean; onDone: () => void }) {
@@ -125,10 +125,11 @@ function Listening({ questions, onFinish }: { questions: Review["listening"]; on
 type ReviewActivitiesProps = {
   review: Review;
   showRomanization: boolean;
+  finishLabel: string;
   onComplete: () => void;
 };
 
-export default function ReviewActivities({ review, showRomanization, onComplete }: ReviewActivitiesProps) {
+export default function ReviewActivities({ review, showRomanization, finishLabel, onComplete }: ReviewActivitiesProps) {
   const [part, setPart] = useState<"cards" | "listening" | "score">("cards");
   const [score, setScore] = useState(0);
   const total = review.listening.length;
@@ -151,7 +152,6 @@ export default function ReviewActivities({ review, showRomanization, onComplete 
           onFinish={(finalScore) => {
             setScore(finalScore);
             setPart("score");
-            onComplete();
           }}
         />
       </>
@@ -165,9 +165,12 @@ export default function ReviewActivities({ review, showRomanization, onComplete 
         {score} / {total}
       </p>
       <p className="practice-count">Counts answers that were right on the first try.</p>
+      <button type="button" className="practice-next-button" onClick={onComplete}>
+        {finishLabel}
+      </button>
       <button
         type="button"
-        className="practice-next-button"
+        className="secondary-button"
         onClick={() => {
           setScore(0);
           setPart("cards");
