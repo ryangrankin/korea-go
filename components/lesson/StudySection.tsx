@@ -17,7 +17,8 @@ import { PracticeQuestionCard } from "../PracticeViewer";
 import Conversation from "./Conversation";
 import WordCards from "./WordCards";
 import GrammarNotes from "./GrammarNotes";
-import WordPractice, { type PracticeWord } from "./WordPractice";
+import WordPractice from "./WordPractice";
+import { practiceItems } from "../../lib/practiceItems";
 
 type StudySectionProps = {
   section: StudySectionData;
@@ -60,15 +61,8 @@ export default function StudySection({
   const [wordsDone, setWordsDone] = useState(false);
   const [practiceRound, setPracticeRound] = useState(0);
 
-  // Words and phrases for the practice. Wrong options come from the same group.
-  const practiceWords: PracticeWord[] = [
-    ...section.words.map((word) => ({
-      ...word,
-      group: "words",
-      meaning: section.wordsQuizBy === "romanization" ? word.romanization ?? word.english : word.english,
-    })),
-    ...section.phrases.map((word) => ({ ...word, group: "phrases", meaning: word.english })),
-  ];
+  // Words and phrases for the practice.
+  const practiceWords = practiceItems(section);
 
   const stepName = steps[step];
   const nextStep = steps[step + 1];

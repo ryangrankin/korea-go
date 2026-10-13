@@ -13,14 +13,9 @@
 */
 
 import { useState } from "react";
-import type { VocabularyItem } from "../../data/lessons";
+import { sayOf, type PracticeWord } from "../../lib/practiceItems";
 import { speakKorean } from "../../lib/speak";
 import KoreanText from "../KoreanText";
-
-export type PracticeWord = VocabularyItem & {
-  meaning: string; // what the learner matches it to (English, or romanization for letters)
-  group: string; // wrong options come from the same group (e.g. words vs phrases)
-};
 
 type WordPracticeProps = {
   words: PracticeWord[];
@@ -69,8 +64,6 @@ function insertAt(queue: number[], word: number, gap: number): number[] {
   copy.splice(Math.min(gap, copy.length), 0, word);
   return copy;
 }
-
-const sayOf = (word: VocabularyItem) => word.say ?? word.example?.korean ?? word.korean;
 
 // The right answer plus up to 3 wrong ones, mixed up.
 function pickOptions(words: PracticeWord[], index: number): number[] {
