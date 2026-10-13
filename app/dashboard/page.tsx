@@ -25,7 +25,7 @@ export default function DashboardPage() {
   }, []);
 
   const greetingsComplete =
-    completedLessons.greetings === true;
+    completedLessons["lesson-1"] === true;
 
   const airportComplete =
     completedLessons.airport === true;
@@ -103,14 +103,14 @@ export default function DashboardPage() {
 
           {/* GREETINGS */}
           <Link
-            href="/lessons/greetings"
+            href="/lessons/lesson-1"
             className="lesson-card"
           >
             <div className="lesson-icon">👋</div>
 
             <div className="lesson-info">
               <div className="lesson-title-row">
-                <h3>Greetings</h3>
+                <h3>Lesson 1: Greetings + Airport</h3>
                 <span>
                   {greetingsComplete
                     ? "Completed ✓"
@@ -118,7 +118,7 @@ export default function DashboardPage() {
                 </span>
               </div>
 
-              <p>Learn basic Korean greetings</p>
+              <p>Say hello and get through the airport</p>
 
               <div className="lesson-progress-track">
                 <div
