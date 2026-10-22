@@ -1,0 +1,40 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 240" width="320" height="240">
+  <ellipse cx="226" cy="222" rx="90" ry="9" fill="#000" opacity="0.08"/>
+  <g stroke="#4a3b32" stroke-width="3" stroke-linejoin="round" stroke-linecap="round">
+    <!-- karaoke remote -->
+    <rect x="140" y="178" width="168" height="40" rx="14" fill="#9b7bd4"/>
+    <rect x="152" y="187" width="40" height="22" rx="5" fill="#8ec5f0"/>
+    <circle cx="212" cy="198" r="7" fill="#d9412b"/>
+    <circle cx="234" cy="198" r="7" fill="#f6c344"/>
+    <circle cx="256" cy="198" r="7" fill="#5aa469"/>
+    <circle cx="278" cy="198" r="7" fill="#f28c28"/>
+    <circle cx="296" cy="190" r="4" fill="#fff"/>
+    <!-- microphone -->
+    <g transform="translate(232 66) rotate(22)">
+      <path d="M-19 40 L-12 140 Q0 150 12 140 L19 40 Z" fill="#3976b8"/>
+      <rect x="-15" y="96" width="30" height="12" rx="3" fill="#f28c28"/>
+      <rect x="-24" y="28" width="48" height="16" rx="6" fill="#7a8290"/>
+      <circle cx="0" cy="0" r="37" fill="#c9ced6"/>
+      <g fill="none" stroke="#7a8290" stroke-width="2">
+        <ellipse cx="0" cy="0" rx="18" ry="36"/>
+        <ellipse cx="0" cy="0" rx="36" ry="15"/>
+        <line x1="0" y1="-36" x2="0" y2="36"/>
+        <line x1="-36" y1="0" x2="36" y2="0"/>
+      </g>
+      <circle cx="0" cy="0" r="37" fill="none"/>
+      <ellipse cx="-14" cy="-16" rx="10" ry="6" transform="rotate(-35 -14 -16)" fill="#fff" stroke="none" opacity=".6"/>
+      <rect x="-10" y="56" width="5" height="34" rx="2.5" fill="#fff" stroke="none" opacity=".4"/>
+    </g>
+    <!-- sound lines -->
+    <g fill="none" stroke="#f28c28" stroke-width="4">
+      <path d="M284 40 Q296 56 290 74"/>
+      <path d="M298 28 Q314 54 304 82"/>
+      <path d="M180 34 Q170 48 174 64"/>
+    </g>
+  </g>
+  <g fill="#f6c344" stroke="#4a3b32" stroke-width="2" stroke-linejoin="round">
+    <path transform="translate(150 22)" d="M0 -11 Q2 -2 11 0 Q2 2 0 11 Q-2 2 -11 0 Q-2 -2 0 -11Z"/>
+    <path transform="translate(300 128)" d="M0 -9 Q2 -2 9 0 Q2 2 0 9 Q-2 2 -9 0 Q-2 -2 0 -9Z" fill="#f6a5b5"/>
+    <path transform="translate(140 120)" d="M0 -8 Q2 -2 8 0 Q2 2 0 8 Q-2 2 -8 0 Q-2 -2 0 -8Z" fill="#8ec5f0"/>
+  </g>
+</svg>

@@ -1,0 +1,48 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 240" width="320" height="240">
+  <ellipse cx="212" cy="214" rx="100" ry="9" fill="#000" opacity="0.08"/>
+  <!-- wavy sound -->
+  <g fill="none" stroke="#f28c28" stroke-width="4" stroke-linecap="round">
+    <path d="M110 112 Q96 100 84 108 T58 104"/>
+    <path d="M110 96 Q100 80 86 84 T62 70"/>
+  </g>
+  <g stroke="#4a3b32" stroke-width="3" stroke-linejoin="round" stroke-linecap="round">
+    <!-- antenna and handle -->
+    <path d="M286 72 L304 18" fill="none"/>
+    <circle cx="304" cy="16" r="5" fill="#d9412b"/>
+    <path d="M160 72 Q160 38 212 38 Q264 38 264 72" fill="none" stroke-width="12"/>
+    <path d="M160 72 Q160 38 212 38 Q264 38 264 72" fill="none" stroke="#e8b27c" stroke-width="6"/>
+    <!-- body -->
+    <rect x="114" y="66" width="196" height="140" rx="22" fill="#8a5a3b"/>
+    <rect x="124" y="76" width="176" height="120" rx="14" fill="#fff3e0"/>
+    <!-- speaker -->
+    <circle cx="176" cy="136" r="44" fill="#e8b27c"/>
+    <circle cx="176" cy="136" r="33" fill="#f6c344" stroke-width="2.5"/>
+    <circle cx="176" cy="136" r="21" fill="#e8b27c" stroke-width="2.5"/>
+    <circle cx="176" cy="136" r="8" fill="#8a5a3b"/>
+    <!-- dial window -->
+    <rect x="232" y="88" width="60" height="30" rx="6" fill="#f6c344"/>
+    <path d="M240 98 V104 M250 98 V108 M260 98 V104 M270 98 V108 M280 98 V104" stroke-width="2"/>
+    <path d="M264 92 V114" stroke="#d9412b" stroke-width="3"/>
+    <!-- knobs -->
+    <circle cx="246" cy="148" r="13" fill="#d9412b"/>
+    <circle cx="280" cy="148" r="13" fill="#5aa469"/>
+    <path d="M246 148 L246 138 M280 148 L288 141" stroke-width="3"/>
+    <rect x="236" y="172" width="54" height="12" rx="6" fill="#8a5a3b"/>
+    <!-- feet -->
+    <rect x="132" y="204" width="22" height="8" rx="3" fill="#4a3b32"/>
+    <rect x="270" y="204" width="22" height="8" rx="3" fill="#4a3b32"/>
+    <!-- notes -->
+    <line x1="66" y1="64" x2="66" y2="40" stroke-width="5"/>
+    <path d="M67 38 C73 48 83 50 79 64 C77 56 73 54 67 54 Z" fill="#d9412b"/>
+    <ellipse cx="57" cy="67" rx="11" ry="8" transform="rotate(-20 57 67)" fill="#d9412b"/>
+    <line x1="34" y1="104" x2="34" y2="80" stroke-width="5"/>
+    <ellipse cx="25" cy="107" rx="11" ry="8" transform="rotate(-20 25 107)" fill="#3976b8"/>
+    <line x1="122" y1="34" x2="122" y2="12" stroke-width="5"/>
+    <path d="M123 10 C128 18 136 20 133 32 C131 25 128 24 123 24 Z" fill="#9b7bd4"/>
+    <ellipse cx="114" cy="37" rx="10" ry="7" transform="rotate(-20 114 37)" fill="#9b7bd4"/>
+  </g>
+  <g fill="#fff" opacity=".5">
+    <ellipse cx="160" cy="114" rx="9" ry="5" transform="rotate(-35 160 114)"/>
+    <rect x="132" y="82" width="70" height="5" rx="2.5"/>
+  </g>
+</svg>

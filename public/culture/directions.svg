@@ -1,0 +1,31 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 240" width="320" height="240">
+  <ellipse cx="210" cy="214" rx="96" ry="9" fill="#000" opacity="0.08"/>
+  <g stroke="#4a3b32" stroke-width="3" stroke-linejoin="round" stroke-linecap="round">
+    <!-- folded map panels -->
+    <path d="M116,76 L178,64 L178,194 L116,206 Z" fill="#9bd27a"/>
+    <path d="M178,64 L242,76 L242,206 L178,194 Z" fill="#fff3e0"/>
+    <path d="M242,76 L304,64 L304,194 L242,206 Z" fill="#9bd27a"/>
+    <!-- river -->
+    <path d="M118,150 Q150,136 178,148 Q210,162 242,146 Q272,130 302,142" fill="none" stroke="#8ec5f0" stroke-width="9"/>
+    <!-- roads -->
+    <path d="M140,72 L146,200 M178,110 L242,122 L304,110 M210,70 L212,200" fill="none" stroke="#ffffff" stroke-width="5"/>
+    <!-- park -->
+    <circle cx="276" cy="178" r="10" fill="#5aa469"/>
+    <circle cx="160" cy="98" r="8" fill="#5aa469"/>
+    <!-- fold shading -->
+    <path d="M178,64 L178,194 L188,196 L188,66 Z" fill="#000" opacity="0.06" stroke="none"/>
+    <path d="M242,76 L242,206 L252,204 L252,74 Z" fill="#000" opacity="0.06" stroke="none"/>
+    <!-- outline again on top -->
+    <path d="M116,76 L178,64 L242,76 L304,64 L304,194 L242,206 L178,194 L116,206 Z M178,64 V194 M242,76 V206" fill="none"/>
+    <!-- dotted route -->
+    <path d="M138,182 Q170,176 186,160 Q204,140 228,138 Q252,136 264,118" fill="none" stroke="#d9412b" stroke-width="5" stroke-dasharray="1 10"/>
+    <circle cx="138" cy="182" r="6" fill="#3976b8"/>
+    <!-- location pin -->
+    <path d="M266,116 Q250,96 250,86 A16,16 0 0 1 282,86 Q282,96 266,116 Z" fill="#d9412b"/>
+    <circle cx="266" cy="86" r="6" fill="#ffffff"/>
+    <!-- speech bubble with question mark -->
+    <path d="M146,10 H200 Q212,10 212,22 V40 Q212,52 200,52 H170 L156,64 L160,52 H146 Q134,52 134,40 V22 Q134,10 146,10 Z" fill="#ffffff"/>
+    <path d="M165,24 Q165,17 173,17 Q181,17 181,24 Q181,30 173,32 V36" fill="none" stroke="#f28c28" stroke-width="5"/>
+    <circle cx="173" cy="45" r="3" fill="#f28c28" stroke="none"/>
+  </g>
+</svg>

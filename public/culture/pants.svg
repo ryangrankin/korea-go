@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 240" width="320" height="240">
+  <ellipse cx="205" cy="226" rx="70" ry="7" fill="#000" opacity="0.08"/>
+  <g stroke="#4a3b32" stroke-width="3" stroke-linejoin="round" stroke-linecap="round">
+    <!-- legs -->
+    <path d="M160 36 H250 L262 220 H214 L205 98 L196 220 H148 Z" fill="#3976b8"/>
+    <!-- waistband -->
+    <rect x="158" y="18" width="94" height="20" rx="4" fill="#3976b8"/>
+    <!-- belt loops -->
+    <path d="M172 16 V40 M205 16 V40 M238 16 V40" fill="none"/>
+    <!-- button -->
+    <circle cx="214" cy="28" r="5" fill="#f6c344"/>
+    <!-- fly -->
+    <path d="M205 38 V86 Q205 94 214 92 V48" fill="none"/>
+    <!-- pockets -->
+    <path d="M162 46 Q184 50 188 38" fill="none"/>
+    <path d="M248 46 Q226 50 222 38" fill="none"/>
+    <!-- cuffs -->
+    <path d="M150 204 H198 M212 204 H261" fill="none"/>
+  </g>
+  <!-- stitching -->
+  <g fill="none" stroke="#8ec5f0" stroke-width="2" stroke-dasharray="4 4" stroke-linecap="round">
+    <path d="M162 34 H248"/>
+    <path d="M166 54 Q186 58 194 42"/>
+    <path d="M244 54 Q224 58 216 42"/>
+    <path d="M176 60 L172 200 M234 60 L238 200"/>
+  </g>
+  <path d="M168 70 L164 180" fill="none" stroke="#8ec5f0" stroke-width="4" stroke-linecap="round" opacity="0.7"/>
+</svg>

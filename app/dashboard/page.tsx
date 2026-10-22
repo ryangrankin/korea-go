@@ -2,7 +2,10 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import Image from "next/image";
 import Link from "next/link";
+import Pup from "../../components/Pup";
+import { accessoryForLesson } from "../../data/accessories";
 import BottomNav from "../../components/BottomNav";
 import {
   estimateMinutes,
@@ -55,150 +58,165 @@ export default function DashboardPage() {
           </Link>
 
           <div className="dashboard-logo">
-            <span className="logo-korea">korea</span>
-            <span className="logo-go">GO!</span>
+            <Image src="/brand/wordmark.png" alt="korea GO!" width={319} height={277} priority />
           </div>
 
           {/* Placeholder until streak tracking is added */}
           <div className="streak">🔥 3</div>
         </header>
 
-        {/* USER LEVEL */}
-        <div className="dashboard-level">
-          <p>Your Level</p>
-          <strong>{level}</strong>
+        {/* OVERVIEW: level, greeting, progress (side by side on laptops) */}
+        <div className="dashboard-overview">
+          {/* USER LEVEL */}
+          <div className="dashboard-level">
+            <p>Your Level</p>
+            <strong>{level}</strong>
+          </div>
+
+          {/* GREETING */}
+          <section className="dashboard-greeting">
+            <div>
+              <h1>Good afternoon!</h1>
+              <p>잘 지내고 계신가요?</p>
+            </div>
+
+            <Link href="/my-pup" className="dashboard-mascot" aria-label="Dress up your pup">
+              <Pup size={84} />
+            </Link>
+          </section>
+
+          {/* OVERALL PROGRESS */}
+          <section className="progress-section">
+            <div className="progress-label">
+              <span>Lesson Progress</span>
+              <span>{overallProgress}%</span>
+            </div>
+
+            <div className="progress-track">
+              <div
+                className="progress-fill"
+                style={{ width: `${overallProgress}%` }}
+              />
+            </div>
+
+            <p>
+              {completedCount === 0
+                ? "Complete your first lesson to start tracking progress!"
+                : completedCount === totalLessons
+                ? "Great job! You've completed all available lessons!"
+                : `${completedCount} of ${totalLessons} lessons completed. Keep going!`}
+            </p>
+          </section>
         </div>
-
-        {/* GREETING */}
-        <section className="dashboard-greeting">
-          <div>
-            <h1>Good afternoon!</h1>
-            <p>잘 지내고 계신가요?</p>
-          </div>
-
-          <div className="dashboard-mascot">🐶</div>
-        </section>
-
-        {/* OVERALL PROGRESS */}
-        <section className="progress-section">
-          <div className="progress-label">
-            <span>Lesson Progress</span>
-            <span>{overallProgress}%</span>
-          </div>
-
-          <div className="progress-track">
-            <div
-              className="progress-fill"
-              style={{ width: `${overallProgress}%` }}
-            />
-          </div>
-
-          <p>
-            {completedCount === 0
-              ? "Complete your first lesson to start tracking progress!"
-              : completedCount === totalLessons
-              ? "Great job! You've completed all available lessons!"
-              : `${completedCount} of ${totalLessons} lessons completed. Keep going!`}
-          </p>
-        </section>
 
         {/* LESSONS, grouped into units */}
         <section className="lesson-section">
           <h2>Your Lessons</h2>
 
-          {units.map((unit, unitIndex) => {
-            // Units with no lessons yet
-            if (unit.lessons.length === 0) {
-              return (
-                <div key={unit.id} className="lesson-card locked">
-                  <div className="lesson-icon">{unit.icon}</div>
+          <div className="unit-grid">
+            {units.map((unit, unitIndex) => {
+              // Units with no lessons yet
+              if (unit.lessons.length === 0) {
+                return (
+                  <div key={unit.id} className="lesson-card locked">
+                    <div className="lesson-icon">{unit.icon}</div>
 
-                  <div className="lesson-info">
-                    <p className="unit-label">Unit {unitIndex}</p>
-                    <div className="lesson-title-row">
-                      <h3>{unit.title}</h3>
-                      <span>Coming soon</span>
+                    <div className="lesson-info">
+                      <p className="unit-label">Unit {unitIndex}</p>
+                      <div className="lesson-title-row">
+                        <h3>{unit.title}</h3>
+                        <span>Coming soon</span>
+                      </div>
+                      <p>{unit.description}</p>
                     </div>
-                    <p>{unit.description}</p>
+
+                    <span className="lesson-arrow">🔒</span>
+                  </div>
+                );
+              }
+
+              const unitDone = unit.lessons.filter((lesson) =>
+                isComplete(lesson.id)
+              ).length;
+
+              return (
+                <div key={unit.id} className="unit-card">
+                  {/* UNIT HEADER */}
+                  <div className="unit-header">
+                    <div className="lesson-icon" lang="ko">
+                      {unit.icon}
+                    </div>
+
+                    <div className="lesson-info">
+                      <p className="unit-label">Unit {unitIndex}</p>
+                      <div className="lesson-title-row">
+                        <h3>{unit.title}</h3>
+                        <span>
+                          {unitDone === unit.lessons.length
+                            ? "Completed ✓"
+                            : `${unitDone} of ${unit.lessons.length}`}
+                        </span>
+                      </div>
+
+                      <p>{unit.description}</p>
+
+                      <div className="lesson-progress-track">
+                        <div
+                          className="lesson-progress-fill"
+                          style={{
+                            width: `${(unitDone / unit.lessons.length) * 100}%`,
+                          }}
+                        />
+                      </div>
+                    </div>
                   </div>
 
-                  <span className="lesson-arrow">🔒</span>
+                  {/* SHORT LESSONS IN THIS UNIT */}
+                  <ol className="unit-lessons">
+                    {unit.lessons.map((lesson, index) => {
+                      const complete = isComplete(lesson.id);
+                      const isNext = lesson.id === nextUp?.id;
+                      const reward = accessoryForLesson(lesson.id);
+
+                      return (
+                        <li key={lesson.id}>
+                          <Link
+                            href={`/lessons/${lesson.id}`}
+                            className={`unit-lesson ${complete ? "complete" : ""} ${
+                              isNext ? "next" : ""
+                            }`}
+                          >
+                            <span className="unit-lesson-number">
+                              {complete ? "✓" : index + 1}
+                            </span>
+
+                            <span className="unit-lesson-title">
+                              {lesson.title}
+                            </span>
+
+                            <span className="unit-lesson-meta">
+                              {isNext && (
+                                <span className="unit-lesson-badge">Up next</span>
+                              )}
+                              ~{estimateMinutes(lesson)} min
+                              {reward && (
+                                <span
+                                  className={`unit-lesson-reward ${complete ? "earned" : ""}`}
+                                  title={`${complete ? "Unlocked" : "Unlocks"}: ${reward.name}`}
+                                >
+                                  {reward.emoji}
+                                </span>
+                              )}
+                            </span>
+                          </Link>
+                        </li>
+                      );
+                    })}
+                  </ol>
                 </div>
               );
-            }
-
-            const unitDone = unit.lessons.filter((lesson) =>
-              isComplete(lesson.id)
-            ).length;
-
-            return (
-              <div key={unit.id} className="unit-card">
-                {/* UNIT HEADER */}
-                <div className="unit-header">
-                  <div className="lesson-icon" lang="ko">
-                    {unit.icon}
-                  </div>
-
-                  <div className="lesson-info">
-                    <p className="unit-label">Unit {unitIndex}</p>
-                    <div className="lesson-title-row">
-                      <h3>{unit.title}</h3>
-                      <span>
-                        {unitDone === unit.lessons.length
-                          ? "Completed ✓"
-                          : `${unitDone} of ${unit.lessons.length}`}
-                      </span>
-                    </div>
-
-                    <p>{unit.description}</p>
-
-                    <div className="lesson-progress-track">
-                      <div
-                        className="lesson-progress-fill"
-                        style={{
-                          width: `${(unitDone / unit.lessons.length) * 100}%`,
-                        }}
-                      />
-                    </div>
-                  </div>
-                </div>
-
-                {/* SHORT LESSONS IN THIS UNIT */}
-                <ol className="unit-lessons">
-                  {unit.lessons.map((lesson, index) => {
-                    const complete = isComplete(lesson.id);
-                    const isNext = lesson.id === nextUp?.id;
-
-                    return (
-                      <li key={lesson.id}>
-                        <Link
-                          href={`/lessons/${lesson.id}`}
-                          className={`unit-lesson ${complete ? "complete" : ""} ${
-                            isNext ? "next" : ""
-                          }`}
-                        >
-                          <span className="unit-lesson-number">
-                            {complete ? "✓" : index + 1}
-                          </span>
-
-                          <span className="unit-lesson-title">
-                            {lesson.title}
-                          </span>
-
-                          <span className="unit-lesson-meta">
-                            {isNext && (
-                              <span className="unit-lesson-badge">Up next</span>
-                            )}
-                            ~{estimateMinutes(lesson)} min
-                          </span>
-                        </Link>
-                      </li>
-                    );
-                  })}
-                </ol>
-              </div>
-            );
-          })}
+            })}
+          </div>
         </section>
 
         {/* BOTTOM NAVIGATION */}

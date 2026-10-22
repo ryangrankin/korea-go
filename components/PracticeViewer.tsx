@@ -221,9 +221,6 @@ export function PracticeQuestionCard({
               disabled={solved && option !== answer}
             >
               {option}
-              {onOptionClick && (
-                <span className="korean-text-icon" aria-hidden="true"> 🔊</span>
-              )}
             </button>
           );
         })}
@@ -231,14 +228,14 @@ export function PracticeQuestionCard({
 
       {lastWrong && !solved && (
         <p className="feedback feedback-wrong" role="status">
-          ❌ Not quite. {hints[lastWrong] ?? "Try again!"}
+          Not quite. {hints[lastWrong] ?? "Try again!"}
         </p>
       )}
 
       {solved && (
         <>
           <p className="feedback feedback-right" role="status">
-            ✅ {wrongPicks.length === 0 ? "Correct! " : "You got it! "}
+            {wrongPicks.length === 0 ? "Correct! " : "You got it! "}
             {explanation}
           </p>
           <button

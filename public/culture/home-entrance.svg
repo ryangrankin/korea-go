@@ -1,0 +1,35 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 240" width="320" height="240">
+  <ellipse cx="210" cy="226" rx="100" ry="8" fill="#000" opacity="0.08"/>
+  <g stroke="#4a3b32" stroke-width="3" stroke-linejoin="round" stroke-linecap="round">
+    <!-- wall -->
+    <path d="M124,12 H296 Q310,12 310,26 V162 H110 V26 Q110,12 124,12 Z" fill="#fff3e0"/>
+    <!-- door edge -->
+    <rect x="266" y="24" width="44" height="138" rx="4" fill="#c98b5a"/>
+    <rect x="274" y="36" width="28" height="50" rx="4" fill="#e8b27c" stroke-width="2.5"/>
+    <circle cx="276" cy="104" r="5" fill="#f6c344"/>
+    <!-- tiled entrance (lower) -->
+    <path d="M190,162 H310 V214 Q310,222 302,222 H190 Z" fill="#c9ced6"/>
+    <path d="M230,162 V222 M270,162 V222 M190,192 H310" fill="none" stroke="#7a8290" stroke-width="2"/>
+    <!-- raised wooden floor -->
+    <rect x="110" y="148" width="84" height="56" rx="4" fill="#e8b27c"/>
+    <path d="M110,166 H194 M110,185 H194" fill="none" stroke="#c98b5a" stroke-width="2"/>
+    <path d="M110,204 H194 V218 Q194,222 190,222 H114 Q110,222 110,218 Z" fill="#c98b5a"/>
+    <!-- slippers on wood -->
+    <ellipse cx="140" cy="176" rx="9" ry="17" fill="#8ec5f0"/>
+    <ellipse cx="164" cy="176" rx="9" ry="17" fill="#8ec5f0"/>
+    <path d="M131,170 Q140,160 149,170 L149,178 Q140,172 131,178 Z" fill="#3976b8"/>
+    <path d="M155,170 Q164,160 173,170 L173,178 Q164,172 155,178 Z" fill="#3976b8"/>
+    <!-- shoes on tiles, toes toward the door -->
+    <path d="M205,181 v-11 q0,-4 5,-4 h8 q4,7 13,9 q6,1 6,6 z" fill="#d9412b"/>
+    <path d="M200,186 v-11 q0,-4 5,-4 h8 q4,7 13,9 q6,1 6,6 z" fill="#d9412b"/>
+    <path d="M200,186 h32" fill="none" stroke="#ffffff" stroke-width="2"/>
+    <path d="M249,181 v-11 q0,-4 5,-4 h8 q4,7 13,9 q6,1 6,6 z" fill="#3976b8"/>
+    <path d="M244,186 v-11 q0,-4 5,-4 h8 q4,7 13,9 q6,1 6,6 z" fill="#3976b8"/>
+    <path d="M244,186 h32" fill="none" stroke="#ffffff" stroke-width="2"/>
+    <path d="M211,211 v-11 q0,-4 5,-4 h8 q4,7 13,9 q6,1 6,6 z" fill="#8a5a3b"/>
+    <path d="M206,216 v-11 q0,-4 5,-4 h8 q4,7 13,9 q6,1 6,6 z" fill="#8a5a3b"/>
+    <path d="M261,211 v-11 q0,-4 5,-4 h8 q4,7 13,9 q6,1 6,6 z" fill="#f28c28"/>
+    <path d="M256,216 v-11 q0,-4 5,-4 h8 q4,7 13,9 q6,1 6,6 z" fill="#f28c28"/>
+    <path d="M256,216 h32" fill="none" stroke="#ffffff" stroke-width="2"/>
+  </g>
+</svg>

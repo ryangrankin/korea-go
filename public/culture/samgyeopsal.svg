@@ -1,0 +1,32 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 240" width="320" height="240">
+  <defs>
+    <clipPath id="gp"><ellipse cx="200" cy="118" rx="80" ry="43"/></clipPath>
+    <g id="p">
+      <rect x="-56" y="-12" width="112" height="24" rx="6" fill="#f6a5b5"/>
+      <path d="M-56 -3 H56 M-56 6 H56" stroke="#fff" stroke-width="4"/>
+      <path d="M-38 -12 L-46 12 M-8 -12 L-16 12 M22 -12 L14 12 M48 -12 L40 12" stroke="#8a5a3b" stroke-width="3" opacity="0.45"/>
+      <rect x="-56" y="-12" width="112" height="24" rx="6" fill="none" stroke="#4a3b32" stroke-width="3"/>
+    </g>
+  </defs>
+  <g stroke="#4a3b32" stroke-width="3" stroke-linejoin="round" stroke-linecap="round">
+    <ellipse cx="205" cy="198" rx="96" ry="9" fill="#000" opacity="0.08" stroke="none"/>
+    <path d="M108 118 Q110 186 200 188 Q290 186 292 118 Z" fill="#7a8290"/>
+    <path d="M122 136 Q128 166 156 178" fill="none" stroke="#c9ced6" stroke-width="4" opacity="0.7"/>
+    <ellipse cx="200" cy="118" rx="92" ry="52" fill="#c9ced6"/>
+    <ellipse cx="200" cy="118" rx="80" ry="43" fill="#4a3b32"/>
+    <g clip-path="url(#gp)" stroke="#7a8290" stroke-width="2">
+      <path d="M110 88 H290 M110 100 H290 M110 112 H290 M110 124 H290 M110 136 H290 M110 148 H290"/>
+    </g>
+    <use href="#p" transform="translate(200 96) rotate(-6)"/>
+    <use href="#p" transform="translate(196 120) rotate(-3)"/>
+    <use href="#p" transform="translate(204 144) rotate(-8)"/>
+    <path d="M224 24 L294 82" stroke-width="9"/>
+    <path d="M224 24 L304 70" stroke-width="9"/>
+    <path d="M224 24 L294 82" stroke="#c9ced6" stroke-width="4"/>
+    <path d="M224 24 L304 70" stroke="#c9ced6" stroke-width="4"/>
+    <path d="M246 188 Q244 168 262 164 Q270 152 286 160 Q304 158 306 176 Q312 192 296 200 Q280 210 262 204 Q246 202 246 188 Z" fill="#9bd27a"/>
+    <path d="M254 196 Q276 182 298 168" fill="none" stroke="#5aa469" stroke-width="2.5"/>
+    <path d="M272 188 Q268 174 280 166 Q292 174 288 188 Q280 194 272 188 Z" fill="#fff3e0"/>
+    <path d="M280 166 l1 -4" fill="none" stroke-width="2.5"/>
+  </g>
+</svg>

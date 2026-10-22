@@ -1,0 +1,40 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 240" width="320" height="240">
+  <g fill="none" stroke="#8ec5f0" stroke-width="4" stroke-linecap="round">
+    <path d="M14 90 C70 60 130 120 190 90 S280 60 310 90"/>
+    <path d="M14 106 C70 76 130 136 190 106 S280 76 310 106"/>
+    <path d="M14 122 C70 92 130 152 190 122 S280 92 310 122"/>
+  </g>
+  <g stroke="#4a3b32" stroke-width="3" stroke-linejoin="round" stroke-linecap="round">
+    <!-- green quarter note -->
+    <line x1="126" y1="56" x2="126" y2="14" stroke-width="6"/>
+    <ellipse cx="112" cy="60" rx="15" ry="11" transform="rotate(-20 112 60)" fill="#5aa469"/>
+    <!-- beamed pair -->
+    <line x1="155" y1="146" x2="155" y2="72" stroke-width="6"/>
+    <line x1="220" y1="131" x2="220" y2="57" stroke-width="6"/>
+    <path d="M151 64 L224 48 L224 68 L151 84 Z" fill="#3976b8"/>
+    <ellipse cx="140" cy="152" rx="18" ry="13" transform="rotate(-20 140 152)" fill="#3976b8"/>
+    <ellipse cx="205" cy="137" rx="18" ry="13" transform="rotate(-20 205 137)" fill="#3976b8"/>
+    <!-- red eighth -->
+    <line x1="281" y1="172" x2="281" y2="98" stroke-width="6"/>
+    <path d="M282 96 C292 112 312 118 302 146 C300 130 292 124 282 122 Z" fill="#d9412b"/>
+    <ellipse cx="266" cy="178" rx="18" ry="13" transform="rotate(-20 266 178)" fill="#d9412b"/>
+    <!-- gold eighth -->
+    <line x1="291" y1="58" x2="291" y2="14" stroke-width="5"/>
+    <path d="M292 12 C298 22 310 26 304 42 C302 34 298 30 292 30 Z" fill="#f6c344"/>
+    <ellipse cx="279" cy="62" rx="14" ry="10" transform="rotate(-20 279 62)" fill="#f6c344"/>
+  </g>
+  <g fill="#fff" opacity=".5">
+    <ellipse cx="134" cy="147" rx="6" ry="3" transform="rotate(-20 134 147)"/>
+    <ellipse cx="199" cy="132" rx="6" ry="3" transform="rotate(-20 199 132)"/>
+    <ellipse cx="260" cy="173" rx="6" ry="3" transform="rotate(-20 260 173)"/>
+    <ellipse cx="107" cy="56" rx="5" ry="2.5" transform="rotate(-20 107 56)"/>
+  </g>
+  <g fill="#f6c344" stroke="#4a3b32" stroke-width="2" stroke-linejoin="round">
+    <path transform="translate(56 34)" d="M0 -11 Q2 -2 11 0 Q2 2 0 11 Q-2 2 -11 0 Q-2 -2 0 -11Z"/>
+    <path transform="translate(240 196)" d="M0 -9 Q2 -2 9 0 Q2 2 0 9 Q-2 2 -9 0 Q-2 -2 0 -9Z" fill="#f6a5b5"/>
+    <path transform="translate(186 34)" d="M0 -8 Q2 -2 8 0 Q2 2 0 8 Q-2 2 -8 0 Q-2 -2 0 -8Z" fill="#9b7bd4"/>
+  </g>
+  <circle cx="176" cy="188" r="4" fill="#f28c28"/>
+  <circle cx="300" cy="206" r="3.5" fill="#8ec5f0"/>
+  <circle cx="30" cy="70" r="3.5" fill="#f28c28"/>
+</svg>

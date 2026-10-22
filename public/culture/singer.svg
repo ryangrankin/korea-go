@@ -1,0 +1,49 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 240" width="320" height="240">
+  <!-- spotlight -->
+  <path d="M190 8 L230 8 L290 196 L130 196 Z" fill="#f6c344" opacity=".28"/>
+  <ellipse cx="210" cy="226" rx="104" ry="8" fill="#000" opacity="0.08"/>
+  <g stroke="#4a3b32" stroke-width="3" stroke-linejoin="round" stroke-linecap="round">
+    <!-- lamp -->
+    <path d="M192 8 L228 8 L222 22 L198 22 Z" fill="#7a8290"/>
+    <!-- stage -->
+    <rect x="112" y="192" width="196" height="28" rx="8" fill="#8a5a3b"/>
+    <path d="M114 200 L306 200" stroke="#e8b27c" stroke-width="4"/>
+    <ellipse cx="210" cy="196" rx="60" ry="6" fill="#fff3e0" stroke="none" opacity=".7"/>
+    <!-- legs -->
+    <rect x="194" y="160" width="11" height="34" rx="5" fill="#4a3b32"/>
+    <rect x="212" y="160" width="11" height="34" rx="5" fill="#4a3b32"/>
+    <ellipse cx="197" cy="194" rx="11" ry="5" fill="#4a3b32"/>
+    <ellipse cx="221" cy="194" rx="11" ry="5" fill="#4a3b32"/>
+    <!-- body -->
+    <path d="M190 110 Q208 102 226 110 L236 168 Q208 176 180 168 Z" fill="#9b7bd4"/>
+    <!-- left arm down -->
+    <path d="M190 116 L176 150" stroke-width="13"/>
+    <path d="M190 116 L176 150" stroke="#9b7bd4" stroke-width="7"/>
+    <circle cx="175" cy="153" r="7" fill="#f1c9a5"/>
+    <!-- right arm holding mic -->
+    <path d="M224 118 L240 132 L234 106" fill="none" stroke-width="13"/>
+    <path d="M224 118 L240 132 L234 106" fill="none" stroke="#9b7bd4" stroke-width="7"/>
+    <!-- head -->
+    <circle cx="208" cy="82" r="24" fill="#d9a47a"/>
+    <path d="M184 82 Q182 54 208 54 Q236 54 232 84 Q228 66 210 64 Q192 64 184 82 Z" fill="#3b2a20"/>
+    <path d="M196 78 Q200 74 204 78" fill="none" stroke-width="2.5"/>
+    <path d="M212 78 Q216 74 220 78" fill="none" stroke-width="2.5"/>
+    <ellipse cx="216" cy="92" rx="5" ry="6" fill="#d9412b" stroke-width="2.5"/>
+    <!-- mic -->
+    <path d="M234 108 L230 96" stroke-width="7"/>
+    <circle cx="228" cy="92" r="7" fill="#c9ced6"/>
+    <circle cx="234" cy="106" r="6" fill="#d9a47a"/>
+    <!-- notes -->
+    <line x1="264" y1="72" x2="264" y2="48" stroke-width="5"/>
+    <path d="M265 46 C271 56 281 58 277 72 C275 64 271 62 265 62 Z" fill="#f28c28"/>
+    <ellipse cx="255" cy="75" rx="11" ry="8" transform="rotate(-20 255 75)" fill="#f28c28"/>
+    <line x1="298" y1="112" x2="298" y2="86" stroke-width="5"/>
+    <ellipse cx="289" cy="115" rx="11" ry="8" transform="rotate(-20 289 115)" fill="#3976b8"/>
+    <line x1="160" y1="70" x2="160" y2="48" stroke-width="5"/>
+    <ellipse cx="151" cy="73" rx="10" ry="7" transform="rotate(-20 151 73)" fill="#f6a5b5"/>
+  </g>
+  <g fill="#fff" opacity=".5">
+    <ellipse cx="224" cy="89" rx="2.5" ry="2"/>
+    <rect x="196" y="116" width="5" height="40" rx="2.5"/>
+  </g>
+</svg>

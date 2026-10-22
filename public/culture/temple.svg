@@ -1,0 +1,58 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 240" width="320" height="240">
+  <rect x="108" y="8" width="204" height="206" rx="24" fill="#8ec5f0" opacity="0.5"/>
+  <ellipse cx="210" cy="222" rx="90" ry="7" fill="#000" opacity="0.08"/>
+  <g stroke="#4a3b32" stroke-width="3" stroke-linejoin="round" stroke-linecap="round">
+    <!-- walls -->
+    <rect x="140" y="112" width="140" height="64" fill="#e8b27c"/>
+    <!-- doors with lattice -->
+    <rect x="164" y="122" width="26" height="54" fill="#fff3e0"/>
+    <rect x="197" y="122" width="26" height="54" fill="#fff3e0"/>
+    <rect x="230" y="122" width="26" height="54" fill="#fff3e0"/>
+    <path d="M164 140 H256 M164 158 H256 M177 122 V176 M210 122 V176 M243 122 V176" fill="none" stroke="#8a5a3b" stroke-width="2"/>
+    <!-- pillars -->
+    <path d="M150 114 V176 M270 114 V176" fill="none" stroke="#c0392b" stroke-width="8"/>
+    <!-- beam -->
+    <rect x="140" y="106" width="140" height="10" fill="#3e8e7e"/>
+    <!-- roof -->
+    <path d="M112 112 Q136 106 148 80 H272 Q284 106 308 112 Q288 108 270 108 H150 Q132 108 112 112 Z" fill="#7a8290"/>
+    <rect x="146" y="74" width="128" height="8" rx="3" fill="#4a3b32"/>
+    <!-- stone platform and steps -->
+    <rect x="128" y="176" width="164" height="22" rx="3" fill="#c9ced6"/>
+    <rect x="178" y="198" width="64" height="10" rx="2" fill="#c9ced6"/>
+    <rect x="170" y="208" width="80" height="10" rx="2" fill="#c9ced6"/>
+    <!-- shoes on platform -->
+    <g stroke-width="2">
+      <ellipse cx="160" cy="186" rx="5" ry="4" fill="#ffffff"/><ellipse cx="172" cy="186" rx="5" ry="4" fill="#ffffff"/>
+      <ellipse cx="192" cy="186" rx="5" ry="4" fill="#3976b8"/><ellipse cx="204" cy="186" rx="5" ry="4" fill="#3976b8"/>
+      <ellipse cx="224" cy="186" rx="5" ry="4" fill="#d9412b"/><ellipse cx="236" cy="186" rx="5" ry="4" fill="#d9412b"/>
+      <ellipse cx="256" cy="186" rx="5" ry="4" fill="#8a5a3b"/><ellipse cx="268" cy="186" rx="5" ry="4" fill="#8a5a3b"/>
+    </g>
+    <!-- lantern string -->
+    <path d="M112 24 Q210 52 308 24" fill="none" stroke-width="2"/>
+    <!-- lanterns -->
+    <g stroke-width="2.5">
+      <path d="M140 31 V36 M175 36 V40 M210 38 V42 M245 36 V40 M280 31 V36" fill="none"/>
+      <circle cx="140" cy="47" r="11" fill="#f6a5b5"/>
+      <circle cx="175" cy="51" r="11" fill="#f6c344"/>
+      <circle cx="210" cy="53" r="11" fill="#9bd27a"/>
+      <circle cx="245" cy="51" r="11" fill="#f6a5b5"/>
+      <circle cx="280" cy="47" r="11" fill="#f6c344"/>
+      <path d="M140 58 V66 M175 62 V70 M210 64 V72 M245 62 V70 M280 58 V66" fill="none" stroke="#d9412b"/>
+    </g>
+  </g>
+  <!-- lantern petals -->
+  <g fill="none" stroke="#ffffff" stroke-width="2" stroke-linecap="round" opacity="0.9">
+    <path d="M133 48 Q140 38 147 48 M136 54 Q140 48 144 54"/>
+    <path d="M168 52 Q175 42 182 52 M171 58 Q175 52 179 58"/>
+    <path d="M203 54 Q210 44 217 54 M206 60 Q210 54 214 60"/>
+    <path d="M238 52 Q245 42 252 52 M241 58 Q245 52 249 58"/>
+    <path d="M273 48 Q280 38 287 48 M276 54 Q280 48 284 54"/>
+  </g>
+  <!-- dancheong dots -->
+  <g fill="#d9412b">
+    <circle cx="160" cy="111" r="2.5"/><circle cx="190" cy="111" r="2.5"/><circle cx="220" cy="111" r="2.5"/><circle cx="250" cy="111" r="2.5"/>
+  </g>
+  <g stroke="#c9ced6" stroke-width="2" stroke-linecap="round" fill="none">
+    <path d="M165 88 V102 M185 88 V102 M205 88 V102 M225 88 V102 M245 88 V102 M260 88 V102"/>
+  </g>
+</svg>

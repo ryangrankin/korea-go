@@ -1,7 +1,8 @@
 
 export type LessonProgress = Record<string, boolean>;
 
-const STORAGE_KEY = "koreaGoLessonProgress";
+export const STORAGE_KEY = "koreaGoLessonProgress";
+export const PROGRESS_EVENT = "koreaGoLessonProgress";
 
 export function getLessonProgress(): LessonProgress {
   if (typeof window === "undefined") return {};
@@ -22,6 +23,9 @@ export function completeLesson(lessonId: string) {
     STORAGE_KEY,
     JSON.stringify(progress)
   );
+
+  // Let open pages (like the pup) know a lesson was finished.
+  window.dispatchEvent(new Event(PROGRESS_EVENT));
 }
 
 export function isLessonComplete(lessonId: string): boolean {

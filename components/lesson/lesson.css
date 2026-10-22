@@ -363,16 +363,6 @@
   cursor: pointer;
 }
 
-.link-button {
-  display: block;
-  margin: 0 auto 16px;
-  border: none;
-  background: none;
-  color: #3976b8;
-  font-size: 13px;
-  text-decoration: underline;
-  cursor: pointer;
-}
 
 .listen-text {
   margin-bottom: 16px;
@@ -748,4 +738,36 @@
 .wp-missed .english {
   margin-left: auto;
   font-size: 13px;
+}
+
+
+/* ---------- Laptops: a wider lesson, with reading-width cards ---------- */
+
+@media (min-width: 900px) {
+  .lesson-sections-container {
+    max-width: 960px;
+    padding: 40px 48px 110px;
+  }
+
+  .word-grid {
+    grid-template-columns: repeat(auto-fill, minmax(170px, 1fr));
+    gap: 14px;
+  }
+
+  .chat,
+  .wp-header,
+  .wp-card,
+  .wp-start,
+  .wp-finish,
+  .practice-question-card,
+  .flashcard,
+  .lesson-complete {
+    max-width: 680px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .wp-card {
+    padding: 28px 32px 8px;
+  }
 }

@@ -1,0 +1,52 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 240" width="320" height="240">
+  <ellipse cx="210" cy="224" rx="104" ry="8" fill="#000" opacity="0.08"/>
+  <g stroke="#4a3b32" stroke-width="3" stroke-linejoin="round" stroke-linecap="round">
+    <!-- straw mat -->
+    <path d="M116 186 H306 L312 218 H110 Z" fill="#f6c344"/>
+    <path d="M114 196 H308 M112 207 H310" stroke="#e8b27c" stroke-width="3"/>
+    <!-- drummer (gosu) -->
+    <path d="M112 200 Q112 160 124 146 Q136 138 148 146 Q162 160 164 200 Z" fill="#8ec5f0"/>
+    <circle cx="136" cy="126" r="16" fill="#f1c9a5"/>
+    <rect x="126" y="94" width="20" height="18" rx="5" fill="#4a3b32"/>
+    <ellipse cx="136" cy="111" rx="23" ry="4" fill="#4a3b32"/>
+    <circle cx="140" cy="127" r="2" fill="#4a3b32" stroke="none"/>
+    <circle cx="148" cy="127" r="2" fill="#4a3b32" stroke="none"/>
+    <path d="M140 134 Q144 137 148 134" fill="none" stroke-width="2"/>
+    <!-- drum (buk) -->
+    <path d="M182 150 Q204 142 224 150 L224 196 Q204 204 182 196 Z" fill="#d9412b"/>
+    <path d="M186 152 V196 M220 152 V196" stroke="#f6c344" stroke-width="3"/>
+    <ellipse cx="224" cy="173" rx="9" ry="23" fill="#e8b27c"/>
+    <ellipse cx="182" cy="173" rx="9" ry="23" fill="#e8b27c"/>
+    <!-- drummer arm + stick -->
+    <path d="M150 154 L170 146" fill="none" stroke-width="13"/>
+    <path d="M150 154 L170 146" fill="none" stroke="#8ec5f0" stroke-width="7"/>
+    <path d="M172 146 L204 116" fill="none" stroke="#8a5a3b" stroke-width="5"/>
+    <circle cx="172" cy="145" r="6" fill="#f1c9a5"/>
+    <!-- singer robe -->
+    <path d="M232 200 L238 110 Q256 100 274 110 L282 200 Z" fill="#fff"/>
+    <path d="M256 104 L250 122 L262 122 Z" fill="#fff3e0" stroke-width="2"/>
+    <path d="M256 124 L244 140 M256 124 L250 146" stroke="#3976b8" stroke-width="3"/>
+    <path d="M240 120 Q228 150 234 172" fill="none" stroke-width="2.5"/>
+    <!-- fan arm -->
+    <path d="M270 116 L284 128" fill="none" stroke-width="15"/>
+    <path d="M270 116 L284 128" fill="none" stroke="#fff" stroke-width="9"/>
+    <!-- fan (hapjukseon) -->
+    <path d="M284 128 L310 113 A30 30 0 0 0 262.8 106.8 Z" fill="#fff3e0"/>
+    <path d="M284 128 L300.8 103.1 M284 128 L288.2 98.3 M284 128 L274.7 99.5" stroke="#8a5a3b" stroke-width="2"/>
+    <circle cx="284" cy="128" r="6" fill="#f1c9a5"/>
+    <!-- head + gat -->
+    <circle cx="256" cy="84" r="17" fill="#f1c9a5"/>
+    <rect x="245" y="46" width="22" height="22" rx="6" fill="#4a3b32"/>
+    <ellipse cx="256" cy="68" rx="31" ry="5" fill="#4a3b32"/>
+    <path d="M241 74 Q238 92 250 100 M271 74 Q274 92 262 100" fill="none" stroke-width="1.5"/>
+    <circle cx="250" cy="84" r="2" fill="#4a3b32" stroke="none"/>
+    <circle cx="262" cy="84" r="2" fill="#4a3b32" stroke="none"/>
+    <ellipse cx="256" cy="92" rx="3.5" ry="4" fill="#d9412b" stroke-width="2"/>
+    <circle cx="246" cy="90" r="3" fill="#f6a5b5" stroke="none"/>
+    <circle cx="266" cy="90" r="3" fill="#f6a5b5" stroke="none"/>
+  </g>
+  <g fill="#fff" opacity=".5">
+    <rect x="188" y="156" width="4" height="34" rx="2"/>
+    <ellipse cx="249" cy="62" rx="6" ry="2"/>
+  </g>
+</svg>

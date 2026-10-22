@@ -1,3 +1,4 @@
+import Image from "next/image";
 import Link from "next/link";
 
 export default function SignupPage() {
@@ -6,8 +7,7 @@ export default function SignupPage() {
       <div className="signup-card">
 
         <Link href="/" className="small-logo">
-          <span className="logo-korea">korea</span>
-          <span className="logo-go">GO!</span>
+          <Image src="/brand/wordmark.png" alt="korea GO! home" width={319} height={277} />
         </Link>
 
         <div className="signup-heading">
@@ -16,7 +16,7 @@ export default function SignupPage() {
         </div>
 
         <div className="mascot-placeholder">
-          🐶
+          <Image src="/brand/pup.png" alt="" width={218} height={263} />
         </div>
 
         <form className="signup-form">

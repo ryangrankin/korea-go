@@ -1,3 +1,4 @@
+import Image from "next/image";
 import Link from "next/link";
 
 export default function Home() {
@@ -6,17 +7,12 @@ export default function Home() {
       <div className="login-card">
 
         <div className="logo">
-          <span className="logo-korea">korea</span>
-          <span className="logo-go">GO!</span>
+          <Image src="/brand/logo-full.png" alt="korea GO! — a corgi traveler waving hello" width={513} height={371} priority />
         </div>
 
         <div className="welcome-text">
           <h1>배울 준비 되셨나요?</h1>
           <p>Ready to learn?</p>
-        </div>
-
-        <div className="mascot-placeholder">
-          🐶
         </div>
 
         <form className="login-form">

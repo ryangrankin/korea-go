@@ -1,0 +1,45 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 240" width="320" height="240">
+  <defs>
+    <clipPath id="land">
+      <path d="M8 0 H312 V232 H118 Q100 232 96 205 Q88 136 8 128 Z"/>
+    </clipPath>
+  </defs>
+  <circle cx="54" cy="36" r="16" fill="#f6c344" stroke="#4a3b32" stroke-width="3"/>
+  <g fill="#fff" stroke="#4a3b32" stroke-width="3" stroke-linejoin="round">
+    <path d="M250 30 Q250 18 262 20 Q268 10 280 16 Q294 14 294 26 Q302 30 294 36 H254 Q244 36 250 30 Z"/>
+  </g>
+  <g clip-path="url(#land)" stroke="#4a3b32" stroke-width="3" stroke-linejoin="round" stroke-linecap="round">
+    <path d="M8 92 Q40 50 62 58 Q96 20 130 30 Q160 36 182 60 Q212 32 242 44 Q276 56 312 54 V240 H8 Z" fill="#8ec5f0"/>
+    <path d="M8 118 Q60 80 110 100 Q160 70 200 96 Q250 74 312 98 V240 H8 Z" fill="#5aa469"/>
+    <path d="M8 150 Q90 140 140 160 Q190 150 228 146 Q270 126 312 136 V240 H8 Z" fill="#9bd27a"/>
+    <!-- river -->
+    <path d="M166 240 C178 210 236 200 214 178 C196 160 176 150 190 128 C198 116 202 108 198 98 L206 98 C212 110 208 120 202 130 C194 148 214 160 232 176 C254 198 214 214 236 240 Z" fill="#8ec5f0"/>
+  </g>
+  <path d="M8 92 V128 Q88 136 96 205 Q100 232 118 232 H312 V54" fill="none" stroke="#4a3b32" stroke-width="3" stroke-linejoin="round" stroke-linecap="round"/>
+  <g stroke="#4a3b32" stroke-width="3" stroke-linejoin="round" stroke-linecap="round">
+    <!-- pavilion (jeongja) -->
+    <rect x="242" y="138" width="60" height="9" rx="2" fill="#c9ced6"/>
+    <rect x="250" y="112" width="6" height="26" fill="#d9412b"/>
+    <rect x="269" y="112" width="6" height="26" fill="#d9412b"/>
+    <rect x="288" y="112" width="6" height="26" fill="#d9412b"/>
+    <path d="M248 128 H296" stroke-width="3"/>
+    <path d="M232 112 Q240 108 240 98 Q258 102 272 84 Q286 102 304 98 Q304 108 312 112 Z" fill="#7a8290"/>
+    <path d="M244 104 Q272 96 300 104" fill="none" stroke-width="2"/>
+    <!-- pines -->
+    <path d="M128 192 Q122 172 132 152" fill="none" stroke="#8a5a3b" stroke-width="6"/>
+    <ellipse cx="122" cy="160" rx="14" ry="7" fill="#3e8e7e"/>
+    <ellipse cx="138" cy="150" rx="13" ry="6" fill="#3e8e7e"/>
+    <ellipse cx="128" cy="140" rx="10" ry="5" fill="#3e8e7e"/>
+    <path d="M162 184 Q156 166 164 148" fill="none" stroke="#8a5a3b" stroke-width="6"/>
+    <ellipse cx="156" cy="156" rx="12" ry="6" fill="#3e8e7e"/>
+    <ellipse cx="170" cy="146" rx="12" ry="6" fill="#3e8e7e"/>
+    <ellipse cx="162" cy="137" rx="9" ry="5" fill="#3e8e7e"/>
+    <path d="M298 168 Q294 156 300 146" fill="none" stroke="#8a5a3b" stroke-width="5"/>
+    <ellipse cx="294" cy="152" rx="10" ry="5" fill="#3e8e7e"/>
+    <ellipse cx="304" cy="144" rx="8" ry="4" fill="#3e8e7e"/>
+  </g>
+  <g fill="none" stroke="#fff" stroke-width="3" stroke-linecap="round" opacity=".6">
+    <path d="M206 210 Q214 200 210 190"/>
+    <path d="M196 140 Q192 132 196 124"/>
+  </g>
+</svg>

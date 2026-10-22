@@ -3,6 +3,7 @@
 
 import { useState } from "react";
 import Link from "next/link";
+import BottomNav from "../../components/BottomNav";
 import { sampleFriends } from "../../data/sampleFriends";
 import { formatTime, useGameStats } from "../../lib/gameScores";
 import { MATCH_SETS } from "../../lib/matchSets";
@@ -51,145 +52,147 @@ export default function FriendsPage() {
   return (
     <main className="basic-page">
       <div className="basic-container">
-        <Link href="/dashboard" className="back-button">
-          ← Dashboard
-        </Link>
-
         <h1>Friends</h1>
         <p>Learn Korean together!</p>
 
-        {/* LEADERBOARD: mini game scores */}
-        <div className="friends-section">
-          <h2>Leaderboard</h2>
+        {/* LEADERBOARD beside your friends (side by side on laptops) */}
+        <div className="friends-layout">
+          <div className="friends-section">
+            <h2>Leaderboard</h2>
 
-          <div className="leaderboard-toggle" role="group" aria-label="Leaderboard type">
-            <button
-              type="button"
-              className={board === "points" ? "active" : ""}
-              aria-pressed={board === "points"}
-              onClick={() => setBoard("points")}
-            >
-              🏅 This week&apos;s points
-            </button>
-            <button
-              type="button"
-              className={board === "times" ? "active" : ""}
-              aria-pressed={board === "times"}
-              onClick={() => setBoard("times")}
-            >
-              ⏱ Best times
-            </button>
+            <div className="leaderboard-toggle" role="group" aria-label="Leaderboard type">
+              <button
+                type="button"
+                className={board === "points" ? "active" : ""}
+                aria-pressed={board === "points"}
+                onClick={() => setBoard("points")}
+              >
+                🏅 This week&apos;s points
+              </button>
+              <button
+                type="button"
+                className={board === "times" ? "active" : ""}
+                aria-pressed={board === "times"}
+                onClick={() => setBoard("times")}
+              >
+                ⏱ Best times
+              </button>
+            </div>
+
+            {/* Which Hangeul Match set to compare times for */}
+            {board === "times" && (
+              <div className="leaderboard-sets">
+                {MATCH_SETS.map((option) => (
+                  <button
+                    key={option.id}
+                    type="button"
+                    className={option.id === setId ? "active" : ""}
+                    aria-pressed={option.id === setId}
+                    onClick={() => setSetId(option.id)}
+                  >
+                    {option.title}
+                  </button>
+                ))}
+              </div>
+            )}
+
+            <ol className="leaderboard">
+              {rows.map((row, index) => (
+                <li key={row.id} className={row.isYou ? "you" : ""}>
+                  <span className="leaderboard-rank">
+                    {row.value === undefined ? "–" : MEDALS[index] ?? index + 1}
+                  </span>
+                  <span className="leaderboard-avatar" aria-hidden="true">
+                    {row.isYou ? "⭐" : "👤"}
+                  </span>
+                  <span className="leaderboard-name">{row.name}</span>
+                  <span className="leaderboard-value">
+                    {row.value === undefined
+                      ? "No time yet"
+                      : board === "points"
+                      ? `${row.value.toLocaleString()} pts`
+                      : formatTime(row.value)}
+                  </span>
+                </li>
+              ))}
+            </ol>
+
+            <p className="friends-note">
+              {stats.gamesPlayed === 0 ? "Play a mini game to get on the board. " : ""}
+              <Link href="/games/hangeul-match">Play Hangeul Match →</Link>
+            </p>
           </div>
 
-          {/* Which Hangeul Match set to compare times for */}
-          {board === "times" && (
-            <div className="leaderboard-sets">
-              {MATCH_SETS.map((option) => (
-                <button
-                  key={option.id}
-                  type="button"
-                  className={option.id === setId ? "active" : ""}
-                  aria-pressed={option.id === setId}
-                  onClick={() => setSetId(option.id)}
-                >
-                  {option.title}
-                </button>
+          <div className="friends-side">
+            <div className="friends-section">
+              <h2>My Friends</h2>
+
+              {sampleFriends.map((friend) => (
+                <div className="friend-card" key={friend.id}>
+                  <div className="friend-avatar">👤</div>
+
+                  <div className="friend-info">
+                    <h3>{friend.username}</h3>
+                    <p>{friend.level}</p>
+                    <span>
+                      🔥 {friend.streak} day streak · 🎮{" "}
+                      {friend.weeklyPoints.toLocaleString()} pts this week
+                    </span>
+                  </div>
+
+                  <span className="friend-arrow">›</span>
+                </div>
               ))}
             </div>
-          )}
 
-          <ol className="leaderboard">
-            {rows.map((row, index) => (
-              <li key={row.id} className={row.isYou ? "you" : ""}>
-                <span className="leaderboard-rank">
-                  {row.value === undefined ? "–" : MEDALS[index] ?? index + 1}
-                </span>
-                <span className="leaderboard-avatar" aria-hidden="true">
-                  {row.isYou ? "⭐" : "👤"}
-                </span>
-                <span className="leaderboard-name">{row.name}</span>
-                <span className="leaderboard-value">
-                  {row.value === undefined
-                    ? "No time yet"
-                    : board === "points"
-                    ? `${row.value.toLocaleString()} pts`
-                    : formatTime(row.value)}
-                </span>
-              </li>
-            ))}
-          </ol>
+            <div className="friends-section">
+              <h2>Find Friends</h2>
 
-          <p className="friends-note">
-            {stats.gamesPlayed === 0 ? "Play a mini game to get on the board. " : ""}
-            <Link href="/games/hangeul-match">Play Hangeul Match →</Link>
-          </p>
-        </div>
+              <input
+                type="text"
+                placeholder="Search by username..."
+                value={search}
+                onChange={(event) => setSearch(event.target.value)}
+                className="friends-search"
+              />
 
-        <div className="friends-section">
-          <h2>My Friends</h2>
+              {search.trim() !== "" && (
+                <div className="friends-search-results">
+                  {filteredFriends.length > 0 ? (
+                    filteredFriends.map((friend) => (
+                      <div className="friend-card" key={friend.id}>
+                        <div className="friend-avatar">👤</div>
 
-          {sampleFriends.map((friend) => (
-            <div className="friend-card" key={friend.id}>
-              <div className="friend-avatar">👤</div>
+                        <div className="friend-info">
+                          <h3>{friend.username}</h3>
+                          <p>{friend.level}</p>
+                        </div>
 
-              <div className="friend-info">
-                <h3>{friend.username}</h3>
-                <p>{friend.level}</p>
-                <span>
-                  🔥 {friend.streak} day streak · 🎮{" "}
-                  {friend.weeklyPoints.toLocaleString()} pts this week
-                </span>
-              </div>
-
-              <span className="friend-arrow">›</span>
-            </div>
-          ))}
-        </div>
-
-        <div className="friends-section">
-          <h2>Find Friends</h2>
-
-          <input
-            type="text"
-            placeholder="Search by username..."
-            value={search}
-            onChange={(event) => setSearch(event.target.value)}
-            className="friends-search"
-          />
-
-          {search.trim() !== "" && (
-            <div className="friends-search-results">
-              {filteredFriends.length > 0 ? (
-                filteredFriends.map((friend) => (
-                  <div className="friend-card" key={friend.id}>
-                    <div className="friend-avatar">👤</div>
-
-                    <div className="friend-info">
-                      <h3>{friend.username}</h3>
-                      <p>{friend.level}</p>
-                    </div>
-
-                    <button
-                      type="button"
-                      className="friend-add-button"
-                      disabled
-                    >
-                      Added
-                    </button>
-                  </div>
-                ))
-              ) : (
-                <p>No users found.</p>
+                        <button
+                          type="button"
+                          className="friend-add-button"
+                          disabled
+                        >
+                          Added
+                        </button>
+                      </div>
+                    ))
+                  ) : (
+                    <p>No users found.</p>
+                  )}
+                </div>
               )}
-            </div>
-          )}
 
-          <p className="friends-note">
-            Friend requests will be available when accounts
-            are connected.
-          </p>
+              <p className="friends-note">
+                Friend requests will be available when accounts
+                are connected.
+              </p>
+            </div>
+          </div>
         </div>
       </div>
+
+      <BottomNav />
     </main>
   );
 }

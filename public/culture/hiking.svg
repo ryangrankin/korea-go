@@ -1,0 +1,44 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 240" width="320" height="240">
+  <rect x="108" y="8" width="204" height="210" rx="24" fill="#8ec5f0" opacity="0.5"/>
+  <circle cx="284" cy="36" r="13" fill="#f6c344"/>
+  <g stroke="#4a3b32" stroke-width="3" stroke-linejoin="round" stroke-linecap="round">
+    <!-- mountain -->
+    <path d="M110 206 Q150 60 196 52 Q222 48 236 70 Q252 46 274 64 Q300 100 312 206 Z" fill="#5aa469"/>
+    <path d="M196 52 Q186 56 182 70 Q196 64 206 72 Q210 60 222 60 Q212 48 196 52 Z" fill="#9bd27a"/>
+    <!-- ground -->
+    <path d="M108 196 H312 V204 Q312 224 290 224 H130 Q108 224 108 204 Z" fill="#9bd27a"/>
+    <!-- pine trees -->
+    <path d="M128 192 L140 160 L152 192 Z" fill="#3e8e7e"/>
+    <path d="M131 174 L140 148 L149 174 Z" fill="#3e8e7e"/>
+    <path d="M140 192 V198" fill="none"/>
+    <path d="M286 192 L298 158 L310 192 Z" fill="#3e8e7e"/>
+    <path d="M289 174 L298 146 L307 174 Z" fill="#3e8e7e"/>
+  </g>
+  <!-- dotted trail -->
+  <path d="M176 196 Q150 160 178 132 Q204 108 186 86 Q178 70 198 60" fill="none" stroke="#fff3e0" stroke-width="4" stroke-dasharray="2 8" stroke-linecap="round"/>
+  <ellipse cx="238" cy="210" rx="34" ry="5" fill="#000" opacity="0.08"/>
+  <!-- hiker -->
+  <g stroke="#4a3b32" stroke-width="3" stroke-linejoin="round" stroke-linecap="round">
+    <rect x="248" y="124" width="26" height="40" rx="8" fill="#3976b8"/>
+    <path d="M200 148 L196 212 M276 148 L282 212" fill="none" stroke-width="3"/>
+    <rect x="222" y="166" width="13" height="38" rx="3" fill="#7a8290"/>
+    <rect x="238" y="166" width="13" height="38" rx="3" fill="#7a8290"/>
+    <ellipse cx="227" cy="207" rx="11" ry="6" fill="#8a5a3b"/>
+    <ellipse cx="248" cy="207" rx="11" ry="6" fill="#8a5a3b"/>
+    <path d="M220 134 L202 158 L210 164 L228 142 Z" fill="#f28c28"/>
+    <path d="M254 134 L272 158 L264 164 L246 142 Z" fill="#f28c28"/>
+    <path d="M218 130 Q237 120 256 130 L258 172 Q237 178 216 172 Z" fill="#f28c28"/>
+    <path d="M237 126 V174" fill="none" stroke-width="2"/>
+    <path d="M218 150 H256" fill="none" stroke="#f6c344" stroke-width="4"/>
+    <circle cx="205" cy="160" r="6" fill="#f1c9a5"/>
+    <circle cx="269" cy="160" r="6" fill="#f1c9a5"/>
+    <circle cx="237" cy="108" r="17" fill="#f1c9a5"/>
+    <path d="M221 98 Q222 80 237 80 Q252 80 253 98 Z" fill="#f6c344"/>
+    <ellipse cx="237" cy="98" rx="25" ry="6" fill="#f6c344"/>
+  </g>
+  <circle cx="231" cy="110" r="2.5" fill="#4a3b32"/>
+  <circle cx="243" cy="110" r="2.5" fill="#4a3b32"/>
+  <path d="M232 116 Q237 120 242 116" fill="none" stroke="#4a3b32" stroke-width="2.5" stroke-linecap="round"/>
+  <circle cx="226" cy="115" r="3" fill="#f6a5b5"/>
+  <circle cx="248" cy="115" r="3" fill="#f6a5b5"/>
+</svg>

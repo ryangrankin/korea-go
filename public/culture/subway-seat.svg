@@ -1,0 +1,44 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 240" width="320" height="240">
+  <g stroke="#4a3b32" stroke-width="3" stroke-linejoin="round" stroke-linecap="round">
+    <!-- car interior -->
+    <rect x="110" y="10" width="200" height="216" rx="16" fill="#fff3e0"/>
+    <path d="M110,182 H310 V210 Q310,226 294,226 H126 Q110,226 110,210 Z" fill="#c9ced6"/>
+    <!-- windows -->
+    <rect x="118" y="72" width="54" height="44" rx="6" fill="#8ec5f0"/>
+    <rect x="178" y="72" width="54" height="44" rx="6" fill="#8ec5f0"/>
+    <path d="M128,104 L144,84 M190,104 L204,86" fill="none" stroke="#ffffff" stroke-width="4"/>
+    <!-- rail and hand straps -->
+    <path d="M114,26 H306" fill="none" stroke-width="7"/>
+    <path d="M114,26 H306" fill="none" stroke="#c9ced6" stroke-width="3"/>
+    <path d="M132,28 V48 M166,28 V48 M200,28 V48 M234,28 V48" fill="none" stroke="#7a8290" stroke-width="4"/>
+    <circle cx="132" cy="55" r="7" fill="none"/>
+    <circle cx="166" cy="55" r="7" fill="none"/>
+    <circle cx="200" cy="55" r="7" fill="none"/>
+    <circle cx="234" cy="55" r="7" fill="none"/>
+    <!-- priority seat sign (pictograms) -->
+    <rect x="246" y="70" width="58" height="42" rx="6" fill="#ffffff"/>
+    <rect x="246" y="70" width="58" height="8" rx="3" fill="#f28c28" stroke-width="2"/>
+    <circle cx="262" cy="86" r="4" fill="#4a3b32" stroke="none"/>
+    <path d="M262,91 Q258,97 260,103 M259,95 L267,96 M267,95 V108 M260,103 L257,108 M260,103 L263,108" fill="none" stroke-width="2.5"/>
+    <circle cx="288" cy="86" r="4" fill="#4a3b32" stroke="none"/>
+    <path d="M288,91 V103 M288,103 L285,108 M288,103 L291,108 M288,94 L284,99" fill="none" stroke-width="2.5"/>
+    <ellipse cx="291" cy="98" rx="3.5" ry="4.5" fill="#4a3b32" stroke="none"/>
+    <!-- regular seats -->
+    <rect x="114" y="124" width="30" height="30" rx="7" fill="#3976b8"/>
+    <rect x="144" y="124" width="30" height="30" rx="7" fill="#3976b8"/>
+    <rect x="174" y="124" width="30" height="30" rx="7" fill="#f6a5b5"/>
+    <rect x="204" y="124" width="30" height="30" rx="7" fill="#3976b8"/>
+    <rect x="114" y="150" width="120" height="16" rx="6" fill="#3976b8"/>
+    <rect x="174" y="150" width="30" height="16" rx="5" fill="#f6a5b5"/>
+    <path d="M189,145 C184,141 182,137 185,134 C187,133 189,134 189,136 C189,134 191,133 193,134 C196,137 194,141 189,145 Z" fill="#ffffff" stroke-width="2"/>
+    <!-- divider -->
+    <rect x="234" y="116" width="8" height="66" rx="4" fill="#7a8290"/>
+    <!-- priority seats -->
+    <rect x="242" y="124" width="32" height="30" rx="7" fill="#f28c28"/>
+    <rect x="274" y="124" width="32" height="30" rx="7" fill="#f28c28"/>
+    <rect x="242" y="150" width="64" height="16" rx="6" fill="#f28c28"/>
+    <!-- seat base -->
+    <rect x="114" y="166" width="120" height="14" rx="3" fill="#7a8290"/>
+    <rect x="242" y="166" width="64" height="14" rx="3" fill="#7a8290"/>
+  </g>
+</svg>

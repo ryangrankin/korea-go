@@ -655,39 +655,7 @@ body {
   font-weight: 700;
 }
 
-/* DESKTOP */
 
-@media (min-width: 600px) {
-  .dashboard-page {
-    width: 430px;
-    min-height: 850px;
-
-    margin: 40px auto;
-
-    border-radius: 24px;
-
-    box-shadow:
-      0 8px 30px rgba(0, 0, 0, 0.12);
-  }
-}
-
-/* DESKTOP DISPLAY */
-
-@media (min-width: 600px) {
-  .login-page,
-  .signup-page,
-  .onboarding-page {
-    width: 430px;
-    min-height: 850px;
-
-    margin: 40px auto;
-
-    border-radius: 24px;
-
-    box-shadow:
-      0 8px 30px rgba(0, 0, 0, 0.12);
-  }
-}
 
 /* BASIC APP PAGES */
 
@@ -1028,21 +996,6 @@ body {
   opacity: 0.45;
 }
 
-/* DESKTOP PHONE CONTAINER */
-
-@media (min-width: 600px) {
-  .basic-page {
-    width: 430px;
-    min-height: 850px;
-
-    margin: 40px auto;
-
-    border-radius: 24px;
-
-    box-shadow:
-      0 8px 30px rgba(0, 0, 0, 0.12);
-  }
-}
 
 
 /* Lesson Viewer */
@@ -1406,54 +1359,76 @@ body {
   margin-top: 14px;
 }
 
-.dashboard-page,
-.basic-page {
-  padding-bottom: 100px;
-}
-
-
-/* Bottom Navigation */
-
-.dashboard-page,
-.basic-page {
-  padding-bottom: 0;
-}
+/* MAIN NAVIGATION
+   Phones and tablets: tab bar fixed to the bottom of the screen.
+   Laptops (900px+): a sidebar on the left. */
 
 .dashboard-container,
 .basic-container {
   padding-bottom: 24px;
 }
 
+/* Leave room so the fixed bar never covers the end of the page */
+.dashboard-page:has(.bottom-nav),
+.basic-page:has(.bottom-nav) {
+  padding-bottom: calc(80px + env(safe-area-inset-bottom));
+}
+
 .bottom-nav {
-  position: relative;
-  width: 100%;
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 50;
+
+  padding: 6px 8px calc(6px + env(safe-area-inset-bottom));
+
+  background: rgba(255, 255, 255, 0.96);
+  backdrop-filter: blur(8px);
+  border-top: 1px solid #e5e7eb;
+}
+
+.bottom-nav-brand {
+  display: none;
+}
+
+.bottom-nav-list {
+  display: flex;
   max-width: 430px;
   margin: 0 auto;
-  display: flex;
-  justify-content: space-around;
-  align-items: center;
-  background: white;
-  border-top: 1px solid #e5e7eb;
-  border-radius: 0 0 24px 24px;
-  padding: 16px 8px 20px;
-  z-index: 10;
-  box-sizing: border-box;
+  list-style: none;
+}
+
+.bottom-nav-list li {
+  flex: 1;
 }
 
 .bottom-nav-item {
-  flex: 1;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  gap: 5px;
+  gap: 2px;
+
+  min-height: 56px;
+  border-radius: 14px;
+
   color: #777;
-  text-decoration: none;
   font-size: 12px;
+  text-decoration: none;
 }
 
 .bottom-nav-icon {
-  font-size: 23px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  width: 56px;
+  height: 30px;
+  border-radius: 16px;
+
+  font-size: 22px;
+  transition: background 0.2s ease;
 }
 
 .bottom-nav-item.active {
@@ -1461,6 +1436,86 @@ body {
   font-weight: 700;
 }
 
+.bottom-nav-item.active .bottom-nav-icon {
+  background: #eaf3fc;
+}
+
+.bottom-nav-item:focus-visible {
+  outline: 2px solid #3976b8;
+  outline-offset: 2px;
+}
+
+
+/* LAPTOPS: a sidebar on the left; the page stays centered */
+@media (min-width: 900px) {
+  .dashboard-page:has(.bottom-nav),
+  .basic-page:has(.bottom-nav) {
+    padding-bottom: 0;
+  }
+
+  .bottom-nav {
+    top: 0;
+    right: auto;
+    width: 220px;
+
+    display: flex;
+    flex-direction: column;
+    gap: 28px;
+
+    padding: 32px 16px;
+
+    background: white;
+    border-top: none;
+    border-right: 1px solid #e5e7eb;
+  }
+
+  .bottom-nav-brand {
+    display: flex;
+    gap: 3px;
+    padding: 0 12px;
+    text-decoration: none;
+  }
+
+  .bottom-nav-brand .logo-korea,
+  .bottom-nav-brand .logo-go {
+    font-size: 28px;
+  }
+
+  .bottom-nav-list {
+    flex-direction: column;
+    gap: 4px;
+    max-width: none;
+    margin: 0;
+  }
+
+  .bottom-nav-item {
+    flex-direction: row;
+    justify-content: flex-start;
+    gap: 12px;
+
+    min-height: 48px;
+    padding: 0 12px;
+
+    font-size: 15px;
+  }
+
+  .bottom-nav-item:hover {
+    background: #f4f7fb;
+  }
+
+  .bottom-nav-item.active {
+    background: #eaf3fc;
+  }
+
+  .bottom-nav-item.active .bottom-nav-icon {
+    background: none;
+  }
+
+  .bottom-nav-icon {
+    width: 28px;
+    height: 28px;
+  }
+}
 
 /* SETTINGS PAGE */
 
@@ -1657,4 +1712,379 @@ body {
 
 .accordion-content .settings-select {
   margin-top: 8px;
+}
+
+
+/* TEXT-STYLE BUTTON (used in lessons, games, and My Pup) */
+
+.link-button {
+  display: block;
+  margin: 0 auto 16px;
+  border: none;
+  background: none;
+  color: #3976b8;
+  font-size: 13px;
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+
+/* LOGO IMAGES */
+
+.logo img {
+  width: 100%;
+  max-width: 300px;
+  height: auto;
+}
+
+.small-logo img {
+  width: 150px;
+  height: auto;
+}
+
+.mascot-placeholder img {
+  width: 120px;
+  height: auto;
+}
+
+.dashboard-logo img {
+  width: 104px;
+  height: auto;
+}
+
+.bottom-nav-brand img {
+  width: 150px;
+  height: auto;
+}
+
+
+/* PUP (the mascot, with accessories layered on top) */
+
+.pup {
+  position: relative;
+  flex-shrink: 0;
+  line-height: 1;
+}
+
+.pup-body {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.pup-item {
+  position: absolute;
+  pointer-events: none;
+  filter: drop-shadow(0 1px 1px rgba(0, 0, 0, 0.2));
+}
+
+.pup-item-new {
+  animation: pup-pop 0.6s ease 0.3s both;
+}
+
+.pup-center {
+  margin: 0 auto 8px;
+}
+
+.pup-celebrate {
+  margin: 0 auto 8px;
+  animation: pup-hop 1s ease 2;
+}
+
+@keyframes pup-pop {
+  0% { opacity: 0; scale: 0.2; }
+  70% { opacity: 1; scale: 1.25; }
+  100% { scale: 1; }
+}
+
+@keyframes pup-hop {
+  0%, 100% { transform: translateY(0); }
+  40% { transform: translateY(-10px); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .pup-item-new,
+  .pup-celebrate {
+    animation: none;
+  }
+}
+
+.dashboard-mascot {
+  display: block;
+  text-decoration: none;
+}
+
+/* The pup introducing a lesson */
+.pup-guide {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin: 4px 0 24px;
+}
+
+.pup-bubble {
+  position: relative;
+  flex: 1;
+  padding: 12px 14px;
+  border-radius: 16px;
+  background: #f4f7fb;
+  color: #444;
+  font-size: 15px;
+  line-height: 1.45;
+}
+
+.pup-bubble::before {
+  content: "";
+  position: absolute;
+  left: -8px;
+  top: 50%;
+  border: 8px solid transparent;
+  border-left: 0;
+  border-right-color: #f4f7fb;
+  transform: translateY(-50%);
+}
+
+/* Unlocked accessory on the lesson-complete card */
+.pup-unlock {
+  margin: 12px 0;
+  padding: 14px;
+  border-radius: 14px;
+  background: #fff8ef;
+}
+
+.pup-unlock p {
+  margin-bottom: 10px;
+}
+
+.pup-unlock .pup-unlock-fact {
+  color: #555;
+  font-size: 14px;
+  line-height: 1.45;
+}
+
+.pup-unlock-wearing {
+  color: #2e7d32;
+  font-weight: 700;
+}
+
+.pup-unlock .link-button {
+  display: inline-block;
+  margin-top: 10px;
+}
+
+/* Reward emoji on each dashboard lesson */
+.unit-lesson-reward {
+  font-size: 15px;
+  filter: grayscale(1);
+  opacity: 0.45;
+}
+
+.unit-lesson-reward.earned {
+  filter: none;
+  opacity: 1;
+}
+
+
+/* MY PUP PAGE */
+
+.pup-stage {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  margin-bottom: 24px;
+  padding: 24px 16px 16px;
+  border-radius: 20px;
+  background: linear-gradient(180deg, #eaf3fc, #fff8ef);
+}
+
+.pup-stage-count {
+  color: #555;
+  font-size: 14px;
+}
+
+.pup-closet h2 {
+  font-size: 20px;
+  margin-bottom: 12px;
+}
+
+.pup-closet-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(110px, 1fr));
+  gap: 10px;
+}
+
+.pup-closet-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+
+  padding: 12px 8px;
+
+  border: 2px solid #e5e7eb;
+  border-radius: 14px;
+  background: white;
+
+  color: #333;
+  font: inherit;
+  text-align: center;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.pup-closet-item.wearing {
+  border-color: #3976b8;
+  background: #eaf3fc;
+}
+
+.pup-closet-item.locked {
+  background: #f7f7f7;
+}
+
+.pup-closet-item.locked .pup-closet-emoji {
+  filter: grayscale(1);
+  opacity: 0.35;
+}
+
+.pup-closet-emoji {
+  font-size: 32px;
+}
+
+.pup-closet-name {
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.pup-closet-item.locked .pup-closet-name {
+  color: #888;
+  font-weight: 400;
+}
+
+.pup-closet-slot {
+  color: #888;
+  font-size: 12px;
+}
+
+.pup-closet-item.wearing .pup-closet-slot {
+  color: #1f4f82;
+  font-weight: 700;
+}
+
+
+/* ==============================================================
+   TABLET & LAPTOP LAYOUT
+   Phones (under 600px) use the styles above. Wider screens fill the
+   whole window instead of showing a phone-sized frame:
+   - 600px+: pages go full width, content gets more room.
+   - 900px+: the nav becomes a sidebar, and pages use columns.
+   ============================================================== */
+
+@media (min-width: 600px) {
+  .basic-container,
+  .dashboard-container {
+    max-width: 720px;
+    padding-left: 32px;
+    padding-right: 32px;
+  }
+
+  /* Login and sign up: a card centered on a soft full-screen background */
+  .login-page,
+  .signup-page,
+  .onboarding-page {
+    background: linear-gradient(160deg, #eaf3fc, #fff8ef);
+  }
+
+  .login-card,
+  .signup-card {
+    padding: 40px 36px;
+    border-radius: 24px;
+    background: white;
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.08);
+  }
+}
+
+@media (min-width: 900px) {
+  /* Leave room for the sidebar */
+  .basic-page:has(.bottom-nav),
+  .dashboard-page:has(.bottom-nav) {
+    padding-left: 220px;
+  }
+
+  /* Pages with the sidebar use the full width */
+  .basic-page:has(.bottom-nav) .basic-container,
+  .dashboard-container {
+    max-width: 1120px;
+    padding: 40px 48px;
+  }
+
+  /* Reading pages stay a comfortable width */
+  .settings-container,
+  .profile-container {
+    max-width: 720px;
+  }
+
+  /* DASHBOARD: overview in a row, units in two columns */
+  .dashboard-logo {
+    visibility: hidden; /* the sidebar shows the logo */
+  }
+
+  .dashboard-overview {
+    display: grid;
+    grid-template-columns: 1.4fr 1fr;
+    grid-template-areas:
+      "greeting progress"
+      "level progress";
+    gap: 16px 24px;
+    align-items: start;
+    margin-bottom: 32px;
+  }
+
+  .dashboard-overview .dashboard-level {
+    grid-area: level;
+    margin-bottom: 0;
+  }
+
+  .dashboard-overview .dashboard-greeting {
+    grid-area: greeting;
+    margin-bottom: 0;
+  }
+
+  .dashboard-overview .progress-section {
+    grid-area: progress;
+    align-self: stretch;
+    margin-bottom: 0;
+  }
+
+  .unit-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(380px, 1fr));
+    gap: 20px;
+    align-items: start;
+  }
+
+  .unit-grid > * {
+    margin-bottom: 0;
+  }
+
+  /* FRIENDS: leaderboard beside your friends */
+  .friends-layout {
+    display: grid;
+    grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr);
+    gap: 40px;
+    align-items: start;
+  }
+
+  /* MY PUP: the pup beside the closet */
+  .pup-layout {
+    display: grid;
+    grid-template-columns: 340px minmax(0, 1fr);
+    gap: 40px;
+    align-items: start;
+  }
+
+  .pup-layout .pup-stage {
+    position: sticky;
+    top: 32px;
+  }
 }

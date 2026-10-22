@@ -1,0 +1,32 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 240" width="320" height="240">
+  <ellipse cx="205" cy="226" rx="90" ry="8" fill="#000" opacity="0.08"/>
+  <g stroke="#4a3b32" stroke-width="3" stroke-linejoin="round" stroke-linecap="round">
+    <!-- hanger -->
+    <path d="M205 30 V22 Q213 19 213 12 Q213 5 205 5 Q198 5 198 11" fill="none"/>
+    <path d="M176 44 L205 28 L234 44" fill="none"/>
+    <!-- chima (skirt) -->
+    <path d="M174 90 C158 124 132 178 122 220 Q205 234 288 220 C278 178 252 124 236 90 Z" fill="#3976b8"/>
+    <path d="M190 100 C182 140 170 180 164 224 M205 100 V227 M220 100 C228 140 240 180 246 224" fill="none" stroke="#2c5e94" stroke-width="2"/>
+    <path d="M140 196 Q150 190 160 200" fill="none" stroke="#8ec5f0" stroke-width="3"/>
+    <!-- waistband -->
+    <path d="M172 84 H238 L240 96 H170 Z" fill="#ffffff"/>
+    <!-- sleeves -->
+    <path d="M182 44 C160 50 140 70 133 100 Q128 120 146 124 L164 120 C164 100 170 82 180 70 Z" fill="#f6c344"/>
+    <path d="M228 44 C250 50 270 70 277 100 Q282 120 264 124 L246 120 C246 100 240 82 230 70 Z" fill="#f6c344"/>
+    <!-- sleeve cuffs -->
+    <path d="M144 106 L165 102 L164 120 L146 124 Q136 121 137 112 Z" fill="#d9412b"/>
+    <path d="M266 106 L245 102 L246 120 L264 124 Q274 121 273 112 Z" fill="#d9412b"/>
+    <!-- jeogori body -->
+    <path d="M180 42 L230 42 L238 88 Q205 96 172 88 Z" fill="#f6c344"/>
+    <!-- collar (git) with white dongjeong -->
+    <path d="M190 42 L210 74 L222 72 L204 42 Z" fill="#9b7bd4"/>
+    <path d="M190 42 L210 74" fill="none" stroke="#ffffff" stroke-width="3"/>
+    <path d="M222 42 L212 64" fill="none"/>
+    <!-- goreum ribbon bow -->
+    <path d="M212 74 Q196 66 194 76 Q196 86 212 78 Z" fill="#d9412b"/>
+    <path d="M212 76 L204 128 L214 126 L216 80 Z" fill="#d9412b"/>
+    <path d="M214 78 L226 140 L236 136 L218 76 Z" fill="#d9412b"/>
+    <circle cx="213" cy="77" r="5" fill="#d9412b"/>
+  </g>
+  <path d="M186 52 Q184 64 182 76" fill="none" stroke="#ffffff" stroke-width="3" stroke-linecap="round" opacity="0.6"/>
+</svg>

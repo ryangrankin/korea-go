@@ -1,0 +1,34 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 240" width="320" height="240">
+  <ellipse cx="212" cy="196" rx="80" ry="9" fill="#000" opacity="0.08"/>
+  <g stroke="#4a3b32" stroke-width="3" stroke-linejoin="round" stroke-linecap="round" fill="none">
+    <!-- receiver sleeves (left, orange) -->
+    <path d="M114,26 L150,66" stroke-width="30"/>
+    <path d="M114,26 L150,66" stroke="#f28c28" stroke-width="24"/>
+    <path d="M114,176 L150,140" stroke-width="30"/>
+    <path d="M114,176 L150,140" stroke="#f28c28" stroke-width="24"/>
+    <!-- giver sleeves (right, blue) -->
+    <path d="M308,40 L270,70" stroke-width="30"/>
+    <path d="M308,40 L270,70" stroke="#3976b8" stroke-width="24"/>
+    <path d="M308,166 L270,136" stroke-width="30"/>
+    <path d="M308,166 L270,136" stroke="#3976b8" stroke-width="24"/>
+    <!-- palms behind card -->
+    <ellipse cx="158" cy="76" rx="17" ry="14" fill="#d9a47a"/>
+    <ellipse cx="158" cy="130" rx="17" ry="14" fill="#d9a47a"/>
+    <ellipse cx="264" cy="78" rx="17" ry="14" fill="#f1c9a5"/>
+    <ellipse cx="264" cy="128" rx="17" ry="14" fill="#f1c9a5"/>
+    <!-- business card -->
+    <rect x="160" y="70" width="104" height="66" rx="7" fill="#ffffff"/>
+    <circle cx="182" cy="92" r="9" fill="#3976b8" stroke-width="2.5"/>
+    <path d="M199,88 H245 M199,100 H232" stroke="#7a8290" stroke-width="4"/>
+    <path d="M176,120 H248" stroke="#c9ced6" stroke-width="4"/>
+    <!-- thumbs on top of card -->
+    <ellipse cx="168" cy="80" rx="8" ry="5.5" fill="#d9a47a"/>
+    <ellipse cx="168" cy="126" rx="8" ry="5.5" fill="#d9a47a"/>
+    <ellipse cx="255" cy="82" rx="8" ry="5.5" fill="#f1c9a5"/>
+    <ellipse cx="255" cy="124" rx="8" ry="5.5" fill="#f1c9a5"/>
+    <!-- sparkles -->
+    <path d="M212,30 v14 M205,37 h14" stroke="#f6c344" stroke-width="4"/>
+    <path d="M232,46 v8 M228,50 h8" stroke="#f6c344" stroke-width="3"/>
+    <path d="M196,160 v10 M191,165 h10" stroke="#f6c344" stroke-width="3"/>
+  </g>
+</svg>

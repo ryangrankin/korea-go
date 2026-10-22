@@ -25,6 +25,7 @@ export type GameStats = {
   totalPoints: number;
   gamesPlayed: number;
   bestTimes: Record<string, number>; // setId → fastest time in seconds
+  timesPlayed: Record<string, number>; // setId → how many times it was finished
 };
 
 const RESULTS_KEY = "koreaGoGameResults";
@@ -79,7 +80,7 @@ function snapshot(): string {
   return `${read(RESULTS_KEY) ?? ""}\n${read(LEGACY_BEST_KEY) ?? ""}`;
 }
 
-const NO_STATS: GameStats = { weeklyPoints: 0, totalPoints: 0, gamesPlayed: 0, bestTimes: {} };
+const NO_STATS: GameStats = { weeklyPoints: 0, totalPoints: 0, gamesPlayed: 0, bestTimes: {}, timesPlayed: {} };
 
 function statsFrom(snap: string | null): GameStats {
   // No snapshot during the server render: nothing saved to read yet.
@@ -91,14 +92,16 @@ function statsFrom(snap: string | null): GameStats {
 
   let weeklyPoints = 0;
   let totalPoints = 0;
+  const timesPlayed: Record<string, number> = {};
   for (const result of results) {
+    timesPlayed[result.setId] = (timesPlayed[result.setId] ?? 0) + 1;
     totalPoints += result.points;
     if (new Date(result.playedAt).getTime() >= weekStart) weeklyPoints += result.points;
     const best = bestTimes[result.setId];
     if (best === undefined || result.seconds < best) bestTimes[result.setId] = result.seconds;
   }
 
-  return { weeklyPoints, totalPoints, gamesPlayed: results.length, bestTimes };
+  return { weeklyPoints, totalPoints, gamesPlayed: results.length, bestTimes, timesPlayed };
 }
 
 // Your game stats. Updates by itself when a new result is saved.
@@ -108,8 +111,15 @@ export function useGameStats(): GameStats {
 }
 
 // Save a finished game. Returns the saved result, with its points.
-export function recordGameResult(game: Omit<GameResult, "points" | "playedAt">): GameResult {
-  const result: GameResult = { ...game, points: gamePoints(game), playedAt: new Date().toISOString() };
+// Games can pass their own `points`; otherwise gamePoints() works them out.
+export function recordGameResult(
+  game: Omit<GameResult, "points" | "playedAt"> & { points?: number }
+): GameResult {
+  const result: GameResult = {
+    ...game,
+    points: game.points ?? gamePoints(game),
+    playedAt: new Date().toISOString(),
+  };
   try {
     const results = parse<GameResult[]>(read(RESULTS_KEY), []);
     localStorage.setItem(RESULTS_KEY, JSON.stringify([...results, result].slice(-MAX_SAVED)));

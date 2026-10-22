@@ -16,6 +16,7 @@ import { useState } from "react";
 import { sayOf, type PracticeWord } from "../../lib/practiceItems";
 import { speakKorean } from "../../lib/speak";
 import KoreanText from "../KoreanText";
+import Pup from "../Pup";
 
 type WordPracticeProps = {
   words: PracticeWord[];
@@ -179,7 +180,7 @@ export default function WordPractice({
   if (!started) {
     return (
       <div className="lesson-content-card wp-start">
-        <div className="wp-big-emoji" aria-hidden="true">🧠</div>
+        <Pup size={110} className="pup-center" />
         <h2>
           Learn {words.length} new {noun}
         </h2>
@@ -199,7 +200,7 @@ export default function WordPractice({
     const accuracy = answered === 0 ? 100 : Math.round((rightCount / answered) * 100);
     return (
       <div className="lesson-content-card wp-finish">
-        <div className="wp-big-emoji" aria-hidden="true">🎉</div>
+        <Pup size={110} className="pup-center pup-celebrate" />
         <h2>
           You learned all {words.length} {noun}!
         </h2>
@@ -329,10 +330,7 @@ export default function WordPractice({
                   {card.quiz === "korean" ? (
                     optionWord.korean
                   ) : (
-                    <>
-                      <span aria-hidden="true">{optionWord.emoji} </span>
-                      {optionWord.meaning}
-                    </>
+                    optionWord.meaning
                   )}
                 </button>
               );
@@ -342,7 +340,7 @@ export default function WordPractice({
           {/* Right: quick praise. Wrong: show the word again to review. */}
           {picked !== null && picked === card.word && (
             <p className="feedback feedback-right" role="status">
-              ✅ {PRAISE[answered % PRAISE.length]}
+              {PRAISE[answered % PRAISE.length]}
             </p>
           )}
           {picked !== null && picked !== card.word && (

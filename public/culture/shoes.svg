@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 240" width="320" height="240">
+  <ellipse cx="220" cy="202" rx="92" ry="9" fill="#000" opacity="0.08"/>
+  <g stroke="#4a3b32" stroke-width="3" stroke-linejoin="round" stroke-linecap="round">
+    <!-- back shoe (blue) -->
+    <g transform="translate(118 64)">
+      <path d="M0 60 H150 Q156 72 145 78 H6 Q-3 70 0 60 Z" fill="#ffffff"/>
+      <path d="M5 60 L8 18 Q10 8 22 10 L40 14 Q48 30 66 28 L80 26 Q120 32 140 44 Q152 50 150 60 Z" fill="#3976b8"/>
+      <path d="M40 14 L50 4 Q60 1 62 10 L66 28" fill="#8ec5f0"/>
+      <path d="M118 34 Q140 42 150 60 H122 Q118 46 118 34 Z" fill="#ffffff"/>
+      <path d="M8 30 Q20 34 24 58 H6 Z" fill="#f6c344"/>
+      <path d="M72 32 L84 40 M86 30 L98 38 M100 30 L110 38" fill="none" stroke="#ffffff"/>
+      <path d="M30 46 Q70 36 104 52" fill="none" stroke="#8ec5f0" stroke-width="5"/>
+    </g>
+    <!-- front shoe (orange) -->
+    <g transform="translate(150 116)">
+      <path d="M0 60 H150 Q156 72 145 78 H6 Q-3 70 0 60 Z" fill="#ffffff"/>
+      <path d="M5 60 L8 18 Q10 8 22 10 L40 14 Q48 30 66 28 L80 26 Q120 32 140 44 Q152 50 150 60 Z" fill="#f28c28"/>
+      <path d="M40 14 L50 4 Q60 1 62 10 L66 28" fill="#f6c344"/>
+      <path d="M118 34 Q140 42 150 60 H122 Q118 46 118 34 Z" fill="#ffffff"/>
+      <path d="M8 30 Q20 34 24 58 H6 Z" fill="#5aa469"/>
+      <path d="M72 32 L84 40 M86 30 L98 38 M100 30 L110 38" fill="none" stroke="#ffffff"/>
+      <path d="M30 46 Q70 36 104 52" fill="none" stroke="#f6c344" stroke-width="5"/>
+      <path d="M10 68 H140" fill="none" stroke="#c9ced6" stroke-width="2"/>
+    </g>
+  </g>
+</svg>

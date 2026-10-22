@@ -127,3 +127,549 @@
   text-align: center;
   text-decoration: none;
 }
+
+/* ---------- Korean Culture Arcade (the Mini Games page) ---------- */
+
+.arcade-section {
+  margin-bottom: 28px;
+}
+
+.arcade-section h2 {
+  font-size: 21px;
+  margin-bottom: 14px;
+}
+
+.arcade-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 12px;
+}
+
+.arcade-card {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  padding: 16px;
+  border: 1px solid #e3e3e3;
+  border-radius: 16px;
+  background: white;
+}
+
+.arcade-card-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.arcade-emoji {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 48px;
+  height: 48px;
+  border-radius: 14px;
+  background: #f4f7fb;
+  font-size: 26px;
+}
+
+.arcade-done {
+  padding: 3px 10px;
+  border-radius: 20px;
+  background: #e3f4e6;
+  color: #2e7d32;
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.arcade-card h3 {
+  font-size: 17px;
+}
+
+.arcade-card p {
+  color: #666;
+  font-size: 14px;
+  line-height: 1.45;
+}
+
+.arcade-card .arcade-meta {
+  color: #888;
+  font-size: 12px;
+}
+
+.arcade-play {
+  align-self: flex-start;
+  margin-top: 4px;
+  padding: 10px 20px;
+  border-radius: 12px;
+  background: #3976b8;
+  color: white;
+  font-weight: 700;
+  text-decoration: none;
+}
+
+.arcade-play:focus-visible {
+  outline: 2px solid #1f4f82;
+  outline-offset: 2px;
+}
+
+/* ---------- A culture game ---------- */
+
+.culture-intro,
+.culture-done {
+  text-align: center;
+}
+
+.culture-intro p {
+  line-height: 1.5;
+}
+
+.culture-progress {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  margin-bottom: 14px;
+  color: #c4660f;
+  font-size: 13px;
+  font-weight: 700;
+}
+
+.culture-picture {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 14px;
+  padding: 10px 10px 14px;
+  border-radius: 20px;
+  background: linear-gradient(180deg, #eaf3fc, #fff8ef);
+  text-align: center;
+}
+
+.culture-emoji {
+  font-size: 64px;
+  line-height: 1.1;
+}
+
+.culture-photo {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  border-radius: 14px;
+}
+
+.culture-photo img {
+  object-fit: contain;
+}
+
+/* No drawing yet: center the emoji in the same space */
+.culture-photo-emoji {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* The mascot sits in the bottom-left corner of every picture */
+.culture-pup {
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 29%;
+  max-width: 100px;
+}
+
+.culture-pup .pup {
+  width: 100% !important;
+}
+
+.culture-picture figcaption {
+  color: #444;
+  font-size: 15px;
+  line-height: 1.45;
+}
+
+.culture-credit {
+  color: #888;
+  font-size: 11px;
+}
+
+.culture-line {
+  margin-bottom: 14px;
+  padding: 12px 14px;
+  border-radius: 16px;
+  background: #f4f7fb;
+}
+
+.culture-prompt {
+  font-size: 19px;
+  line-height: 1.35;
+  margin-bottom: 14px;
+}
+
+.culture-choices {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.culture-choice-row {
+  display: flex;
+  align-items: stretch;
+  gap: 8px;
+}
+
+.culture-choice {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.culture-choice-text {
+  font-size: 17px;
+  line-height: 1.35;
+}
+
+.culture-choice-text:lang(ko) {
+  font-size: 20px;
+  font-weight: 700;
+  color: #1f4f82;
+}
+
+.culture-choice-english {
+  color: #555;
+  font-size: 13px;
+}
+
+.culture-choice.selected {
+  border-color: #c4660f;
+  background: #fff8ef;
+}
+
+.culture-choice.tried {
+  opacity: 0.6;
+}
+
+.culture-audio {
+  flex-shrink: 0;
+  width: 48px;
+  border: 2px solid #e5e7eb;
+  border-radius: 12px;
+  background: white;
+  font-size: 18px;
+  cursor: pointer;
+}
+
+.feedback-think {
+  background: #fff8ef;
+  color: #7a4a12;
+}
+
+.culture-fact {
+  margin-top: 12px;
+  padding: 12px 14px;
+  border-left: 5px solid #f28c28;
+  border-radius: 12px;
+  background: #fffaf3;
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+.culture-fact strong {
+  display: block;
+  margin-bottom: 4px;
+}
+
+.culture-all-reasons {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-top: 12px;
+}
+
+.culture-all-reasons li {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  padding: 10px 12px;
+  border-radius: 12px;
+  background: #f7f7f7;
+  font-size: 14px;
+  line-height: 1.45;
+}
+
+.culture-all-reasons li.best {
+  background: #e3f4e6;
+}
+
+.culture-retry {
+  margin-top: 14px;
+}
+
+.culture-outro {
+  color: #444;
+  line-height: 1.5;
+}
+
+.culture-done h3 {
+  margin: 14px 0 8px;
+  font-size: 16px;
+  text-align: left;
+}
+
+.culture-recap {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-bottom: 8px;
+  text-align: left;
+}
+
+.culture-recap li {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 4px 10px;
+  padding: 8px 12px;
+  border-radius: 12px;
+  background: #f4f7fb;
+}
+
+.culture-back {
+  display: block;
+  margin-bottom: 8px;
+  text-align: center;
+  text-decoration: none;
+}
+
+/* ---------- Difficulty ---------- */
+
+.difficulty {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 2px 9px;
+  border-radius: 20px;
+  font-size: 12px;
+  font-weight: 700;
+  white-space: nowrap;
+}
+
+.difficulty-easy {
+  background: #e3f4e6;
+  color: #2e7d32;
+}
+
+.difficulty-medium {
+  background: #fff1e3;
+  color: #c4660f;
+}
+
+.difficulty-hard {
+  background: #fdecec;
+  color: #b3261e;
+}
+
+.arcade-title-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+}
+
+.arcade-levels {
+  margin-bottom: 8px;
+}
+
+.arcade-level-note {
+  margin-bottom: 12px;
+  color: #666;
+  font-size: 13px;
+}
+
+.arcade-cover {
+  width: 96px;
+  height: 72px;
+  border-radius: 12px;
+  background: linear-gradient(180deg, #eaf3fc, #fff8ef);
+  object-fit: contain;
+}
+
+.arcade-played-line {
+  color: #2e7d32 !important;
+  font-weight: 700;
+  margin: 0 !important;
+}
+
+.culture-level {
+  margin: -4px 0 16px;
+}
+
+/* ---------- Sentence builder (A Day in Seoul) ---------- */
+
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+}
+
+.builder-sentence {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+  min-height: 64px;
+  padding: 10px;
+  border: 2px dashed #c9ced6;
+  border-radius: 16px;
+  background: #fbfcfe;
+}
+
+.builder-sentence.wrong {
+  border-color: #d04444;
+  background: #fdecec;
+}
+
+.builder-sentence.right,
+.builder-sentence.revealed {
+  border-style: solid;
+  border-color: #2e7d32;
+  background: #e3f4e6;
+}
+
+.builder-placeholder {
+  color: #999;
+  font-size: 14px;
+}
+
+.builder-label {
+  margin: 14px 0 6px;
+  color: #666;
+  font-size: 13px;
+  font-weight: 700;
+}
+
+.builder-bank {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.builder-tile {
+  min-height: 46px;
+  padding: 8px 14px;
+  border: 2px solid #c9d8ea;
+  border-bottom-width: 4px;
+  border-radius: 12px;
+  background: white;
+  color: #1f4f82;
+  font-size: 19px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.builder-tile:active {
+  transform: translateY(2px);
+  border-bottom-width: 2px;
+}
+
+.builder-tile.in-sentence {
+  border-color: #3976b8;
+  background: #eaf3fc;
+}
+
+.builder-tile.in-sentence:disabled {
+  cursor: default;
+  border-color: #2e7d32;
+  background: white;
+  color: #1b5e20;
+}
+
+/* A used tile leaves a faded gap in the bank */
+.builder-tile.used {
+  border-color: #eee;
+  background: #f4f4f4;
+  color: transparent;
+  cursor: default;
+}
+
+.builder-actions {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  gap: 8px;
+  margin-top: 14px;
+}
+
+.builder-actions .secondary-button {
+  padding: 10px;
+  font-size: 14px;
+}
+
+.builder-actions .secondary-button:disabled,
+.builder .practice-next-button:disabled {
+  opacity: 0.45;
+  cursor: default;
+}
+
+.builder-result {
+  margin-top: 10px;
+  padding: 10px 14px;
+  border-radius: 14px;
+  background: #f4f7fb;
+}
+
+.builder-result .korean-text {
+  font-size: 20px;
+}
+
+.builder-hint {
+  margin-top: 6px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .builder-tile:active {
+    transform: none;
+  }
+}
+
+
+/* ---------- Laptops ---------- */
+
+@media (min-width: 900px) {
+  .arcade-grid {
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 16px;
+  }
+
+  .game-container {
+    max-width: 1040px !important;
+    padding: 40px 48px;
+  }
+
+  /* Picture on the left (stays in view), question on the right */
+  .culture-body {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    gap: 32px;
+    align-items: start;
+  }
+
+  .culture-stage {
+    position: sticky;
+    top: 24px;
+  }
+
+  .culture-intro,
+  .culture-done,
+  .match-board,
+  .match-hud,
+  .match-title {
+    max-width: 720px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+}

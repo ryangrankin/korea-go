@@ -1,0 +1,52 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 240" width="320" height="240">
+  <ellipse cx="208" cy="224" rx="56" ry="8" fill="#000" opacity="0.08"/>
+  <!-- motion swooshes -->
+  <g fill="none" stroke="#8ec5f0" stroke-width="4" stroke-linecap="round">
+    <path d="M140 40 Q150 24 168 20"/>
+    <path d="M130 58 Q138 46 150 42"/>
+    <path d="M268 30 Q284 36 290 52"/>
+    <path d="M276 150 Q290 160 290 176"/>
+  </g>
+  <g stroke-linejoin="round" stroke-linecap="round" fill="none">
+    <!-- limbs: outline then fill -->
+    <g stroke="#4a3b32" stroke-width="15">
+      <path d="M192 110 L170 82 L160 52"/>
+      <path d="M226 110 L250 84 L262 56"/>
+      <path d="M200 160 L194 214"/>
+      <path d="M220 160 L252 170 L244 200"/>
+    </g>
+    <g stroke="#f1c9a5" stroke-width="9">
+      <path d="M192 110 L170 82 L160 52"/>
+      <path d="M226 110 L250 84 L262 56"/>
+    </g>
+    <g stroke="#3976b8" stroke-width="9">
+      <path d="M200 160 L194 214"/>
+      <path d="M220 160 L252 170 L244 200"/>
+    </g>
+  </g>
+  <g stroke="#4a3b32" stroke-width="3" stroke-linejoin="round" stroke-linecap="round">
+    <!-- shoes -->
+    <ellipse cx="186" cy="217" rx="14" ry="7" fill="#d9412b"/>
+    <ellipse cx="252" cy="203" rx="13" ry="7" fill="#d9412b" transform="rotate(-15 252 203)"/>
+    <!-- hands -->
+    <circle cx="159" cy="48" r="8" fill="#f1c9a5"/>
+    <circle cx="263" cy="52" r="8" fill="#f1c9a5"/>
+    <!-- body -->
+    <path d="M190 100 Q209 92 228 100 L232 162 Q210 170 188 162 Z" fill="#f28c28"/>
+    <path d="M196 128 L224 128" stroke="#fff3e0" stroke-width="5"/>
+    <!-- head -->
+    <circle cx="209" cy="72" r="24" fill="#f1c9a5"/>
+    <path d="M185 70 Q186 44 209 46 Q234 46 233 70 Q222 58 209 60 Q196 58 185 70 Z" fill="#3b2a20"/>
+    <circle cx="200" cy="76" r="3" fill="#4a3b32" stroke="none"/>
+    <circle cx="218" cy="76" r="3" fill="#4a3b32" stroke="none"/>
+    <path d="M202 85 Q209 92 216 85" fill="none" stroke-width="2.5"/>
+    <circle cx="195" cy="84" r="3.5" fill="#f6a5b5" stroke="none" opacity=".8"/>
+    <circle cx="223" cy="84" r="3.5" fill="#f6a5b5" stroke="none" opacity=".8"/>
+    <!-- music notes -->
+    <line x1="129" y1="104" x2="129" y2="78" stroke-width="5"/>
+    <path d="M130 76 C136 86 146 88 142 102 C140 94 136 92 130 92 Z" fill="#9b7bd4"/>
+    <ellipse cx="120" cy="107" rx="11" ry="8" transform="rotate(-20 120 107)" fill="#9b7bd4"/>
+    <line x1="299" y1="114" x2="299" y2="90" stroke-width="5"/>
+    <ellipse cx="290" cy="117" rx="11" ry="8" transform="rotate(-20 290 117)" fill="#5aa469"/>
+  </g>
+</svg>

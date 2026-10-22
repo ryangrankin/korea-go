@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 240" width="320" height="240">
+  <g stroke="#4a3b32" stroke-width="3" stroke-linejoin="round" stroke-linecap="round">
+    <path d="M110 224 V208 H150 V192 H190 V176 H230 V160 H270 V144 H310 V224 Z" fill="#c9ced6"/>
+    <path d="M110 208 H150 M150 192 H190 M190 176 H230 M230 160 H270 M270 144 H310" fill="none" stroke="#7a8290" stroke-width="5"/>
+    <path d="M116 186 L300 122" fill="none" stroke="#c98b5a" stroke-width="6"/>
+    <path d="M132 180 V200 M210 153 V173 M288 126 V146" fill="none"/>
+    <rect x="118" y="6" width="184" height="8" rx="4" fill="#7a8290"/>
+    <path d="M144 14 V30 M276 14 V30" fill="none"/>
+    <rect x="112" y="28" width="196" height="96" rx="14" fill="#f6c344"/>
+    <path d="M142 54 L160 74 L149 74 L149 102 L135 102 L135 74 L124 74 Z" fill="#4a3b32"/>
+    <circle cx="194" cy="78" r="25" fill="#4a3b32"/>
+    <text x="194" y="90" font-family="sans-serif" font-weight="bold" font-size="34" text-anchor="middle" fill="#ffffff" stroke="none">5</text>
+    <text x="264" y="90" font-family="sans-serif" font-weight="bold" font-size="30" text-anchor="middle" fill="#4a3b32" stroke="none">출구</text>
+  </g>
+</svg>
