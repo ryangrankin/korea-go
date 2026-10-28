@@ -53,7 +53,13 @@ export default function Home() {
           className={zoom ? "logo logo-zoom" : "logo"}
           style={zoom ? { transform: zoom } : undefined}
         >
-          <Image src="/brand/logo-full.png" alt="korea GO! — a corgi traveler waving hello" width={513} height={371} priority />
+          <span className="logo-art">
+            <Image src="/brand/logo-full.png" alt="korea GO! — a corgi traveler waving hello" width={513} height={371} priority />
+            {/* Twinkle next to the corgi's winking eye (positioned in globals.css) */}
+            <svg className="wink-sparkle" viewBox="0 0 24 24" aria-hidden="true">
+              <path d="M12 0 C13 8 16 11 24 12 C16 13 13 16 12 24 C11 16 8 13 0 12 C8 11 11 8 12 0 Z" />
+            </svg>
+          </span>
         </div>
 
         <div className="welcome-text">
