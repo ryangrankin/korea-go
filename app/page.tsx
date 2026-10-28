@@ -1,12 +1,47 @@
+"use client";
+
+import { useRef, useState, type FormEvent } from "react";
 import Image from "next/image";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
+
+const ZOOM_MS = 900; // keep in sync with .logo-zoom in globals.css
 
 export default function Home() {
+  const router = useRouter();
+  const logoRef = useRef<HTMLDivElement>(null);
+  const [zoom, setZoom] = useState<string | null>(null);
+
+  // No real login yet: Go! zooms the mascot to fill the screen, then opens the dashboard.
+  function handleGo(event: FormEvent) {
+    event.preventDefault();
+    const logo = logoRef.current;
+    const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    if (!logo || reduceMotion) {
+      router.push("/dashboard");
+      return;
+    }
+
+    // Move the logo's center to the screen's center, and grow it until it hits the screen edge.
+    const box = logo.getBoundingClientRect();
+    const moveX = window.innerWidth / 2 - (box.left + box.width / 2);
+    const moveY = window.innerHeight / 2 - (box.top + box.height / 2);
+    const scale = Math.min(window.innerWidth / box.width, window.innerHeight / box.height);
+    setZoom(`translate(${moveX}px, ${moveY}px) scale(${scale})`);
+
+    router.prefetch("/dashboard");
+    setTimeout(() => router.push("/dashboard"), ZOOM_MS);
+  }
+
   return (
-    <main className="login-page">
+    <main className={zoom ? "login-page zooming" : "login-page"}>
       <div className="login-card">
 
-        <div className="logo">
+        <div
+          ref={logoRef}
+          className={zoom ? "logo logo-zoom" : "logo"}
+          style={zoom ? { transform: zoom } : undefined}
+        >
           <Image src="/brand/logo-full.png" alt="korea GO! — a corgi traveler waving hello" width={513} height={371} priority />
         </div>
 
@@ -15,8 +50,7 @@ export default function Home() {
           <p>Ready to learn?</p>
         </div>
 
-        {/* No real login yet: Go! goes straight to the dashboard. */}
-        <form className="login-form" action="/dashboard">
+        <form className="login-form" onSubmit={handleGo}>
           <input
             type="text"
             placeholder="Username"
@@ -27,7 +61,7 @@ export default function Home() {
             placeholder="Password"
           />
 
-          <button type="submit">
+          <button type="submit" disabled={zoom !== null}>
             Go!
           </button>
         </form>
