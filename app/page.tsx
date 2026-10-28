@@ -15,7 +15,8 @@ export default function Home() {
           <p>Ready to learn?</p>
         </div>
 
-        <form className="login-form">
+        {/* No real login yet: Go! goes straight to the dashboard. */}
+        <form className="login-form" action="/dashboard">
           <input
             type="text"
             placeholder="Username"
