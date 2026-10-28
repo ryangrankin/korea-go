@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef, useState, type FormEvent } from "react";
+import { useEffect, useRef, useState, type FormEvent } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
@@ -11,6 +11,17 @@ export default function Home() {
   const router = useRouter();
   const logoRef = useRef<HTMLDivElement>(null);
   const [zoom, setZoom] = useState<string | null>(null);
+  const goTimer = useRef<ReturnType<typeof setTimeout>>(undefined);
+
+  // Next.js keeps this page alive in the background after we leave it
+  // (cacheComponents in next.config.ts). Undo the zoom when we leave, so
+  // coming back (e.g. Log Out) shows the normal login screen.
+  useEffect(() => {
+    return () => {
+      clearTimeout(goTimer.current);
+      setZoom(null);
+    };
+  }, []);
 
   // No real login yet: Go! zooms the mascot to fill the screen, then opens the dashboard.
   function handleGo(event: FormEvent) {
@@ -30,7 +41,7 @@ export default function Home() {
     setZoom(`translate(${moveX}px, ${moveY}px) scale(${scale})`);
 
     router.prefetch("/dashboard");
-    setTimeout(() => router.push("/dashboard"), ZOOM_MS);
+    goTimer.current = setTimeout(() => router.push("/dashboard"), ZOOM_MS);
   }
 
   return (
