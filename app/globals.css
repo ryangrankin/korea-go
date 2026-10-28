@@ -2088,3 +2088,22 @@ body {
     top: 32px;
   }
 }
+
+/* LOGIN: mascot zooms to fill the screen after Go! (see app/page.tsx) */
+
+.login-page.zooming {
+  overflow: hidden;
+}
+
+.logo-zoom {
+  position: relative;
+  z-index: 10;
+  transition: transform 0.9s ease-in-out;
+}
+
+.login-page.zooming .welcome-text,
+.login-page.zooming .login-form,
+.login-page.zooming .signup-text {
+  opacity: 0;
+  transition: opacity 0.3s ease-out;
+}
