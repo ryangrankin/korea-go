@@ -2089,40 +2089,137 @@ body {
   }
 }
 
-/* LOGIN: mascot zooms to fill the screen after Go! (see app/page.tsx) */
+/* LOGIN: Seoul scene with our corgi traveler walking along the path (see app/page.tsx) */
+
+.login-page {
+  flex-direction: column;
+  padding-bottom: 0;
+  /* Scene is anchored to the bottom so its walking path lines up with .corgi-stage */
+  background: #f7f3ec url("/brand/seoul-scene.svg") center bottom / cover no-repeat;
+}
+
+.login-card {
+  margin-block: auto;
+}
+
+.login-card .logo {
+  margin-bottom: 20px;
+}
+
+.login-card .logo img {
+  max-width: 170px;
+}
+
+@media (min-width: 600px) {
+  .login-page {
+    background: #f7f3ec url("/brand/seoul-scene.svg") center bottom / cover no-repeat;
+  }
+
+  .login-card {
+    background: rgba(255, 255, 255, 0.92);
+  }
+}
+
+/* Laptops: card on the left so the palace and tower stay in view, and the corgi gets the whole path */
+@media (min-width: 900px) {
+  .login-page {
+    align-items: flex-start;
+    padding-left: max(48px, 5vw);
+    padding-right: max(48px, 5vw);
+  }
+
+  .corgi-stage {
+    max-width: none;
+  }
+}
+
+/* The strip along the bottom of the screen that the corgi walks across */
+.corgi-stage {
+  position: relative;
+  flex-shrink: 0;
+  width: 100%;
+  max-width: 640px;
+  height: 150px;
+}
+
+.corgi-walker {
+  position: absolute;
+  bottom: 14px;
+  width: 110px;
+  animation: corgi-stroll 26s ease-in-out infinite;
+}
+
+/* Soft shadow on the path under the corgi's feet */
+.corgi-walker::after {
+  content: "";
+  position: absolute;
+  left: 18%;
+  right: 18%;
+  bottom: -4px;
+  height: 10px;
+  border-radius: 50%;
+  background: rgba(120, 100, 70, 0.15);
+}
+
+.corgi-turn {
+  animation: corgi-turn 26s linear infinite;
+}
+
+.corgi-hop {
+  position: relative;
+  transform-origin: 50% 100%;
+  animation: corgi-hop 0.7s ease-in-out infinite;
+}
+
+.corgi-hop img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+/* The picture faces left, so: walk left, pause and look around, turn, walk right, pause, turn */
+@keyframes corgi-stroll {
+  0%, 4%    { left: calc(96% - 110px); }
+  44%, 54%  { left: 4%; }
+  94%, 100% { left: calc(96% - 110px); }
+}
+
+@keyframes corgi-turn {
+  0%, 48%   { transform: scaleX(1); }
+  50%, 98%  { transform: scaleX(-1); }
+  100%      { transform: scaleX(1); }
+}
+
+/* A happy little bounce: up on each step, leaning side to side */
+@keyframes corgi-hop {
+  0%, 100% { transform: translateY(0) rotate(-3deg); }
+  25%      { transform: translateY(-7px) rotate(0deg); }
+  50%      { transform: translateY(0) rotate(3deg); }
+  75%      { transform: translateY(-7px) rotate(0deg); }
+}
+
+/* Go! grows the corgi to fill the screen; the rest of the page fades out */
+.corgi-zoom {
+  z-index: 10;
+  transition: transform 0.9s ease-in-out;
+}
 
 .login-page.zooming {
   overflow: hidden;
 }
 
-.logo-zoom {
-  position: relative;
-  z-index: 10;
-  transition: transform 0.9s ease-in-out;
-}
-
-.login-page.zooming .welcome-text,
-.login-page.zooming .login-form,
-.login-page.zooming .signup-text {
+.login-page.zooming .login-card {
   opacity: 0;
   transition: opacity 0.3s ease-out;
 }
 
-/* LOGIN: sparkle on the corgi's winking eye (see app/page.tsx) */
-
-.logo-art {
-  position: relative;
-  display: block;
-  width: 100%;
-  max-width: 300px;
-}
-
+/* Sparkle on the corgi's winking eye */
 .wink-sparkle {
   position: absolute;
-  /* Just above the outer corner of the wink in logo-full.png, about (77, 210) of 513 × 371 */
-  left: 15%;
-  top: 56.6%;
-  width: 6%;
+  /* Just above the outer corner of the wink in pup.png, about (76, 102) of 218 × 263 */
+  left: 34.9%;
+  top: 38.8%;
+  width: 15%;
   translate: -50% -50%;
   fill: #fff;
   filter: drop-shadow(0 0 1px #f5a623) drop-shadow(0 0 4px rgba(255, 200, 80, 0.9));
@@ -2140,8 +2237,16 @@ body {
   100% { opacity: 0; transform: scale(0.2) rotate(110deg); }
 }
 
+/* Reduced motion: the corgi stands still in the middle of the path */
 @media (prefers-reduced-motion: reduce) {
+  .corgi-walker,
+  .corgi-turn,
+  .corgi-hop,
   .wink-sparkle {
     animation: none;
+  }
+
+  .corgi-walker {
+    left: calc(50% - 55px);
   }
 }

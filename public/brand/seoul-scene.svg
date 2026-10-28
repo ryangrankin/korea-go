@@ -1,0 +1,81 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 1000" preserveAspectRatio="xMidYMax slice">
+  <!-- Login background: Gyeongbokgung palace with Namsan Tower behind, in soft pastels.
+       Phones only see the middle (about x 370-830), so the palace and tower sit there.
+       The pale walking path along the bottom (y 925+) is where the corgi walks. -->
+  <defs>
+    <linearGradient id="sky" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#eaf2f8"/>
+      <stop offset="0.7" stop-color="#fbf8f2"/>
+    </linearGradient>
+  </defs>
+
+  <!-- Sky, sun, clouds -->
+  <rect width="1200" height="1000" fill="url(#sky)"/>
+  <circle cx="980" cy="330" r="52" fill="#fcefd9"/>
+  <g fill="#ffffff" opacity="0.85">
+    <ellipse cx="250" cy="300" rx="90" ry="22"/>
+    <ellipse cx="300" cy="285" rx="55" ry="22"/>
+    <ellipse cx="640" cy="230" rx="70" ry="16"/>
+    <ellipse cx="900" cy="250" rx="80" ry="18"/>
+    <ellipse cx="860" cy="238" rx="45" ry="18"/>
+  </g>
+
+  <!-- Far mountains -->
+  <path d="M0 700 L0 560 Q120 470 240 540 Q330 450 450 520 Q560 430 660 520 Q780 470 880 540 Q1000 450 1100 520 Q1160 500 1200 530 L1200 700 Z" fill="#e5ecf1"/>
+
+  <!-- Namsan hill and N Seoul Tower -->
+  <path d="M520 760 Q660 640 760 612 Q870 640 1020 760 Z" fill="#dfe8de"/>
+  <g fill="#c9d3db">
+    <rect x="757" y="400" width="6" height="72"/>
+    <rect x="746" y="468" width="28" height="12" rx="3"/>
+    <rect x="740" y="480" width="40" height="18" rx="6"/>
+    <rect x="754" y="498" width="12" height="118"/>
+  </g>
+
+  <!-- Near hills -->
+  <path d="M0 790 Q170 640 400 770 Z" fill="#e3eae0"/>
+  <path d="M820 790 Q1010 660 1200 740 L1200 790 Z" fill="#e3eae0"/>
+
+  <!-- Pine and cherry trees -->
+  <g fill="#d5e2d1">
+    <ellipse cx="330" cy="815" rx="46" ry="30"/>
+    <ellipse cx="300" cy="830" rx="40" ry="24"/>
+    <ellipse cx="900" cy="818" rx="48" ry="30"/>
+    <ellipse cx="60" cy="830" rx="60" ry="30"/>
+  </g>
+  <g fill="#f4e0e3">
+    <ellipse cx="370" cy="828" rx="36" ry="22"/>
+    <ellipse cx="860" cy="832" rx="34" ry="20"/>
+    <ellipse cx="1130" cy="826" rx="58" ry="28"/>
+  </g>
+
+  <!-- Palace walls with tiled caps -->
+  <rect x="0" y="846" width="1200" height="34" fill="#efe7dc"/>
+  <rect x="0" y="838" width="1200" height="10" fill="#c9d1d6"/>
+
+  <!-- Palace hall: upper roof -->
+  <rect x="512" y="694" width="176" height="8" rx="3" fill="#b5c0c7"/>
+  <path d="M478 730 C520 744 680 744 722 730 L686 700 L514 700 Z" fill="#c2ccd2"/>
+  <rect x="500" y="736" width="200" height="14" fill="#d5e4db"/>
+
+  <!-- Palace hall: lower roof with upturned eaves -->
+  <path d="M420 778 C470 798 730 798 780 778 L738 748 L462 748 Z" fill="#c2ccd2"/>
+  <rect x="455" y="794" width="290" height="10" fill="#d5e4db"/>
+
+  <!-- Palace hall: walls, red columns, stone platform -->
+  <rect x="462" y="804" width="276" height="46" fill="#f4ece3"/>
+  <g fill="#e8c8c0">
+    <rect x="468" y="804" width="9" height="46"/>
+    <rect x="520" y="804" width="9" height="46"/>
+    <rect x="572" y="804" width="9" height="46"/>
+    <rect x="619" y="804" width="9" height="46"/>
+    <rect x="671" y="804" width="9" height="46"/>
+    <rect x="723" y="804" width="9" height="46"/>
+  </g>
+  <rect x="430" y="850" width="340" height="16" fill="#e9e2d6"/>
+  <rect x="400" y="866" width="400" height="16" fill="#e3dccf"/>
+
+  <!-- Ground and walking path -->
+  <rect x="0" y="880" width="1200" height="120" fill="#f1ebe0"/>
+  <rect x="0" y="925" width="1200" height="75" fill="#f7f3ec"/>
+</svg>
