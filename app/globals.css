@@ -2254,3 +2254,24 @@ body {
     left: calc(50% - var(--corgi-width) / 2);
   }
 }
+
+/* LOGIN & SIGN UP: message under the button when something goes wrong */
+
+.form-error {
+  color: #c0392b;
+  font-size: 14px;
+  text-align: center;
+}
+
+.signup-form button.primary-button {
+  width: 100%;
+  border: none;
+  cursor: pointer;
+  font-family: inherit;
+}
+
+.login-form button:disabled,
+.signup-form button:disabled {
+  opacity: 0.7;
+  cursor: default;
+}
