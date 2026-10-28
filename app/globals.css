@@ -2091,8 +2091,14 @@ body {
 
 /* LOGIN: Seoul scene with our corgi traveler walking along the path (see app/page.tsx) */
 
+/* The whole login screen fits in the window, so nothing needs scrolling.
+   Sizes shrink with the window height (vh) on short screens. */
 .login-page {
+  --corgi-width: clamp(76px, 14vh, 110px);
+  min-height: 100vh;
+  min-height: 100dvh; /* phones: the visible height, not counting the browser bars */
   flex-direction: column;
+  padding-top: clamp(12px, 3vh, 32px);
   padding-bottom: 0;
   /* Scene is anchored to the bottom so its walking path lines up with .corgi-stage */
   background: #f7f3ec url("/brand/seoul-scene.svg") center bottom / cover no-repeat;
@@ -2103,11 +2109,13 @@ body {
 }
 
 .login-card .logo {
-  margin-bottom: 20px;
+  margin-bottom: clamp(8px, 2vh, 20px);
 }
 
 .login-card .logo img {
+  width: auto;
   max-width: 170px;
+  max-height: clamp(70px, 17vh, 148px);
 }
 
 @media (min-width: 600px) {
@@ -2116,18 +2124,14 @@ body {
   }
 
   .login-card {
+    padding-top: clamp(20px, 4vh, 40px);
+    padding-bottom: clamp(20px, 4vh, 40px);
     background: rgba(255, 255, 255, 0.92);
   }
 }
 
-/* Laptops: card on the left so the palace and tower stay in view, and the corgi gets the whole path */
+/* Laptops: the corgi gets the whole width of the path */
 @media (min-width: 900px) {
-  .login-page {
-    align-items: flex-start;
-    padding-left: max(48px, 5vw);
-    padding-right: max(48px, 5vw);
-  }
-
   .corgi-stage {
     max-width: none;
   }
@@ -2139,13 +2143,13 @@ body {
   flex-shrink: 0;
   width: 100%;
   max-width: 640px;
-  height: 150px;
+  height: calc(var(--corgi-width) * 1.36);
 }
 
 .corgi-walker {
   position: absolute;
-  bottom: 14px;
-  width: 110px;
+  bottom: 10px;
+  width: var(--corgi-width);
   animation: corgi-stroll 26s ease-in-out infinite;
 }
 
@@ -2179,9 +2183,9 @@ body {
 
 /* The picture faces left, so: walk left, pause and look around, turn, walk right, pause, turn */
 @keyframes corgi-stroll {
-  0%, 4%    { left: calc(96% - 110px); }
+  0%, 4%    { left: calc(96% - var(--corgi-width)); }
   44%, 54%  { left: 4%; }
-  94%, 100% { left: calc(96% - 110px); }
+  94%, 100% { left: calc(96% - var(--corgi-width)); }
 }
 
 @keyframes corgi-turn {
@@ -2247,6 +2251,6 @@ body {
   }
 
   .corgi-walker {
-    left: calc(50% - 55px);
+    left: calc(50% - var(--corgi-width) / 2);
   }
 }
