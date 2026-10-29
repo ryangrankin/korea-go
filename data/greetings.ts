@@ -529,6 +529,7 @@ export const greetingsUnit: Unit = {
   description: "Say hello, introduce yourself, and ask for help.",
   icon: "👋",
   image: "/units/greetings.svg",
+  color: "#9b7bd4",
 
   lessons: [
     {

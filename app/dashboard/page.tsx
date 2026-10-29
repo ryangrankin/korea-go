@@ -1,7 +1,7 @@
 
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useState, type CSSProperties } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import Pup from "../../components/Pup";
@@ -148,7 +148,11 @@ export default function DashboardPage() {
               ).length;
 
               return (
-                <div key={unit.id} className="unit-card">
+                <div
+                  key={unit.id}
+                  className="unit-card"
+                  style={unit.color ? ({ "--unit-color": unit.color } as CSSProperties) : undefined}
+                >
                   {/* UNIT HEADER */}
                   <div className="unit-header">
                     {!unit.image && (

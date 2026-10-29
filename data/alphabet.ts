@@ -760,6 +760,7 @@ export const alphabetUnit: Unit = {
   description: "Start here: learn to read Korean letters.",
   icon: "가",
   image: "/units/hangeul.svg",
+  color: "#3976b8",
 
   lessons: [
     {
