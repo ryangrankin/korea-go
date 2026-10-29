@@ -947,6 +947,10 @@ export const foodUnit: Unit = {
   icon: "🍜",
   image: "/units/food.svg",
   color: "#f28c28",
+  photo: {
+    src: "/lesson-photos/food.jpg",
+    alt: "A GS25 convenience store and cafe above the Itaewon sign in Seoul",
+  },
 
   lessons: [
     {
