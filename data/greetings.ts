@@ -32,14 +32,16 @@ import type {
   ConversationLine,
   GrammarNote,
   ChoiceQuestion,
+  GameStep,
 } from "./lessons";
 
 // ---------------------------------------------------------------
-// WHO IS TALKING in the conversations
+// WHO IS TALKING in the conversations and game
 // ---------------------------------------------------------------
 const speakers: Record<string, Speaker> = {
   traveler: { name: "Emma (traveler)", emoji: "🧳" },
   staff: { name: "Airport staff", emoji: "👩‍✈️" },
+  friend: { name: "Minjun (new friend)", emoji: "🙂" },
 };
 
 // ===============================================================
@@ -370,6 +372,141 @@ const lesson4Missions: ChoiceQuestion[] = [
 ];
 
 // ===============================================================
+// LESSON 5 — GAME: your first hour in Korea
+// Each step: a situation, (optional) what someone says to you,
+// then the options to choose from.
+// ===============================================================
+const gameSteps: GameStep[] = [
+  {
+    place: "👩‍✈️ Information desk",
+    prompt: "You just landed and walk up to the information desk. Greet the staff member.",
+    options: ["안녕히 가세요.", "안녕하세요.", "네."],
+    answer: "안녕하세요.",
+    explanation: "안녕하세요 is the polite \"hello.\" She smiles back. 👋",
+    hints: {
+      "안녕히 가세요.": "That's a goodbye. You're just arriving!",
+      "네.": "네 means \"yes.\" Start with a greeting.",
+    },
+  },
+  {
+    place: "👩‍✈️ Information desk",
+    speaker: "staff",
+    line: { korean: "이름이 뭐예요?", romanization: "ireumi mwoyeyo?", english: "What is your name?" },
+    prompt: "Your name is Emma. Answer her.",
+    options: ["저는 엠마이에요.", "이름이 뭐예요?", "저는 엠마예요."],
+    answer: "저는 엠마예요.",
+    explanation: "엠마 ends in a vowel, so it takes 예요.",
+    hints: {
+      "저는 엠마이에요.": "Almost! 엠마 ends in a vowel (ㅏ). Vowel → 예요.",
+      "이름이 뭐예요?": "That asks HER name. Tell her yours.",
+    },
+  },
+  {
+    place: "👩‍✈️ Information desk",
+    speaker: "staff",
+    line: { korean: "어디에서 왔어요?", romanization: "eodieseo wasseoyo?", english: "Where are you from?" },
+    prompt: "You're from Hawaiʻi.",
+    options: ["저는 하와이에서 왔어요.", "한국에 처음 왔어요.", "어디에서 왔어요?"],
+    answer: "저는 하와이에서 왔어요.",
+    explanation: "___에서 왔어요 = I came from ___. 🌺",
+    hints: {
+      "한국에 처음 왔어요.": "That says it's your first time in Korea. She asked where you're FROM (어디에서).",
+      "어디에서 왔어요?": "That asks the same question back. Answer it first!",
+    },
+  },
+  {
+    place: "👩‍✈️ Information desk",
+    prompt: "She says your Korean is good. Tell her you're learning Korean.",
+    options: ["영어 할 수 있나요?", "한국어를 배워요.", "죄송합니다."],
+    answer: "한국어를 배워요.",
+    explanation: "한국어 = Korean (language), 배워요 = I'm learning. 📚",
+    hints: {
+      "영어 할 수 있나요?": "That asks if she speaks English. Look for 한국어 (Korean).",
+      "죄송합니다.": "No need to apologize! Look for 배워요 (I'm learning).",
+    },
+  },
+  {
+    place: "👋 Leaving the desk",
+    prompt: "You're done. YOU are leaving, and she is STAYING at the desk. Say goodbye.",
+    options: ["안녕히 계세요.", "안녕히 가세요.", "안녕하세요."],
+    answer: "안녕히 계세요.",
+    explanation: "계세요 = stay. You say 안녕히 계세요 to the person who stays behind.",
+    hints: {
+      "안녕히 가세요.": "가세요 means \"go.\" She isn't going anywhere — you are.",
+      "안녕하세요.": "That's \"hello.\" You need a goodbye.",
+    },
+  },
+  {
+    place: "💥 In the crowd",
+    prompt: "Oops — your suitcase rolls into someone's foot.",
+    options: ["네.", "안녕하세요.", "죄송합니다."],
+    answer: "죄송합니다.",
+    explanation: "죄송합니다 = I'm sorry (polite). They nod. It's OK!",
+    hints: {
+      "네.": "네 means \"yes.\" You need an apology.",
+      "안녕하세요.": "That's \"hello.\" You need an apology.",
+    },
+  },
+  {
+    place: "🚻 Arrivals hall",
+    prompt: "Long flight. You need the bathroom. Ask a staff member.",
+    options: ["화장실이 어디예요?", "화장실이에요.", "어디에서 왔어요?"],
+    answer: "화장실이 어디예요?",
+    explanation: "\"저기예요.\" (It's over there.) 👉 Found it!",
+    hints: {
+      "화장실이에요.": "That says \"It's the bathroom.\" You need to ASK where (어디).",
+      "어디에서 왔어요?": "That asks where someone is from. Look for 화장실 (bathroom).",
+    },
+  },
+  {
+    place: "🗺️ Lost in the airport",
+    prompt: "You can't find the exit and the signs are confusing. Politely ask for help.",
+    options: ["도와주실 수 있나요?", "한국에 처음 왔어요.", "안녕히 가세요."],
+    answer: "도와주실 수 있나요?",
+    explanation: "도와주실 수 있나요? = Could you help me? Someone walks you to the exit. 🙏",
+    hints: {
+      "한국에 처음 왔어요.": "True, but it doesn't ask for help! Look for 도와주실.",
+      "안녕히 가세요.": "That's a goodbye. You need to ask for help.",
+    },
+  },
+  {
+    place: "🏨 Hotel lobby",
+    prompt: "You made it to the city, but where is your hotel? Ask where the Seoul Hotel is.",
+    options: ["서울 호텔는 어디예요?", "서울 호텔은 어디예요?", "서울 호텔이에요."],
+    answer: "서울 호텔은 어디예요?",
+    explanation: "호텔 ends in a consonant (ㄹ), so it takes 은. It's right across the street. 🏨",
+    hints: {
+      "서울 호텔는 어디예요?": "호텔 ends in a consonant (ㄹ). Consonant → 은.",
+      "서울 호텔이에요.": "That says \"It's the Seoul Hotel.\" You need to ASK where.",
+    },
+  },
+  {
+    place: "🛋️ Hotel lobby",
+    speaker: "friend",
+    line: { korean: "안녕하세요. 저는 민준이에요.", romanization: "annyeonghaseyo. jeoneun minjunieyo.", english: "Hello. I'm Minjun." },
+    prompt: "A friendly guest introduces himself. Ask him where he's from.",
+    options: ["이름이 뭐예요?", "어디에서 왔어요?", "저는 하와이에서 왔어요."],
+    answer: "어디에서 왔어요?",
+    explanation: "\"저는 부산에서 왔어요.\" (I came from Busan.) You just made a friend! 🤝",
+    hints: {
+      "이름이 뭐예요?": "He already told you his name — 민준! Look for 어디 (where).",
+      "저는 하와이에서 왔어요.": "That TELLS where you're from. ASK him first.",
+    },
+  },
+  {
+    place: "🛋️ Hotel lobby",
+    prompt: "Minjun has to go. HE is leaving, and you're STAYING in the lobby. Say goodbye.",
+    options: ["안녕히 계세요.", "안녕히 가세요.", "죄송합니다."],
+    answer: "안녕히 가세요.",
+    explanation: "가세요 = go. You say 안녕히 가세요 to the person who is leaving. 👋",
+    hints: {
+      "안녕히 계세요.": "계세요 means \"stay.\" Minjun isn't staying — he's leaving.",
+      "죄송합니다.": "That means \"I'm sorry.\" You need a goodbye.",
+    },
+  },
+];
+
+// ===============================================================
 // LESSON 5 — Review: listening questions
 // The app speaks the Korean; the learner picks the English.
 // ===============================================================
@@ -471,11 +608,17 @@ export const greetingsUnit: Unit = {
     },
     {
       id: "greetings-5",
-      title: "Review",
-      description: "Flip through every word from this unit, then test your listening.",
+      title: "Game: First hour in Korea",
+      description: "Use everything you've learned to get from the info desk to your hotel, then review.",
       sections: {
         speakers: speakers,
         study: [],
+        game: {
+          title: "Your first hour in Korea",
+          intro: "You've just landed in Korea 🇰🇷. Introduce yourself at the information desk, find the bathroom, get help, and make a new friend at your hotel. Pick the right Korean at each step!",
+          steps: gameSteps,
+          finish: "You got through your first hour in Korea — and made a friend! 🎉 Now review every word.",
+        },
         review: {
           title: "Review",
           flashcards: [

@@ -19,12 +19,14 @@
   - To add a word, copy one whole line (from { to },) and paste it below.
   - In a question, "answer" must match one of the "options" EXACTLY.
   - hints: a helpful hint shown when someone picks a wrong option
+  - In the game, every option is Korean (the app reads it aloud when
+    tapped), so write the options in Hangeul, not English.
 
   This unit is listed in data/lessons.ts, which also describes the
   shape of this data for the computer. You don't need to edit that.
 */
 
-import type { Unit, VocabularyItem, GrammarNote, ChoiceQuestion } from "./lessons";
+import type { Unit, VocabularyItem, GrammarNote, ChoiceQuestion, GameStep } from "./lessons";
 
 // ===============================================================
 // LESSON 1 — Simple vowels
@@ -626,6 +628,113 @@ const lesson6Missions: ChoiceQuestion[] = [
 ];
 
 // ===============================================================
+// LESSON 7 — GAME: read your way around Seoul
+// Each step: a place, what you need, then three Hangeul signs to
+// choose from. Only uses letters and words from Lessons 1–6.
+// ===============================================================
+const gameSteps: GameStep[] = [
+  {
+    place: "🚆 Off the train",
+    prompt: "Your train pulls into the city. A big sign says where you are: \"seo-ul.\" Which sign is it?",
+    options: ["사울", "서울", "서을"],
+    answer: "서울",
+    explanation: "서 (seo) + 울 (ul) = 서울, Seoul! Welcome. 🏙️",
+    hints: {
+      "사울": "사 has ㅏ (a). Seoul starts with ㅓ (eo): 서.",
+      "서을": "을 has the flat ㅡ (eu). You want ㅜ (u): 울.",
+    },
+  },
+  {
+    place: "🚕 Outside the station",
+    prompt: "Your bags are heavy. You want a taxi (\"taek-si\"). Which sign do you follow?",
+    options: ["버스", "기차", "택시"],
+    answer: "택시",
+    explanation: "택 (taek) + 시 (si) = 택시. You hop in. 🚕",
+    hints: {
+      "버스": "버스 is \"beo-seu\" — a bus. Look for the airy ㅌ (t).",
+      "기차": "기차 is \"gi-cha\" — a train. You just got off one!",
+    },
+  },
+  {
+    place: "🏨 On the street",
+    prompt: "The taxi stops between three buildings. Which one is your hotel (\"ho-tel\")?",
+    options: ["호텔", "모텔", "고텔"],
+    answer: "호텔",
+    explanation: "호 (ho) + 텔 (tel) = 호텔. You check in and drop your bags.",
+    hints: {
+      "모텔": "ㅁ is \"m\" — that's a motel! Hotel starts with ㅎ (h).",
+      "고텔": "ㄱ is \"g.\" Hotel starts with ㅎ (h).",
+    },
+  },
+  {
+    place: "☕ A café",
+    prompt: "You need a coffee (\"keo-pi\"). Which one do you point to on the menu?",
+    options: ["커피", "코피", "피자"],
+    answer: "커피",
+    explanation: "커 (keo) + 피 (pi) = 커피. ☕",
+    hints: {
+      "코피": "코 has ㅗ (o). 코피 means a nosebleed! Coffee uses ㅓ (eo): 커.",
+      "피자": "피자 is \"pi-ja\" — pizza. Look for 커 at the start.",
+    },
+  },
+  {
+    place: "🥛 Still at the café",
+    prompt: "Your friend doesn't drink coffee. They want milk (\"u-yu\").",
+    options: ["여우", "우유", "이유"],
+    answer: "우유",
+    explanation: "우 (u) + 유 (yu) = 우유. 🥛",
+    hints: {
+      "여우": "여우 is \"yeo-u\" — a fox! 🦊 Milk starts with 우.",
+      "이유": "이유 is \"i-yu\" — a reason. Milk starts with 우 (u).",
+    },
+  },
+  {
+    place: "🍚 Lunch",
+    prompt: "At a small restaurant, you want a side of kimchi (\"gim-chi\"). Which word is on the menu?",
+    options: ["김치", "고기", "기차"],
+    answer: "김치",
+    explanation: "김 (gim) + 치 (chi) = 김치. Spicy! 🌶️",
+    hints: {
+      "고기": "고기 is \"go-gi\" — meat. Kimchi starts with 김.",
+      "기차": "기차 is a train — you can't eat that! Look for the ㅁ at the bottom of 김.",
+    },
+  },
+  {
+    place: "💧 Still at lunch",
+    prompt: "That kimchi was spicy. Quick, find the water (\"mul\")!",
+    options: ["문", "밥", "물"],
+    answer: "물",
+    explanation: "ㅁ + ㅜ + ㄹ = 물. ㄹ at the bottom says \"l.\" Ahh. 💧",
+    hints: {
+      "문": "ㄴ at the bottom says \"n\" — 문 (mun) is a door! 🚪",
+      "밥": "밥 is \"bap\" — rice. Water starts with ㅁ (m).",
+    },
+  },
+  {
+    place: "🍦 Dessert",
+    prompt: "Time for something sweet. You want ice cream (\"a-i-seu-keu-rim\").",
+    options: ["아이", "아이스크림", "바나나"],
+    answer: "아이스크림",
+    explanation: "아 + 이 + 스 + 크 + 림 = 아이스크림. Korean adds ㅡ (eu) between the English consonants. 🍦",
+    hints: {
+      "아이": "아이 means \"child\" — it's only the start of the word you want.",
+      "바나나": "바나나 is banana. Look for the longer word starting with 아이.",
+    },
+  },
+  {
+    place: "🚌 Heading to the beach",
+    prompt: "You want to see the sea (\"ba-da\"). Which sign on the bus shows where it's going?",
+    options: ["나비", "바나나", "바다"],
+    answer: "바다",
+    explanation: "바 (ba) + 다 (da) = 바다, the sea. 🌊 You read your way around Seoul!",
+    hints: {
+      "나비": "나비 is \"na-bi\" — a butterfly. 🦋 The sea starts with ㅂ (b).",
+      "바나나": "Close! 바나나 is banana. The sea is just two blocks: 바 + 다.",
+    },
+  },
+];
+
+// ===============================================================
 // LESSON 7 — Review: listening questions
 // The app speaks the Korean; the learner picks the answer.
 // ===============================================================
@@ -792,11 +901,17 @@ export const alphabetUnit: Unit = {
     },
     {
       id: "hangeul-7",
-      title: "Review",
-      description: "Flip through every letter, then test your listening.",
+      title: "Game: Read Seoul",
+      description: "Read real signs and menus to get around Seoul, then review every letter.",
       sections: {
         speakers: {},
         study: [],
+        game: {
+          title: "Read your way around Seoul",
+          intro: "You just arrived in Seoul 🇰🇷 and everything is written in Hangeul. Find a taxi, your hotel, food, and the sea by reading the signs. Pick the right sign at each step!",
+          steps: gameSteps,
+          finish: "You got around Seoul by reading Hangeul! 🎉 Now review every letter.",
+        },
         review: {
           title: "Review",
           flashcards: [
