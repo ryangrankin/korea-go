@@ -3,11 +3,13 @@
 
 import { useState } from "react";
 import Link from "next/link";
+import Avatar from "../../components/Avatar";
 import BottomNav from "../../components/BottomNav";
 import { sampleFriends } from "../../data/sampleFriends";
 import { formatTime, useGameStats } from "../../lib/gameScores";
 import { MATCH_SETS } from "../../lib/matchSets";
-import { useMyUsername } from "../../lib/username";
+import { useCommunity } from "../../lib/community";
+import { useMyProfile } from "../../lib/username";
 
 type Board = "points" | "times";
 
@@ -25,7 +27,9 @@ export default function FriendsPage() {
   const [board, setBoard] = useState<Board>("points");
   const [setId, setSetId] = useState(MATCH_SETS[0]?.id ?? "");
   const stats = useGameStats();
-  const myUsername = useMyUsername();
+  const myProfile = useMyProfile();
+  const myUsername = myProfile?.username;
+  const community = useCommunity();
 
   // Leaderboard rows: you plus your friends.
   // Points: highest first. Times: fastest first, no time yet at the bottom.
@@ -104,9 +108,11 @@ export default function FriendsPage() {
                   <span className="leaderboard-rank">
                     {row.value === undefined ? "–" : MEDALS[index] ?? index + 1}
                   </span>
-                  <span className="leaderboard-avatar" aria-hidden="true">
-                    {row.isYou ? "⭐" : "👤"}
-                  </span>
+                  <Avatar
+                    url={row.isYou ? myProfile?.avatarUrl : null}
+                    className="leaderboard-avatar"
+                    fallback={row.isYou ? "⭐" : "👤"}
+                  />
                   <span className="leaderboard-name">{row.name}</span>
                   <span className="leaderboard-value">
                     {row.value === undefined
@@ -189,6 +195,40 @@ export default function FriendsPage() {
                 Friend requests will be available when accounts
                 are connected.
               </p>
+            </div>
+
+            {/* COMMUNITY: every korea-go user and their total points */}
+            <div className="friends-section">
+              <h2>Community</h2>
+
+              {community === undefined ? (
+                <p className="friends-note">Loading…</p>
+              ) : community === null ? (
+                <p className="friends-note">
+                  <Link href="/signup">Sign up</Link> or log in to see everyone learning on korea GO!
+                </p>
+              ) : community.length === 0 ? (
+                <p className="friends-note">No one here yet. Choose a username on your Profile to be first!</p>
+              ) : (
+                <ol className="community-list">
+                  {community.map((member, index) => (
+                    <li key={member.username} className={member.username === myUsername ? "you" : ""}>
+                      <span className="community-rank">{MEDALS[index] ?? index + 1}</span>
+                      <Avatar url={member.avatar_url} className="friend-avatar" />
+                      <span className="community-name">
+                        <strong>
+                          {member.username}
+                          {member.username === myUsername ? " (you)" : ""}
+                        </strong>
+                        <small>
+                          {member.games_played} {member.games_played === 1 ? "game" : "games"} played
+                        </small>
+                      </span>
+                      <span className="community-points">{member.total_points.toLocaleString()} pts</span>
+                    </li>
+                  ))}
+                </ol>
+              )}
             </div>
           </div>
         </div>
