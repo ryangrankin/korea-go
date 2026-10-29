@@ -761,6 +761,10 @@ export const alphabetUnit: Unit = {
   icon: "가",
   image: "/units/hangeul.svg",
   color: "#3976b8",
+  photo: {
+    src: "/lesson-photos/hangeul.jpg",
+    alt: "Janganmun, the north gate of Hwaseong Fortress in Suwon",
+  },
 
   lessons: [
     {

@@ -28,6 +28,7 @@ async function LessonContent({ params }: PageProps) {
       key={lessonId}
       lessonId={lessonId}
       eyebrow={eyebrow}
+      photo={unitIndex >= 0 ? units[unitIndex].photo : undefined}
       nextLesson={next && { id: next.id, title: next.title }}
       title={lesson?.title ?? "Lesson Coming Soon"}
       description={lesson?.description ?? "Content will be added soon."}

@@ -771,3 +771,16 @@
     padding: 28px 32px 8px;
   }
 }
+
+/* The unit's photo as a strip along the top of the lesson.
+   A strip (not a faded background) keeps busy lesson cards easy to read. */
+.lesson-photo {
+  display: block;
+  width: 100%;
+  height: auto;
+  aspect-ratio: 12 / 5;
+  object-fit: cover;
+  border-radius: 18px;
+  margin: -12px 0 20px;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.08);
+}

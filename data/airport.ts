@@ -406,6 +406,10 @@ export const airportUnit: Unit = {
   icon: "✈️",
   image: "/units/airport.svg",
   color: "#2a9d8f",
+  photo: {
+    src: "/lesson-photos/airport.jpg",
+    alt: "A blue Seoul city bus passing an old stone building downtown",
+  },
 
   lessons: [
     {

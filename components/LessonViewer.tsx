@@ -6,6 +6,7 @@ import Link from "next/link";
 import { completeLesson } from "../lib/lessonProgress";
 import type { LessonSections } from "../data/lessons";
 import SectionedLesson from "./lesson/SectionedLesson";
+import LessonPhoto from "./lesson/LessonPhoto";
 
 type LessonViewerProps = {
   lessonId: string;
@@ -20,6 +21,7 @@ type LessonViewerProps = {
   // Lessons with sections (conversation, missions, game, review)
   sections?: LessonSections;
   eyebrow?: string; // e.g. "Unit 1 · Lesson 2"
+  photo?: { src: string; alt: string }; // the unit's photo, shown as a banner
   nextLesson?: { id: string; title: string };
 };
 
@@ -30,6 +32,7 @@ export default function LessonViewer({
   items,
   sections,
   eyebrow,
+  photo,
   nextLesson,
 }: LessonViewerProps) {
   const [currentStep, setCurrentStep] = useState(0);
@@ -57,6 +60,7 @@ export default function LessonViewer({
         title={title}
         description={description}
         eyebrow={eyebrow}
+        photo={photo}
         sections={sections}
         showRomanization={showRomanization}
         nextLesson={nextLesson}
@@ -91,6 +95,8 @@ export default function LessonViewer({
         <Link href="/dashboard" className="back-button">
           ← Dashboard
         </Link>
+
+        {photo && <LessonPhoto {...photo} />}
 
         <h1>{title}</h1>
         <p>{description}</p>

@@ -33,6 +33,7 @@ export type Unit = {
   icon: string;
   image?: string; // drawing shown on the unit's card, e.g. "/units/food.svg" (falls back to `icon`)
   color?: string; // strip along the top of the unit's card, e.g. "#f28c28"
+  photo?: { src: string; alt: string }; // banner at the top of each lesson in the unit
   lessons: Lesson[]; // an empty list shows the unit as "Coming soon"
 };
 
