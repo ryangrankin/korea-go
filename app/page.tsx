@@ -4,6 +4,7 @@ import { useEffect, useRef, useState, type CSSProperties, type FormEvent } from 
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
+import VisitorCounter from "../components/VisitorCounter";
 import { loadProgressFromAccount } from "../lib/accountSync";
 import { endGuest, startGuest } from "../lib/guest";
 import { ACCOUNTS_OFF_MESSAGE, supabase } from "../lib/supabase";
@@ -97,6 +98,8 @@ export default function Home() {
 
   return (
     <main className={zoom ? "login-page zooming" : "login-page"}>
+      <VisitorCounter />
+
       <div className="login-card">
 
         <div className="logo">
