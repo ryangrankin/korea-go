@@ -404,6 +404,7 @@ export const airportUnit: Unit = {
   title: "Airport",
   description: "Get through Incheon Airport and into the city.",
   icon: "✈️",
+  image: "/units/airport.svg",
 
   lessons: [
     {

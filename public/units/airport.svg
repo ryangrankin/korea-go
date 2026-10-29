@@ -1,0 +1,36 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 180" width="240" height="180">
+  <ellipse cx="120" cy="166" rx="96" ry="8" fill="#000" opacity="0.08"/>
+  <g stroke="#4a3b32" stroke-width="3" stroke-linejoin="round" stroke-linecap="round">
+    <!-- clouds -->
+    <path d="M24,62 Q24,48 38,50 Q42,36 58,42 Q70,36 74,50 Q86,52 82,62 Z" fill="#ffffff"/>
+    <path d="M168,34 Q168,24 178,26 Q182,16 194,22 Q204,18 206,28 Q216,30 212,38 Z" fill="#ffffff"/>
+    <!-- airplane -->
+    <g transform="translate(130,58) rotate(-14)">
+      <path d="M-26,-4 L-6,-36 L6,-36 L0,-4 Z" fill="#3976b8"/>
+      <path d="M-74,-6 L-82,-26 L-72,-26 L-60,-8 Z" fill="#d9412b"/>
+      <path d="M-80,-8 Q-80,-14 -70,-14 L56,-14 Q80,-14 84,0 Q80,10 56,10 L-70,10 Q-80,10 -80,0 Z" fill="#ffffff"/>
+      <path d="M62,-10 Q74,-8 78,-2 L62,-2 Z" fill="#8ec5f0" stroke-width="2"/>
+      <g fill="#8ec5f0" stroke-width="2">
+        <circle cx="-44" cy="-2" r="3.5"/><circle cx="-30" cy="-2" r="3.5"/><circle cx="-16" cy="-2" r="3.5"/>
+        <circle cx="-2" cy="-2" r="3.5"/><circle cx="12" cy="-2" r="3.5"/><circle cx="26" cy="-2" r="3.5"/><circle cx="40" cy="-2" r="3.5"/>
+      </g>
+      <path d="M-24,4 L-4,34 L8,34 L2,4 Z" fill="#3976b8"/>
+    </g>
+    <!-- suitcase -->
+    <path d="M58,96 V86 Q58,80 64,80 H84 Q90,80 90,86 V96" fill="none" stroke-width="5"/>
+    <rect x="38" y="96" width="72" height="62" rx="10" fill="#f28c28"/>
+    <path d="M56,96 V158 M92,96 V158" fill="none" stroke="#d9741a" stroke-width="5"/>
+    <circle cx="50" cy="162" r="5" fill="#4a3b32"/>
+    <circle cx="98" cy="162" r="5" fill="#4a3b32"/>
+    <!-- luggage tag -->
+    <path d="M110,108 Q122,110 124,118" fill="none" stroke-width="2"/>
+    <rect x="116" y="116" width="22" height="28" rx="4" fill="#fff3e0" transform="rotate(10 127 130)"/>
+    <!-- passport -->
+    <g transform="translate(176,124) rotate(8)">
+      <rect x="-24" y="-32" width="48" height="64" rx="5" fill="#2f4f8a"/>
+      <circle cx="0" cy="-6" r="11" fill="none" stroke="#f2c94c" stroke-width="2.5"/>
+      <path d="M-11,-6 H11 M0,-17 Q-6,-6 0,5 Q6,-6 0,-17" fill="none" stroke="#f2c94c" stroke-width="2"/>
+      <path d="M-12,16 H12" stroke="#f2c94c" stroke-width="2.5"/>
+    </g>
+  </g>
+</svg>
