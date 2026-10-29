@@ -65,25 +65,23 @@ export default function DashboardPage() {
           <div className="streak">🔥 3</div>
         </header>
 
-        {/* OVERVIEW: level, greeting, progress (side by side on laptops) */}
+        {/* OVERVIEW: the pup off to the side, with greeting, level and progress next to it */}
         <div className="dashboard-overview">
+          <Link href="/my-pup" className="dashboard-mascot" aria-label="Dress up your pup">
+            <Pup size={200} />
+          </Link>
+
+          {/* GREETING */}
+          <section className="dashboard-greeting">
+            <h1>Good afternoon!</h1>
+            <p>잘 지내고 계신가요?</p>
+          </section>
+
           {/* USER LEVEL */}
           <div className="dashboard-level">
             <p>Your Level</p>
             <strong>{level}</strong>
           </div>
-
-          {/* GREETING */}
-          <section className="dashboard-greeting">
-            <div>
-              <h1>Good afternoon!</h1>
-              <p>잘 지내고 계신가요?</p>
-            </div>
-
-            <Link href="/my-pup" className="dashboard-mascot" aria-label="Dress up your pup">
-              <Pup size={84} />
-            </Link>
-          </section>
 
           {/* OVERALL PROGRESS */}
           <section className="progress-section">
@@ -143,9 +141,11 @@ export default function DashboardPage() {
                 <div key={unit.id} className="unit-card">
                   {/* UNIT HEADER */}
                   <div className="unit-header">
-                    <div className="lesson-icon" lang="ko">
-                      {unit.icon}
-                    </div>
+                    {!unit.image && (
+                      <div className="lesson-icon" lang="ko">
+                        {unit.icon}
+                      </div>
+                    )}
 
                     <div className="lesson-info">
                       <p className="unit-label">Unit {unitIndex}</p>
@@ -169,6 +169,17 @@ export default function DashboardPage() {
                         />
                       </div>
                     </div>
+
+                    {/* A drawing of what the unit is about */}
+                    {unit.image && (
+                      <Image
+                        src={unit.image}
+                        alt=""
+                        width={240}
+                        height={180}
+                        className="unit-picture"
+                      />
+                    )}
                   </div>
 
                   {/* SHORT LESSONS IN THIS UNIT */}

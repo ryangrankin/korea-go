@@ -759,6 +759,7 @@ export const alphabetUnit: Unit = {
   title: "Hangeul Alphabet",
   description: "Start here: learn to read Korean letters.",
   icon: "가",
+  image: "/units/hangeul.svg",
 
   lessons: [
     {
