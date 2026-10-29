@@ -7,6 +7,7 @@ import BottomNav from "../../components/BottomNav";
 import { sampleFriends } from "../../data/sampleFriends";
 import { formatTime, useGameStats } from "../../lib/gameScores";
 import { MATCH_SETS } from "../../lib/matchSets";
+import { useMyUsername } from "../../lib/username";
 
 type Board = "points" | "times";
 
@@ -24,13 +25,14 @@ export default function FriendsPage() {
   const [board, setBoard] = useState<Board>("points");
   const [setId, setSetId] = useState(MATCH_SETS[0]?.id ?? "");
   const stats = useGameStats();
+  const myUsername = useMyUsername();
 
   // Leaderboard rows: you plus your friends.
   // Points: highest first. Times: fastest first, no time yet at the bottom.
   const rows: Row[] = [
     {
       id: "you",
-      name: "You",
+      name: myUsername ? `${myUsername} (you)` : "You",
       isYou: true,
       value: board === "points" ? stats.weeklyPoints : stats.bestTimes[setId],
     },
