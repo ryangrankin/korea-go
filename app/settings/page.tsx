@@ -6,6 +6,7 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { supabase } from "../../lib/supabase";
 import { clearLocalProgress, saveProgressNow, saveProgressSoon } from "../../lib/accountSync";
+import { endGuest } from "../../lib/guest";
 
 type Preferences = {
   level: string;
@@ -357,6 +358,7 @@ export default function SettingsPage() {
             await saveProgressNow();
             await supabase?.auth.signOut();
             clearLocalProgress();
+            endGuest();
             router.push("/");
           }}
         >

@@ -5,6 +5,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { loadProgressFromAccount } from "../../lib/accountSync";
+import { endGuest } from "../../lib/guest";
 import { ACCOUNTS_OFF_MESSAGE, supabase } from "../../lib/supabase";
 
 export default function SignupPage() {
@@ -31,7 +32,10 @@ export default function SignupPage() {
         data: { name: String(form.get("name")), username: String(form.get("username")) },
       },
     });
-    if (data.session) await loadProgressFromAccount();
+    if (data.session) {
+      endGuest();
+      await loadProgressFromAccount();
+    }
     setSaving(false);
 
     if (error) {
@@ -89,9 +93,11 @@ export default function SignupPage() {
           <input
             name="password"
             type="password"
-            placeholder="Password (at least 6 characters)"
+            placeholder="Password (8+ characters, letters and numbers)"
             autoComplete="new-password"
-            minLength={6}
+            minLength={8}
+            pattern="(?=.*[A-Za-z])(?=.*[0-9]).{8,}"
+            title="At least 8 characters, with at least one letter and one number"
             required
           />
 
