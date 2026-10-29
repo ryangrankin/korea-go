@@ -54,7 +54,7 @@ export default function OnboardingPage() {
         </button>
 
         <Link href="/placement" className="back-button">
-          Take a Placement Test
+          Already know some Korean? Check your skills
         </Link>
       </div>
     </main>

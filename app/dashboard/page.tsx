@@ -16,6 +16,11 @@ import {
   getLessonProgress,
   type LessonProgress,
 } from "../../lib/lessonProgress";
+import { topicForUnit } from "../../data/skillChecks";
+import { topicStatus } from "../../lib/skillChecks";
+import { useSkillProgress } from "../../lib/skillProgress";
+import TopicStatusBadge from "../../components/challenge/TopicStatusBadge";
+import "../../components/challenge/challenge.css";
 
 // "Good morning!" etc., from the hour on the learner's own clock (0–23)
 function greetingFor(hour: number): string {
@@ -29,6 +34,7 @@ export default function DashboardPage() {
   const [greeting, setGreeting] = useState("Hello!");
   const [completedLessons, setCompletedLessons] =
     useState<LessonProgress>({});
+  const skillProgress = useSkillProgress();
 
   useEffect(() => {
     const savedLevel = localStorage.getItem("koreaGoLevel");
@@ -45,17 +51,27 @@ export default function DashboardPage() {
   const isComplete = (lessonId: string) =>
     completedLessons[lessonId] === true;
 
+  // Skipped after a test-out or skill check (and not completed since)
+  const isSkipped = (lessonId: string) =>
+    !isComplete(lessonId) && Boolean(skillProgress.skipped[lessonId]);
+
+  const isDone = (lessonId: string) =>
+    isComplete(lessonId) || isSkipped(lessonId);
+
   const totalLessons = lessons.length;
 
   const completedCount =
-    lessons.filter((lesson) => isComplete(lesson.id)).length;
+    lessons.filter((lesson) => isDone(lesson.id)).length;
+
+  const skippedCount =
+    lessons.filter((lesson) => isSkipped(lesson.id)).length;
 
   const overallProgress = Math.round(
     (completedCount / totalLessons) * 100
   );
 
-  // The first lesson not finished yet
-  const nextUp = lessons.find((lesson) => !isComplete(lesson.id));
+  // The first lesson not finished or skipped yet
+  const nextUp = lessons.find((lesson) => !isDone(lesson.id));
 
   return (
     <main className="dashboard-page">
@@ -112,6 +128,8 @@ export default function DashboardPage() {
                 ? "Complete your first lesson to start tracking progress!"
                 : completedCount === totalLessons
                 ? "Great job! You've completed all available lessons!"
+                : skippedCount > 0
+                ? `${completedCount} of ${totalLessons} lessons done, including ${skippedCount} skipped after a challenge. Keep going!`
                 : `${completedCount} of ${totalLessons} lessons completed. Keep going!`}
             </p>
           </section>
@@ -119,7 +137,12 @@ export default function DashboardPage() {
 
         {/* LESSONS, grouped into units */}
         <section className="lesson-section">
-          <h2>Your Lessons</h2>
+          <div className="lesson-section-heading">
+            <h2>Your Lessons</h2>
+            <Link href="/skill-checks" className="skill-checks-link">
+              💪 Skill checks
+            </Link>
+          </div>
 
           <div className="unit-grid">
             {units.map((unit, unitIndex) => {
@@ -144,8 +167,18 @@ export default function DashboardPage() {
               }
 
               const unitDone = unit.lessons.filter((lesson) =>
-                isComplete(lesson.id)
+                isDone(lesson.id)
               ).length;
+
+              const topic = topicForUnit(unit.id);
+              const status = topicStatus({
+                lessonIds: unit.lessons.map((lesson) => lesson.id),
+                isCompleted: isComplete,
+                isSkipped,
+                lastCheckPassed: topic
+                  ? skillProgress.topics[topic.id]?.lastPassed
+                  : undefined,
+              });
 
               return (
                 <div
@@ -182,6 +215,19 @@ export default function DashboardPage() {
                           }}
                         />
                       </div>
+
+                      {/* Topic status, and the skill check for this unit */}
+                      <div className="unit-skill-row">
+                        <TopicStatusBadge status={status} />
+                        {topic && (
+                          <Link
+                            href={`/skill-checks/${topic.id}`}
+                            className="unit-challenge-link"
+                          >
+                            Challenge yourself →
+                          </Link>
+                        )}
+                      </div>
                     </div>
 
                     {/* A drawing of what the unit is about */}
@@ -200,6 +246,7 @@ export default function DashboardPage() {
                   <ol className="unit-lessons">
                     {unit.lessons.map((lesson, index) => {
                       const complete = isComplete(lesson.id);
+                      const skipped = isSkipped(lesson.id);
                       const isNext = lesson.id === nextUp?.id;
                       const reward = accessoryForLesson(lesson.id);
 
@@ -208,11 +255,11 @@ export default function DashboardPage() {
                           <Link
                             href={`/lessons/${lesson.id}`}
                             className={`unit-lesson ${complete ? "complete" : ""} ${
-                              isNext ? "next" : ""
-                            }`}
+                              skipped ? "skipped" : ""
+                            } ${isNext ? "next" : ""}`}
                           >
                             <span className="unit-lesson-number">
-                              {complete ? "✓" : index + 1}
+                              {complete ? "✓" : skipped ? "⏭" : index + 1}
                             </span>
 
                             <span className="unit-lesson-title">
@@ -222,6 +269,9 @@ export default function DashboardPage() {
                             <span className="unit-lesson-meta">
                               {isNext && (
                                 <span className="unit-lesson-badge">Up next</span>
+                              )}
+                              {skipped && (
+                                <span className="unit-lesson-badge">Skipped</span>
                               )}
                               ~{estimateMinutes(lesson)} min
                               {reward && (

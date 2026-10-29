@@ -1,21 +1,7 @@
-import Link from "next/link";
+import SkillCheckHub from "../../components/challenge/SkillCheckHub";
 
+// Right after sign-up: instead of one placement test, learners check
+// the topics they already know, one by one.
 export default function PlacementPage() {
-  return (
-    <main className="basic-page">
-      <div className="basic-container">
-
-        <Link href="/onboarding" className="back-button">
-          ← Back
-        </Link>
-
-        <h1>This is where the placement test will go!</h1>
-
-        <Link href="/dashboard" className="primary-button">
-          Continue
-        </Link>
-
-      </div>
-    </main>
-  );
+  return <SkillCheckHub fromOnboarding />;
 }

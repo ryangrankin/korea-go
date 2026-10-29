@@ -3,6 +3,7 @@ export const instant = false;
 import { Suspense } from "react";
 import LessonViewer from "../../../components/LessonViewer";
 import { lessons, units } from "../../../data/lessons";
+import { canTestOut } from "../../../data/skillChecks";
 
 type PageProps = {
   params: Promise<{ lessonId: string }>;
@@ -27,6 +28,7 @@ async function LessonContent({ params }: PageProps) {
       // A new key resets the lesson when moving on to the next one.
       key={lessonId}
       lessonId={lessonId}
+      canTestOut={canTestOut(lessonId)}
       eyebrow={eyebrow}
       photo={unitIndex >= 0 ? units[unitIndex].photo : undefined}
       nextLesson={next && { id: next.id, title: next.title }}
