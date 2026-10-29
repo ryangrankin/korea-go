@@ -388,14 +388,13 @@ body {
   font-size: 16px;
 }
 
-/* OVERVIEW: the pup on the left; greeting and level beside it; progress underneath */
+/* OVERVIEW: the pup on the left; greeting beside it; progress underneath */
 
 .dashboard-overview {
   display: grid;
   grid-template-columns: auto 1fr;
   grid-template-areas:
     "mascot greeting"
-    "mascot level"
     "progress progress";
   gap: 12px 16px;
   align-items: center;
@@ -408,13 +407,6 @@ body {
 
 .dashboard-overview .dashboard-greeting {
   grid-area: greeting;
-  align-self: end;
-}
-
-.dashboard-overview .dashboard-level {
-  grid-area: level;
-  align-self: start;
-  margin: 0;
 }
 
 .dashboard-overview .progress-section {
@@ -1190,26 +1182,6 @@ body {
   background: white;
   color: #333;
   font-size: 16px;
-}
-
-/* Dashboard Level */
-
-.dashboard-level {
-  background: #eaf3fc;
-  border-radius: 12px;
-  padding: 14px 18px;
-  margin: 16px 0;
-}
-
-.dashboard-level p {
-  font-size: 13px;
-  color: #555;
-  margin-bottom: 4px;
-}
-
-.dashboard-level strong {
-  color: #3976b8;
-  font-size: 18px;
 }
 
 
@@ -2085,8 +2057,7 @@ body {
   .dashboard-overview {
     grid-template-columns: auto 1.2fr 1fr;
     grid-template-areas:
-      "mascot greeting progress"
-      "mascot level progress";
+      "mascot greeting progress";
     gap: 16px 32px;
   }
 

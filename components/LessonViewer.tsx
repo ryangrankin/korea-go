@@ -7,9 +7,11 @@ import { completeLesson } from "../lib/lessonProgress";
 import type { LessonSections } from "../data/lessons";
 import SectionedLesson from "./lesson/SectionedLesson";
 import LessonPhoto from "./lesson/LessonPhoto";
+import LessonTestOutBar from "./challenge/LessonTestOutBar";
 
 type LessonViewerProps = {
   lessonId: string;
+  canTestOut?: boolean; // the lesson has a "Test out" challenge
   title: string;
   description: string;
   items: {
@@ -27,6 +29,7 @@ type LessonViewerProps = {
 
 export default function LessonViewer({
   lessonId,
+  canTestOut = false,
   title,
   description,
   items,
@@ -57,6 +60,7 @@ export default function LessonViewer({
     return (
       <SectionedLesson
         lessonId={lessonId}
+        canTestOut={canTestOut}
         title={title}
         description={description}
         eyebrow={eyebrow}
@@ -100,6 +104,7 @@ export default function LessonViewer({
 
         <h1>{title}</h1>
         <p>{description}</p>
+        <LessonTestOutBar lessonId={lessonId} canTestOut={canTestOut} />
 
         {/* LESSON PROGRESS */}
         <div className="lesson-progress-track">

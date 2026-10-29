@@ -26,10 +26,12 @@ import StudySection from "./StudySection";
 import NavigationGame from "./NavigationGame";
 import ReviewActivities from "./ReviewActivities";
 import LessonPhoto from "./LessonPhoto";
+import LessonTestOutBar from "../challenge/LessonTestOutBar";
 import "./lesson.css";
 
 type SectionedLessonProps = {
   lessonId: string;
+  canTestOut: boolean; // the lesson has a "Test out" challenge
   title: string;
   description: string;
   eyebrow?: string; // e.g. "Unit 1 · Lesson 2"
@@ -41,6 +43,7 @@ type SectionedLessonProps = {
 
 export default function SectionedLesson({
   lessonId,
+  canTestOut,
   title,
   description,
   eyebrow,
@@ -107,6 +110,8 @@ export default function SectionedLesson({
           <Pup size={72} />
           <p className="pup-bubble">{description}</p>
         </div>
+
+        {!finished && <LessonTestOutBar lessonId={lessonId} canTestOut={canTestOut} />}
 
         {/* Lesson complete */}
         {finished && (
