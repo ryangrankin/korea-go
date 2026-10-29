@@ -4,6 +4,7 @@ import { useEffect, useRef, useState, type CSSProperties, type FormEvent } from 
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
+import { supabase, friendlyAuthError } from "../lib/supabase";
 
 const ZOOM_MS = 900; // keep in sync with .corgi-zoom in globals.css
 
@@ -13,6 +14,10 @@ export default function Home() {
   const corgiRef = useRef<HTMLDivElement>(null);
   const [zoom, setZoom] = useState<CSSProperties | null>(null);
   const goTimer = useRef<ReturnType<typeof setTimeout>>(undefined);
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [error, setError] = useState("");
+  const [checking, setChecking] = useState(false);
 
   // Next.js keeps this page alive in the background after we leave it
   // (cacheComponents in next.config.ts). Undo the zoom and restart the walk
@@ -26,9 +31,19 @@ export default function Home() {
     };
   }, []);
 
-  // No real login yet: Go! zooms the walking corgi to fill the screen, then opens the dashboard.
-  function handleGo(event: FormEvent) {
+  // Go! checks the email and password with Supabase. Only if they're right does
+  // the walking corgi zoom to fill the screen and open the dashboard.
+  async function handleGo(event: FormEvent) {
     event.preventDefault();
+    setError("");
+    setChecking(true);
+    const { error: loginError } = await supabase.auth.signInWithPassword({ email, password });
+    setChecking(false);
+    if (loginError) {
+      setError(friendlyAuthError(loginError));
+      return;
+    }
+
     const stage = stageRef.current;
     const corgi = corgiRef.current;
     const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
@@ -72,17 +87,27 @@ export default function Home() {
 
         <form className="login-form" onSubmit={handleGo}>
           <input
-            type="text"
-            placeholder="Username"
+            type="email"
+            placeholder="Email"
+            autoComplete="email"
+            required
+            value={email}
+            onChange={(event) => setEmail(event.target.value)}
           />
 
           <input
             type="password"
             placeholder="Password"
+            autoComplete="current-password"
+            required
+            value={password}
+            onChange={(event) => setPassword(event.target.value)}
           />
 
-          <button type="submit" disabled={zoom !== null}>
-            Go!
+          {error && <p className="auth-error" role="alert">{error}</p>}
+
+          <button type="submit" disabled={checking || zoom !== null}>
+            {checking ? "Checking..." : "Go!"}
           </button>
         </form>
 

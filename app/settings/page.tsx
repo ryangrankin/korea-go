@@ -4,6 +4,7 @@
 import { useEffect, useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
+import { supabase } from "../../lib/supabase";
 
 type Preferences = {
   level: string;
@@ -345,13 +346,16 @@ export default function SettingsPage() {
           </div>
         </details>
 
-        {/* BACK TO LOGIN */}
+        {/* LOG OUT */}
         <button
           type="button"
           className="settings-logout"
-          onClick={() => router.push("/")}
+          onClick={async () => {
+            await supabase.auth.signOut();
+            router.push("/");
+          }}
         >
-          Log Out (currently not connected!)
+          Log Out
         </button>
 
       </div>

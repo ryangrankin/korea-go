@@ -1,7 +1,38 @@
+"use client";
+
+import { useState, type FormEvent } from "react";
 import Image from "next/image";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
+import { supabase, friendlyAuthError } from "../../lib/supabase";
 
 export default function SignupPage() {
+  const router = useRouter();
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [error, setError] = useState("");
+  const [saving, setSaving] = useState(false);
+
+  // Creates the account. The name rides along as display_name, and a database
+  // trigger copies it into the profiles table, so we don't write profiles here.
+  async function handleSignup(event: FormEvent) {
+    event.preventDefault();
+    setError("");
+    setSaving(true);
+    const { error: signupError } = await supabase.auth.signUp({
+      email,
+      password,
+      options: { data: { display_name: name.trim() } },
+    });
+    setSaving(false);
+    if (signupError) {
+      setError(friendlyAuthError(signupError));
+      return;
+    }
+    router.push("/onboarding");
+  }
+
   return (
     <main className="signup-page">
       <div className="signup-card">
@@ -19,25 +50,40 @@ export default function SignupPage() {
           <Image src="/brand/pup.png" alt="" width={218} height={263} />
         </div>
 
-        <form className="signup-form">
+        <form className="signup-form" onSubmit={handleSignup}>
           <input
             type="text"
             placeholder="Name"
+            autoComplete="name"
+            required
+            value={name}
+            onChange={(event) => setName(event.target.value)}
           />
 
           <input
-            type="text"
-            placeholder="Username"
+            type="email"
+            placeholder="Email"
+            autoComplete="email"
+            required
+            value={email}
+            onChange={(event) => setEmail(event.target.value)}
           />
 
           <input
             type="password"
-            placeholder="Password"
+            placeholder="Password (at least 6 characters)"
+            autoComplete="new-password"
+            minLength={6}
+            required
+            value={password}
+            onChange={(event) => setPassword(event.target.value)}
           />
 
-          <Link href="/onboarding" className="primary-button">
-            Let&apos;s learn!
-          </Link>
+          {error && <p className="auth-error" role="alert">{error}</p>}
+
+          <button type="submit" className="primary-button" disabled={saving}>
+            {saving ? "Creating your account..." : "Let’s learn!"}
+          </button>
         </form>
 
         <p className="login-text">

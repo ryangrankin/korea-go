@@ -1,5 +1,7 @@
 import type { Metadata, Viewport } from "next";
+import { Suspense } from "react";
 import { Geist, Geist_Mono } from "next/font/google";
+import AuthRedirect from "../components/AuthRedirect";
 import "./globals.css";
 
 const geistSans = Geist({
@@ -30,7 +32,13 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
       lang="en"
       className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
     >
-      <body className="min-h-full flex flex-col">{children}</body>
+      <body className="min-h-full flex flex-col">
+        {/* Suspense is needed because AuthRedirect reads the URL (cacheComponents is on). */}
+        <Suspense fallback={null}>
+          <AuthRedirect />
+        </Suspense>
+        {children}
+      </body>
     </html>
   );
 }
