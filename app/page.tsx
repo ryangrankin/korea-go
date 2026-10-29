@@ -4,6 +4,7 @@ import { useEffect, useRef, useState, type CSSProperties, type FormEvent } from 
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
+import { ACCOUNTS_OFF_MESSAGE, supabase } from "../lib/supabase";
 
 const ZOOM_MS = 900; // keep in sync with .corgi-zoom in globals.css
 
@@ -12,6 +13,8 @@ export default function Home() {
   const stageRef = useRef<HTMLDivElement>(null);
   const corgiRef = useRef<HTMLDivElement>(null);
   const [zoom, setZoom] = useState<CSSProperties | null>(null);
+  const [loggingIn, setLoggingIn] = useState(false);
+  const [error, setError] = useState<string | null>(null);
   const goTimer = useRef<ReturnType<typeof setTimeout>>(undefined);
 
   // Next.js keeps this page alive in the background after we leave it
@@ -22,13 +25,38 @@ export default function Home() {
     return () => {
       clearTimeout(goTimer.current);
       setZoom(null);
+      setLoggingIn(false);
+      setError(null);
       stage?.getAnimations({ subtree: true }).forEach((animation) => animation.play());
     };
   }, []);
 
-  // No real login yet: Go! zooms the walking corgi to fill the screen, then opens the dashboard.
-  function handleGo(event: FormEvent) {
+  // Go! logs in with Supabase. If that works, the corgi zooms in and the dashboard opens.
+  async function handleGo(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
+    if (!supabase) {
+      setError(ACCOUNTS_OFF_MESSAGE);
+      return;
+    }
+
+    const form = new FormData(event.currentTarget);
+    setLoggingIn(true);
+    setError(null);
+    const { error } = await supabase.auth.signInWithPassword({
+      email: String(form.get("email")),
+      password: String(form.get("password")),
+    });
+    if (error) {
+      setLoggingIn(false);
+      setError(error.message === "Invalid login credentials" ? "That email and password don't match an account." : error.message);
+      return;
+    }
+
+    zoomToDashboard();
+  }
+
+  // The walking corgi zooms to fill the screen, then the dashboard opens.
+  function zoomToDashboard() {
     const stage = stageRef.current;
     const corgi = corgiRef.current;
     const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
@@ -72,18 +100,26 @@ export default function Home() {
 
         <form className="login-form" onSubmit={handleGo}>
           <input
-            type="text"
-            placeholder="Username"
+            name="email"
+            type="email"
+            placeholder="Email"
+            autoComplete="email"
+            required
           />
 
           <input
+            name="password"
             type="password"
             placeholder="Password"
+            autoComplete="current-password"
+            required
           />
 
-          <button type="submit" disabled={zoom !== null}>
-            Go!
+          <button type="submit" disabled={loggingIn || zoom !== null}>
+            {loggingIn && !zoom ? "Logging in…" : "Go!"}
           </button>
+
+          {error && <p className="form-error" role="alert">{error}</p>}
         </form>
 
         <p className="signup-text">
