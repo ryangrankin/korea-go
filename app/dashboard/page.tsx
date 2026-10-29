@@ -30,19 +30,12 @@ function greetingFor(hour: number): string {
 }
 
 export default function DashboardPage() {
-  const [level, setLevel] = useState("Beginner");
   const [greeting, setGreeting] = useState("Hello!");
   const [completedLessons, setCompletedLessons] =
     useState<LessonProgress>({});
   const skillProgress = useSkillProgress();
 
   useEffect(() => {
-    const savedLevel = localStorage.getItem("koreaGoLevel");
-
-    if (savedLevel) {
-      setLevel(savedLevel);
-    }
-
     setGreeting(greetingFor(new Date().getHours()));
 
     setCompletedLessons(getLessonProgress());
@@ -91,7 +84,8 @@ export default function DashboardPage() {
           <div className="streak">🔥 3</div>
         </header>
 
-        {/* OVERVIEW: the pup off to the side, with greeting, level and progress next to it */}
+        {/* OVERVIEW: the pup off to the side, with greeting and progress next to it.
+            (No single overall level here: each topic shows its own status below.) */}
         <div className="dashboard-overview">
           <Link href="/my-pup" className="dashboard-mascot" aria-label="Dress up your pup">
             <Pup size={200} />
@@ -102,12 +96,6 @@ export default function DashboardPage() {
             <h1>{greeting}</h1>
             <p>잘 지내고 계신가요?</p>
           </section>
-
-          {/* USER LEVEL */}
-          <div className="dashboard-level">
-            <p>Your Level</p>
-            <strong>{level}</strong>
-          </div>
 
           {/* OVERALL PROGRESS */}
           <section className="progress-section">
