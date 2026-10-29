@@ -9,6 +9,7 @@
 */
 
 import { useSyncExternalStore } from "react";
+import { saveProgressSoon } from "./accountSync";
 
 export type GameResult = {
   game: string; // e.g. "hangeul-match"
@@ -124,6 +125,7 @@ export function recordGameResult(
     const results = parse<GameResult[]>(read(RESULTS_KEY), []);
     localStorage.setItem(RESULTS_KEY, JSON.stringify([...results, result].slice(-MAX_SAVED)));
     window.dispatchEvent(new Event(CHANGE_EVENT));
+    saveProgressSoon();
   } catch {
     // Saving is a nice extra; the game works without it.
   }

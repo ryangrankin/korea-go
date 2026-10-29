@@ -4,6 +4,7 @@
 import { useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
+import { saveProgressSoon } from "../../lib/accountSync";
 
 export default function OnboardingPage() {
   const router = useRouter();
@@ -11,6 +12,7 @@ export default function OnboardingPage() {
 
   function continueToDashboard() {
     localStorage.setItem("koreaGoLevel", level);
+    saveProgressSoon();
     router.push("/dashboard");
   }
 
