@@ -1,10 +1,12 @@
 
 "use client";
 
-import { useEffect, useState, useSyncExternalStore, type FormEvent } from "react";
+import { useEffect, useState, useSyncExternalStore, type ChangeEvent, type FormEvent } from "react";
 import Link from "next/link";
+import Avatar from "../../components/Avatar";
+import { uploadMyAvatar } from "../../lib/avatar";
 import { isGuest } from "../../lib/guest";
-import { setMyUsername, useMyUsername, USERNAME_PATTERN, USERNAME_RULES } from "../../lib/username";
+import { setMyUsername, useMyProfile, USERNAME_PATTERN, USERNAME_RULES } from "../../lib/username";
 
 type Profile = {
   level: string;
@@ -19,7 +21,19 @@ export default function ProfilePage() {
     goal: "Everyday conversation",
   });
 
-  const username = useMyUsername();
+  const myProfile = useMyProfile();
+  const username = myProfile === undefined ? undefined : myProfile?.username ?? null;
+  const [uploading, setUploading] = useState(false);
+  const [photoMessage, setPhotoMessage] = useState<string | null>(null);
+
+  async function choosePhoto(event: ChangeEvent<HTMLInputElement>) {
+    const file = event.target.files?.[0];
+    event.target.value = ""; // so picking the same file again still works
+    if (!file) return;
+    setUploading(true);
+    setPhotoMessage(await uploadMyAvatar(file));
+    setUploading(false);
+  }
   const guest = useSyncExternalStore(noSubscribe, isGuest, () => false);
   const [editing, setEditing] = useState(false);
   const [saving, setSaving] = useState(false);
@@ -57,7 +71,14 @@ export default function ProfilePage() {
         </Link>
 
         <div className="profile-header">
-          <div className="profile-avatar">👤</div>
+          <Avatar url={myProfile?.avatarUrl} className="profile-avatar" />
+          {username && (
+            <label className="photo-button">
+              {uploading ? "Uploading…" : myProfile?.avatarUrl ? "Change photo" : "📷 Add a photo"}
+              <input type="file" accept="image/*" onChange={choosePhoto} disabled={uploading} hidden />
+            </label>
+          )}
+          {photoMessage && <p className="form-error" role="alert">{photoMessage}</p>}
           <h1>My Profile</h1>
           <p>{guest ? "Guest" : username ? `@${username}` : ""}</p>
         </div>

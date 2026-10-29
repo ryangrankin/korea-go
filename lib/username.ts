@@ -1,5 +1,6 @@
 /*
-  username: each account's username, stored in Supabase (korea_go_profiles).
+  username: each account's profile in Supabase (korea_go_profiles): a
+  username and an optional profile picture (see lib/avatar.ts).
   Shown on the Friends tab, set on sign up, changeable on the Profile page.
   Rules match the database: 3-20 lowercase letters, numbers or underscores,
   and no two accounts can share one. Guests don't have a username.
@@ -9,7 +10,7 @@ import { useEffect, useState } from "react";
 import { supabase } from "./supabase";
 
 const TABLE = "korea_go_profiles";
-const CHANGE_EVENT = "usernameChanged";
+export const PROFILE_CHANGE_EVENT = "profileChanged";
 
 export const USERNAME_PATTERN = "[a-z0-9_]{3,20}";
 export const USERNAME_RULES = "3–20 characters: lowercase letters, numbers or _";
@@ -35,11 +36,17 @@ async function myUserId(): Promise<string | null> {
   return data.session?.user.id ?? null;
 }
 
-export async function getMyUsername(): Promise<string | null> {
+export type MyProfile = { username: string; avatarUrl: string | null };
+
+export async function getMyProfile(): Promise<MyProfile | null> {
   const userId = await myUserId();
   if (!supabase || !userId) return null;
-  const { data } = await supabase.from(TABLE).select("username").eq("user_id", userId).maybeSingle();
-  return data?.username ?? null;
+  const { data } = await supabase
+    .from(TABLE)
+    .select("username, avatar_url")
+    .eq("user_id", userId)
+    .maybeSingle();
+  return data ? { username: data.username, avatarUrl: data.avatar_url } : null;
 }
 
 // Returns an error message to show, or null if it worked.
@@ -57,20 +64,26 @@ export async function setMyUsername(raw: string): Promise<string | null> {
     return error.code === "23505" ? `"${name}" is taken. Try another one.` : error.message;
   }
 
-  window.dispatchEvent(new Event(CHANGE_EVENT));
+  window.dispatchEvent(new Event(PROFILE_CHANGE_EVENT));
   return null;
 }
 
-// The logged-in person's username: undefined while loading, null if none.
-export function useMyUsername(): string | null | undefined {
-  const [username, setUsername] = useState<string | null | undefined>(undefined);
+// The logged-in person's profile: undefined while loading, null if none yet.
+export function useMyProfile(): MyProfile | null | undefined {
+  const [profile, setProfile] = useState<MyProfile | null | undefined>(undefined);
 
   useEffect(() => {
-    const load = () => getMyUsername().then(setUsername);
+    const load = () => getMyProfile().then(setProfile);
     load();
-    window.addEventListener(CHANGE_EVENT, load);
-    return () => window.removeEventListener(CHANGE_EVENT, load);
+    window.addEventListener(PROFILE_CHANGE_EVENT, load);
+    return () => window.removeEventListener(PROFILE_CHANGE_EVENT, load);
   }, []);
 
-  return username;
+  return profile;
+}
+
+// Just the username: undefined while loading, null if none yet.
+export function useMyUsername(): string | null | undefined {
+  const profile = useMyProfile();
+  return profile === undefined ? undefined : profile?.username ?? null;
 }

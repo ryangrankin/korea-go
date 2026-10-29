@@ -2395,3 +2395,76 @@ body {
   text-decoration: underline;
   cursor: pointer;
 }
+
+/* PROFILE PICTURES: photos fill the round bubble (see components/Avatar.tsx) */
+
+.avatar {
+  overflow: hidden;
+}
+
+.avatar img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.profile-header .photo-button {
+  display: inline-block;
+  margin: -6px 0 14px;
+  color: #3976b8;
+  font-size: 14px;
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+/* FRIENDS: community list of every user and their points */
+
+.community-list {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.community-list li {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 12px;
+  border-radius: 12px;
+  background: #f7f9fc;
+}
+
+.community-list li.you {
+  background: #fff4e8;
+}
+
+.community-rank {
+  width: 28px;
+  text-align: center;
+  font-weight: bold;
+  color: #666;
+}
+
+.community-name {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  min-width: 0;
+}
+
+.community-name strong {
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.community-name small {
+  color: #888;
+  font-size: 12px;
+}
+
+.community-points {
+  font-weight: bold;
+  color: #f28c28;
+  white-space: nowrap;
+}
