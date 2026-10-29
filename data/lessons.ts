@@ -1,6 +1,7 @@
 import { alphabetUnit } from "./alphabet";
 import { greetingsUnit } from "./greetings";
 import { airportUnit } from "./airport";
+import { foodUnit } from "./food";
 
 export type VocabularyItem = {
   korean: string;
@@ -104,13 +105,7 @@ export const units: Unit[] = [
   alphabetUnit,
   greetingsUnit,
   airportUnit,
-  {
-    id: "food",
-    title: "Food and Dining",
-    description: "Order food and understand menus.",
-    icon: "🍜",
-    lessons: [],
-  },
+  foodUnit,
 ];
 
 // Every lesson, in order (used to find a lesson and the one after it).

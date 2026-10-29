@@ -4,7 +4,8 @@
   Finishing a lesson unlocks one accessory for the pup, themed around
   Korean food, music, and culture.
   - lessonId: the lesson that unlocks it (see the lesson ids in
-    data/alphabet.ts, data/greetings.ts, data/airport.ts)
+    data/alphabet.ts, data/greetings.ts, data/airport.ts,
+    data/food.ts)
   - slot:     where it's worn. The pup can wear one item per slot.
   - emoji:    the picture drawn on the pup
   - fact:     a short note about Korean food, music, or culture,
@@ -70,6 +71,23 @@ export const accessories: Accessory[] = [
     fact: "Street stalls serve 어묵 skewers with a cup of warm broth." },
   { id: "lantern", name: "Festival lantern (연등)", emoji: "🏮", slot: "paw", lessonId: "airport-4",
     fact: "Lanterns light up Seoul's streets for the Lotus Lantern Festival (연등회)." },
+  // Unit 3: Food and Dining
+  { id: "sutgarak", name: "Spoon (숟가락)", emoji: "🥄", slot: "paw", lessonId: "food-1",
+    fact: "Koreans eat rice and soup with a spoon, and use chopsticks for side dishes." },
+  { id: "kimchi", name: "Kimchi (김치)", emoji: "🥬", slot: "paw", lessonId: "food-2",
+    fact: "There are hundreds of kinds of kimchi, and it comes free as a 반찬 with almost every meal." },
+  { id: "bap", name: "Rice bowl (밥)", emoji: "🍚", slot: "paw", lessonId: "food-3",
+    fact: "Some stews come without rice, so you order a bowl of rice (공깃밥) on the side." },
+  { id: "tteok", name: "Rice cake (떡)", emoji: "🍡", slot: "paw", lessonId: "food-4",
+    fact: "On Chuseok, the autumn harvest holiday, families make half-moon rice cakes called 송편." },
+  { id: "gochu", name: "Chili pepper (고추)", emoji: "🌶️", slot: "ear", lessonId: "food-5",
+    fact: "Red chili flakes (고춧가루) give kimchi and many stews their heat and color." },
+  { id: "aa", name: "Iced americano (아아)", emoji: "🧋", slot: "paw", lessonId: "food-6",
+    fact: "Iced americano is so popular that people shorten it to 아아 (\"ah-ah\") — even in winter." },
+  { id: "bingsu", name: "Bingsu (빙수)", emoji: "🍧", slot: "paw", lessonId: "food-7",
+    fact: "Patbingsu is shaved ice topped with sweet red beans, a favorite summer dessert." },
+  { id: "gat", name: "Gat hat (갓)", emoji: "🎩", slot: "head", lessonId: "food-8",
+    fact: "The gat is a traditional wide-brimmed hat made of horsehair and bamboo, worn by men in the Joseon era." },
 ];
 
 export const accessoryForLesson = (lessonId: string) =>
