@@ -2292,3 +2292,23 @@ body {
   opacity: 0.7;
   cursor: default;
 }
+
+/* LOGIN: "Continue as guest" sits quietly under Go! */
+
+.guest-button {
+  margin-top: 12px;
+  padding: 6px 10px;
+  border: none;
+  background: none;
+  color: #3976b8;
+  font-family: inherit;
+  font-size: 15px;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  cursor: pointer;
+}
+
+.guest-button:disabled {
+  opacity: 0.6;
+  cursor: default;
+}

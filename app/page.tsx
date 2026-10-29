@@ -5,6 +5,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { loadProgressFromAccount } from "../lib/accountSync";
+import { endGuest, startGuest } from "../lib/guest";
 import { ACCOUNTS_OFF_MESSAGE, supabase } from "../lib/supabase";
 
 const ZOOM_MS = 900; // keep in sync with .corgi-zoom in globals.css
@@ -53,7 +54,14 @@ export default function Home() {
       return;
     }
 
+    endGuest();
     await loadProgressFromAccount();
+    zoomToDashboard();
+  }
+
+  // Try the app without an account; progress stays in this browser.
+  function continueAsGuest() {
+    startGuest();
     zoomToDashboard();
   }
 
@@ -123,6 +131,15 @@ export default function Home() {
 
           {error && <p className="form-error" role="alert">{error}</p>}
         </form>
+
+        <button
+          type="button"
+          className="guest-button"
+          onClick={continueAsGuest}
+          disabled={loggingIn || zoom !== null}
+        >
+          Continue as guest
+        </button>
 
         <p className="signup-text">
           New here?{" "}
