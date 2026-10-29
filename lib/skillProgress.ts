@@ -14,6 +14,7 @@
 */
 
 import { useMemo, useSyncExternalStore } from "react";
+import { saveProgressSoon } from "./accountSync";
 import type { ChallengeResult, Tally } from "./skillChecks";
 import { lessonsShown } from "./skillChecks";
 
@@ -141,6 +142,7 @@ function save(state: SkillProgress) {
     // Private browsing can block saving; the results still show this visit.
   }
   window.dispatchEvent(new Event(SKILL_PROGRESS_EVENT));
+  saveProgressSoon();
 }
 
 // Each of these reads the latest saved data first, so two open tabs

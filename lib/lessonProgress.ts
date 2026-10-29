@@ -1,4 +1,5 @@
 import { useMemo, useSyncExternalStore } from "react";
+import { saveProgressSoon } from "./accountSync";
 
 export type LessonProgress = Record<string, boolean>;
 
@@ -27,6 +28,7 @@ export function completeLesson(lessonId: string) {
 
   // Let open pages (like the pup) know a lesson was finished.
   window.dispatchEvent(new Event(PROGRESS_EVENT));
+  saveProgressSoon();
 }
 
 export function isLessonComplete(lessonId: string): boolean {

@@ -7,6 +7,7 @@
 import { useSyncExternalStore } from "react";
 import { accessories, type Accessory, type Slot } from "../data/accessories";
 import { PROGRESS_EVENT, STORAGE_KEY as PROGRESS_KEY } from "./lessonProgress";
+import { saveProgressSoon } from "./accountSync";
 
 export type Outfit = Partial<Record<Slot, string>>; // slot → accessory id
 
@@ -41,6 +42,7 @@ function saveOutfit(outfit: Outfit) {
   try {
     localStorage.setItem(OUTFIT_KEY, JSON.stringify(outfit));
     window.dispatchEvent(new Event(OUTFIT_EVENT));
+    saveProgressSoon();
   } catch {
     // Dressing up still works for this visit without saving.
   }

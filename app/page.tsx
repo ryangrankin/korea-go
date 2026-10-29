@@ -4,6 +4,7 @@ import { useEffect, useRef, useState, type CSSProperties, type FormEvent } from 
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
+import { loadProgressFromAccount } from "../lib/accountSync";
 import { ACCOUNTS_OFF_MESSAGE, supabase } from "../lib/supabase";
 
 const ZOOM_MS = 900; // keep in sync with .corgi-zoom in globals.css
@@ -52,6 +53,7 @@ export default function Home() {
       return;
     }
 
+    await loadProgressFromAccount();
     zoomToDashboard();
   }
 

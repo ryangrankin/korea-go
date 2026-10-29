@@ -4,6 +4,7 @@ import { useState, type FormEvent } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
+import { loadProgressFromAccount } from "../../lib/accountSync";
 import { ACCOUNTS_OFF_MESSAGE, supabase } from "../../lib/supabase";
 
 export default function SignupPage() {
@@ -30,6 +31,7 @@ export default function SignupPage() {
         data: { name: String(form.get("name")), username: String(form.get("username")) },
       },
     });
+    if (data.session) await loadProgressFromAccount();
     setSaving(false);
 
     if (error) {

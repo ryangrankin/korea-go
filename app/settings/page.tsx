@@ -5,6 +5,7 @@ import { useEffect, useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { supabase } from "../../lib/supabase";
+import { clearLocalProgress, saveProgressNow, saveProgressSoon } from "../../lib/accountSync";
 
 type Preferences = {
   level: string;
@@ -82,6 +83,8 @@ export default function SettingsPage() {
     if (key === "reminders") {
       localStorage.setItem("koreaGoReminders", String(value));
     }
+
+    saveProgressSoon();
   }
 
   if (!loaded) {
@@ -351,7 +354,9 @@ export default function SettingsPage() {
           type="button"
           className="settings-logout"
           onClick={async () => {
+            await saveProgressNow();
             await supabase?.auth.signOut();
+            clearLocalProgress();
             router.push("/");
           }}
         >
