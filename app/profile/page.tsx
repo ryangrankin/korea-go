@@ -1,19 +1,38 @@
 
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useState, useSyncExternalStore, type FormEvent } from "react";
 import Link from "next/link";
+import { isGuest } from "../../lib/guest";
+import { setMyUsername, useMyUsername, USERNAME_PATTERN, USERNAME_RULES } from "../../lib/username";
 
 type Profile = {
   level: string;
   goal: string;
 };
 
+const noSubscribe = () => () => {};
+
 export default function ProfilePage() {
   const [profile, setProfile] = useState<Profile>({
     level: "Beginner",
     goal: "Everyday conversation",
   });
+
+  const username = useMyUsername();
+  const guest = useSyncExternalStore(noSubscribe, isGuest, () => false);
+  const [editing, setEditing] = useState(false);
+  const [saving, setSaving] = useState(false);
+  const [message, setMessage] = useState<string | null>(null);
+
+  async function saveUsername(event: FormEvent<HTMLFormElement>) {
+    event.preventDefault();
+    setSaving(true);
+    const error = await setMyUsername(String(new FormData(event.currentTarget).get("username")));
+    setSaving(false);
+    setMessage(error);
+    if (!error) setEditing(false);
+  }
 
   useEffect(() => {
     try {
@@ -40,8 +59,55 @@ export default function ProfilePage() {
         <div className="profile-header">
           <div className="profile-avatar">👤</div>
           <h1>My Profile</h1>
-          <p>Account information coming soon</p>
+          <p>{guest ? "Guest" : username ? `@${username}` : ""}</p>
         </div>
+
+        <section className="profile-section">
+          <h2>Account</h2>
+
+          <div className="profile-card">
+            {guest ? (
+              <p>
+                Guests don&apos;t have a username. <Link href="/signup">Sign up</Link> to get one
+                and show up on the Friends leaderboard.
+              </p>
+            ) : username === undefined ? (
+              <p>Loading…</p>
+            ) : editing || username === null ? (
+              <form className="username-form" onSubmit={saveUsername}>
+                <label htmlFor="username">
+                  {username === null ? "Choose a username for the Friends tab" : "New username"}
+                </label>
+                <input
+                  id="username"
+                  name="username"
+                  type="text"
+                  defaultValue={username ?? ""}
+                  placeholder="e.g. tim_learns"
+                  autoCapitalize="none"
+                  pattern={USERNAME_PATTERN}
+                  title={USERNAME_RULES}
+                  required
+                />
+                <small>{USERNAME_RULES}</small>
+                <button type="submit" disabled={saving}>
+                  {saving ? "Saving…" : "Save username"}
+                </button>
+                {message && <p className="form-error" role="alert">{message}</p>}
+              </form>
+            ) : (
+              <div className="profile-row">
+                <span>Username</span>
+                <strong>
+                  @{username}{" "}
+                  <button type="button" className="username-change" onClick={() => setEditing(true)}>
+                    Change
+                  </button>
+                </strong>
+              </div>
+            )}
+          </div>
+        </section>
 
         <section className="profile-section">
           <h2>Learning Profile</h2>

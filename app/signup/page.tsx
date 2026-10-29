@@ -7,14 +7,22 @@ import { useRouter } from "next/navigation";
 import { loadProgressFromAccount } from "../../lib/accountSync";
 import { endGuest } from "../../lib/guest";
 import { ACCOUNTS_OFF_MESSAGE, supabase } from "../../lib/supabase";
+import {
+  cleanUsername,
+  isUsernameAvailable,
+  isValidUsername,
+  setMyUsername,
+  USERNAME_PATTERN,
+  USERNAME_RULES,
+} from "../../lib/username";
 
 export default function SignupPage() {
   const router = useRouter();
   const [saving, setSaving] = useState(false);
   const [message, setMessage] = useState<string | null>(null);
 
-  // Creates the account in Supabase. Name and username are saved on the account
-  // (user metadata), so we don't need a database table for them yet.
+  // Creates the account in Supabase, then saves the username to korea_go_profiles
+  // (the name is kept on the account itself).
   async function handleSignup(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
     if (!supabase) {
@@ -23,17 +31,31 @@ export default function SignupPage() {
     }
 
     const form = new FormData(event.currentTarget);
+    const username = cleanUsername(String(form.get("username")));
+    if (!isValidUsername(username)) {
+      setMessage(`Usernames need ${USERNAME_RULES}.`);
+      return;
+    }
+
     setSaving(true);
     setMessage(null);
+    if (!(await isUsernameAvailable(username))) {
+      setSaving(false);
+      setMessage(`"${username}" is taken. Try another one.`);
+      return;
+    }
+
     const { data, error } = await supabase.auth.signUp({
       email: String(form.get("email")),
       password: String(form.get("password")),
       options: {
-        data: { name: String(form.get("name")), username: String(form.get("username")) },
+        data: { name: String(form.get("name")), username },
       },
     });
     if (data.session) {
       endGuest();
+      // If this fails (someone grabbed the name a moment ago), Profile asks for a new one.
+      await setMyUsername(username);
       await loadProgressFromAccount();
     }
     setSaving(false);
@@ -77,8 +99,11 @@ export default function SignupPage() {
           <input
             name="username"
             type="text"
-            placeholder="Username"
+            placeholder="Username (lowercase, numbers, _)"
             autoComplete="username"
+            autoCapitalize="none"
+            pattern={USERNAME_PATTERN}
+            title={USERNAME_RULES}
             required
           />
 
