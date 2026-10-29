@@ -329,9 +329,23 @@ body {
 /* DASHBOARD */
 
 .dashboard-page {
+  position: relative;
+  isolation: isolate; /* keeps the photo below behind the page, not behind <body> */
   width: 100%;
   min-height: 100vh;
   background: #ffffff;
+}
+
+/* A street in Seoul behind the dashboard, faded with white so text stays easy to read.
+   It's a fixed layer (not background-attachment: fixed, which phones ignore). */
+.dashboard-page::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  background:
+    linear-gradient(rgba(255, 255, 255, 0.82), rgba(255, 255, 255, 0.82)),
+    url("/brand/seoul-street.jpg") center / cover no-repeat;
 }
 
 .dashboard-container {
@@ -580,9 +594,11 @@ body {
   margin-bottom: 16px;
 
   border: 1px solid #e3e3e3;
+  border-top: 6px solid var(--unit-color, #e3e3e3); /* each unit's own color, from its data file */
   border-radius: 16px;
 
   background: white;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1), 0 1px 3px rgba(0, 0, 0, 0.06); /* lifts the card off the photo */
 
   overflow: hidden;
 }

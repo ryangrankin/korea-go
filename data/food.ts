@@ -946,6 +946,7 @@ export const foodUnit: Unit = {
   description: "Order a meal, ask about the food, and get coffee to go.",
   icon: "🍜",
   image: "/units/food.svg",
+  color: "#f28c28",
 
   lessons: [
     {
