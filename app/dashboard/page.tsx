@@ -17,8 +17,16 @@ import {
   type LessonProgress,
 } from "../../lib/lessonProgress";
 
+// "Good morning!" etc., from the hour on the learner's own clock (0–23)
+function greetingFor(hour: number): string {
+  if (hour >= 5 && hour < 12) return "Good morning!";
+  if (hour >= 12 && hour < 18) return "Good afternoon!";
+  return "Good evening!";
+}
+
 export default function DashboardPage() {
   const [level, setLevel] = useState("Beginner");
+  const [greeting, setGreeting] = useState("Hello!");
   const [completedLessons, setCompletedLessons] =
     useState<LessonProgress>({});
 
@@ -28,6 +36,8 @@ export default function DashboardPage() {
     if (savedLevel) {
       setLevel(savedLevel);
     }
+
+    setGreeting(greetingFor(new Date().getHours()));
 
     setCompletedLessons(getLessonProgress());
   }, []);
@@ -73,7 +83,7 @@ export default function DashboardPage() {
 
           {/* GREETING */}
           <section className="dashboard-greeting">
-            <h1>Good afternoon!</h1>
+            <h1>{greeting}</h1>
             <p>잘 지내고 계신가요?</p>
           </section>
 

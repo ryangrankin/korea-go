@@ -329,9 +329,23 @@ body {
 /* DASHBOARD */
 
 .dashboard-page {
+  position: relative;
+  isolation: isolate; /* keeps the photo below behind the page, not behind <body> */
   width: 100%;
   min-height: 100vh;
   background: #ffffff;
+}
+
+/* A street in Seoul behind the dashboard, faded with white so text stays easy to read.
+   It's a fixed layer (not background-attachment: fixed, which phones ignore). */
+.dashboard-page::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  background:
+    linear-gradient(rgba(255, 255, 255, 0.82), rgba(255, 255, 255, 0.82)),
+    url("/brand/seoul-street.jpg") center / cover no-repeat;
 }
 
 .dashboard-container {
