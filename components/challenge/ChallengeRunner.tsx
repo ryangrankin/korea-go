@@ -11,7 +11,7 @@
     aren't saved and can't unlock anything.
 */
 
-import { useState } from "react";
+import { useRef, useState } from "react";
 import Link from "next/link";
 import { lessons, units } from "../../data/lessons";
 import {
@@ -21,6 +21,7 @@ import {
   type ChallengeQuestion,
 } from "../../data/skillChecks";
 import { pickTopicQuestions, scoreChallenge, shuffle, type Answer, type ChallengeResult } from "../../lib/skillChecks";
+import { keepTopInView } from "../../lib/scroll";
 import { recordTestOut, recordTopicCheck, useSkillProgress } from "../../lib/skillProgress";
 import Pup from "../Pup";
 import SpeechNotice from "../SpeechNotice";
@@ -51,6 +52,7 @@ export default function ChallengeRunner(props: ChallengeRunnerProps) {
   const [index, setIndex] = useState(0);
   const [answers, setAnswers] = useState<Record<string, Answer>>({});
   const [result, setResult] = useState<ChallengeResult | null>(null);
+  const questionsRef = useRef<HTMLElement>(null);
 
   // What this challenge covers.
   const lessonInfo = props.mode === "lesson" ? lessonChallenge(props.lessonId) : undefined;
@@ -88,7 +90,7 @@ export default function ChallengeRunner(props: ChallengeRunnerProps) {
   function next() {
     if (index < prepared.length - 1) {
       setIndex(index + 1);
-      window.scrollTo({ top: 0, behavior: "smooth" });
+      keepTopInView(questionsRef.current);
       return;
     }
     const scored = scoreChallenge(
@@ -162,7 +164,7 @@ export default function ChallengeRunner(props: ChallengeRunnerProps) {
 
         {/* ---------- Questions ---------- */}
         {stage === "questions" && current && (
-          <section aria-label="Challenge questions">
+          <section aria-label="Challenge questions" ref={questionsRef}>
             <div className="challenge-progress">
               <span>
                 Question {index + 1} of {prepared.length}

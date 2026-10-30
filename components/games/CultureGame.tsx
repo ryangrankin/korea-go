@@ -19,12 +19,13 @@
   the first try, 50 for the rest. Nothing is ever taken away.
 */
 
-import { useState } from "react";
+import { useRef, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import type { Choice, CultureGame as Game, Picture } from "../../data/culturalGames";
 import { recordGameResult } from "../../lib/gameScores";
 import { useShowRomanization } from "../../lib/preferences";
+import { keepTopInView } from "../../lib/scroll";
 import { speakKorean } from "../../lib/speak";
 import KoreanText from "../KoreanText";
 import Pup from "../Pup";
@@ -97,6 +98,7 @@ export default function CultureGame({ game }: { game: Game }) {
   const [firstTry, setFirstTry] = useState(0);
   const [startedAt, setStartedAt] = useState(0);
   const [pointsEarned, setPointsEarned] = useState(0);
+  const roundRef = useRef<HTMLDivElement>(null);
 
   const round = game.rounds[order[position] ?? 0];
   const choices = round.choices ?? [];
@@ -114,7 +116,6 @@ export default function CultureGame({ game }: { game: Game }) {
     setCurrent(null);
     setSolved(false);
     setShowAll(false);
-    window.scrollTo({ top: 0, behavior: "smooth" });
   }
 
   function start() {
@@ -127,6 +128,7 @@ export default function CultureGame({ game }: { game: Game }) {
     setStartedAt(clock());
     setPhase("play");
     setUpRound(newOrder[0]);
+    window.scrollTo({ top: 0, behavior: "smooth" });
   }
 
   // The learner picks a choice.
@@ -153,6 +155,7 @@ export default function CultureGame({ game }: { game: Game }) {
     if (!isLast) {
       setPosition(position + 1);
       setUpRound(order[position + 1]);
+      keepTopInView(roundRef.current);
       return;
     }
     // Game over: save points for the Friends leaderboard.
@@ -245,7 +248,7 @@ export default function CultureGame({ game }: { game: Game }) {
   const choicesLocked = scenario ? current !== null : solved;
 
   return (
-    <div className="culture-round">
+    <div className="culture-round" ref={roundRef}>
       {/* Progress */}
       <div className="culture-progress">
         <span>{round.place ?? `Round ${position + 1} of ${order.length}`}</span>
