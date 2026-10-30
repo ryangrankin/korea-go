@@ -12,8 +12,9 @@
      until it has been answered right REPEATS_AFTER_MISS more times.
 */
 
-import { useState } from "react";
+import { useRef, useState } from "react";
 import { sayOf, type PracticeWord } from "../../lib/practiceItems";
+import { keepTopInView } from "../../lib/scroll";
 import { speakKorean } from "../../lib/speak";
 import KoreanText from "../KoreanText";
 import Pup from "../Pup";
@@ -125,6 +126,7 @@ export default function WordPractice({
   const [answered, setAnswered] = useState(0);
   const [rightCount, setRightCount] = useState(0);
   const [missed, setMissed] = useState<number[]>([]);
+  const boxRef = useRef<HTMLDivElement>(null);
 
   const learned = progress.needed.slice(0, progress.nextNew).filter((n) => n === 0).length;
   const finished = started && card === null;
@@ -144,7 +146,7 @@ export default function WordPractice({
     if (next.card && (next.card.kind === "intro" || next.card.quiz === "listen")) {
       speakKorean(sayOf(words[next.card.word]));
     }
-    window.scrollTo({ top: 0, behavior: "smooth" });
+    keepTopInView(boxRef.current);
   }
 
   function answer(option: number) {
@@ -244,7 +246,7 @@ export default function WordPractice({
   const word = words[card.word];
 
   return (
-    <div>
+    <div ref={boxRef}>
       {/* Progress bar and streak */}
       <div className="wp-header">
         <div className="lesson-progress-track">
