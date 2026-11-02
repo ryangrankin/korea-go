@@ -4,6 +4,8 @@
   Conversation: shows a dialogue one line at a time, like a chat.
   The learner taps "Next line" to reveal the next line (it plays
   automatically), and can tap any line to hear it again.
+  With `hideEnglish` (Listening focus or Advanced level in Settings), each
+  line's English stays hidden until the learner taps "Show English".
 */
 
 import { useState } from "react";
@@ -16,12 +18,22 @@ type ConversationProps = {
   speakers: Record<string, Speaker>;
   showRomanization: boolean;
   showAll?: boolean; // start with every line showing (when coming back)
+  hideEnglish?: boolean; // English hidden until tapped (listening practice)
   onFinish: () => void;
 };
 
-export default function Conversation({ lines, speakers, showRomanization, showAll, onFinish }: ConversationProps) {
+export default function Conversation({
+  lines,
+  speakers,
+  showRomanization,
+  showAll,
+  hideEnglish = false,
+  onFinish,
+}: ConversationProps) {
   // How many lines are showing right now.
   const [shown, setShown] = useState(showAll ? lines.length : 1);
+  // Lines whose English the learner chose to see (when English is hidden).
+  const [revealed, setRevealed] = useState<number[]>([]);
   const allShown = shown >= lines.length;
 
   function nextLine() {
@@ -44,7 +56,17 @@ export default function Conversation({ lines, speakers, showRomanization, showAl
                 <div className="chat-picture" aria-hidden="true">{line.emoji}</div>
                 <KoreanText text={line.korean} className="chat-korean" />
                 {showRomanization && <p className="romanization">{line.romanization}</p>}
-                <p className="english">{line.english}</p>
+                {!hideEnglish || revealed.includes(index) ? (
+                  <p className="english">{line.english}</p>
+                ) : (
+                  <button
+                    type="button"
+                    className="link-button chat-show-english"
+                    onClick={() => setRevealed([...revealed, index])}
+                  >
+                    Show English
+                  </button>
+                )}
               </div>
             </div>
           );
@@ -53,6 +75,7 @@ export default function Conversation({ lines, speakers, showRomanization, showAl
 
       <p className="practice-count">
         Line {Math.min(shown, lines.length)} of {lines.length}
+        {hideEnglish && " · Listen first, then check the English if you need it"}
       </p>
 
       {allShown ? (

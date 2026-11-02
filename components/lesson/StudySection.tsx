@@ -18,12 +18,14 @@ import Conversation from "./Conversation";
 import WordCards from "./WordCards";
 import GrammarNotes from "./GrammarNotes";
 import WordPractice from "./WordPractice";
+import { orderForPractice, type LessonSettings } from "../../lib/learningSettings";
 import { practiceItems } from "../../lib/practiceItems";
 
 type StudySectionProps = {
   section: StudySectionData;
   speakers: Record<string, Speaker>;
   showRomanization: boolean;
+  settings: LessonSettings; // from the learner's Settings
   nextSectionLabel: string;
   onComplete: () => void;
 };
@@ -32,11 +34,14 @@ export default function StudySection({
   section,
   speakers,
   showRomanization,
+  settings,
   nextSectionLabel,
   onComplete,
 }: StudySectionProps) {
+  // Grammar notes come first if the section or the learner's settings ask for it.
+  const notesFirst = section.notesFirst || settings.notesFirst;
   // Skip the conversation or grammar step if this section doesn't have one.
-  const learnSteps = section.notesFirst ? ["Grammar", "Words"] : ["Words", "Grammar"];
+  const learnSteps = notesFirst ? ["Grammar", "Words"] : ["Words", "Grammar"];
   const steps = [
     ...(section.conversation.length > 0 ? ["Conversation"] : []),
     ...learnSteps.filter(
@@ -61,8 +66,8 @@ export default function StudySection({
   const [wordsDone, setWordsDone] = useState(false);
   const [practiceRound, setPracticeRound] = useState(0);
 
-  // Words and phrases for the practice.
-  const practiceWords = practiceItems(section);
+  // Words and phrases for the practice (phrases first, if settings ask for it).
+  const practiceWords = orderForPractice(practiceItems(section), settings.phrasesFirst);
 
   const stepName = steps[step];
   const nextStep = steps[step + 1];
@@ -108,6 +113,7 @@ export default function StudySection({
             showAll={furthest > step}
             speakers={speakers}
             showRomanization={showRomanization}
+            hideEnglish={settings.hideEnglish}
             onFinish={goNext}
           />
         </>
@@ -121,6 +127,7 @@ export default function StudySection({
             key={practiceRound}
             words={practiceWords}
             showRomanization={showRomanization}
+            settings={settings.practice}
             noun={
               section.wordsQuizBy === "romanization"
                 ? "letters and words"

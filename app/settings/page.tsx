@@ -134,7 +134,9 @@ export default function SettingsPage() {
               Korean Proficiency
             </label>
             <p className="settings-note">
-              Choose your current Korean language level.
+              Choose your current Korean language level. Higher levels learn more
+              new words at a time, answer from more choices, and start with
+              recall and listening questions.
             </p>
 
             <select
@@ -156,7 +158,8 @@ export default function SettingsPage() {
               Learning Goal
             </label>
             <p className="settings-note">
-              What do you want to use Korean for?
+              What do you want to use Korean for? Your goal decides which unit
+              comes up next and what each lesson practices first.
             </p>
 
             <select
@@ -208,7 +211,9 @@ export default function SettingsPage() {
               Practice Focus
             </label>
             <p className="settings-note">
-              Choose the language skills you want to develop.
+              Choose the language skills you want to develop. Lessons give that
+              skill extra practice: more repetitions, grammar notes first,
+              phrases first, or more listening.
             </p>
 
             <select
@@ -232,7 +237,8 @@ export default function SettingsPage() {
               Daily Study Goal
             </label>
             <p className="settings-note">
-              Set a manageable daily learning goal.
+              Set a manageable daily learning goal. Time spent in lessons counts
+              toward it, shown in each lesson and on the dashboard.
             </p>
 
             <select

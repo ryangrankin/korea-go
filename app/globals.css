@@ -2468,3 +2468,18 @@ body {
   color: #f28c28;
   white-space: nowrap;
 }
+
+/* Today's study goal on the dashboard */
+.progress-section .daily-goal-label {
+  margin-top: 16px;
+}
+
+.progress-section .daily-goal-fill {
+  background: #2e7d32;
+}
+
+.progress-section a {
+  color: #3976b8;
+  font-weight: 700;
+  text-decoration: none;
+}

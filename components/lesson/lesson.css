@@ -784,3 +784,74 @@
   margin: -12px 0 20px;
   box-shadow: 0 4px 14px rgba(0, 0, 0, 0.08);
 }
+
+/* "Show English" in a conversation bubble (listening practice) */
+.chat-bubble .chat-show-english {
+  display: inline-block;
+  margin: 4px 0 0;
+  padding: 0;
+  text-align: left;
+}
+
+/* ---------- The learner's settings in a lesson ---------- */
+
+.lesson-settings {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 4px 12px;
+  margin: -4px 0 14px;
+  color: #666;
+  font-size: 13px;
+}
+
+.lesson-settings a {
+  color: #3976b8;
+  font-weight: 700;
+  text-decoration: none;
+}
+
+.lesson-settings-met {
+  color: #2e7d32;
+  font-weight: 700;
+}
+
+.lesson-daily-goal {
+  margin: 4px 0 8px;
+  color: #555;
+}
+
+.lesson-daily-goal.met {
+  color: #2e7d32;
+  font-weight: 700;
+}
+
+.lesson-complete .lesson-goal-suggestion {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  margin: 12px 0;
+  padding: 12px 14px;
+  border: 2px solid #c9d8ea;
+  border-radius: 14px;
+  background: #f4f7fb;
+  color: #333;
+  text-align: left;
+}
+
+.lesson-goal-suggestion-label {
+  color: #c4660f;
+  font-size: 12px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.lesson-goal-suggestion strong {
+  color: #1f4f82;
+}
+
+.lesson-goal-suggestion span:last-child {
+  color: #666;
+  font-size: 14px;
+}

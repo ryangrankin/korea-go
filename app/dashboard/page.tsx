@@ -19,6 +19,9 @@ import {
 import { topicForUnit } from "../../data/skillChecks";
 import { topicStatus } from "../../lib/skillChecks";
 import { useSkillProgress } from "../../lib/skillProgress";
+import { goalLabel, lessonsInGoalOrder } from "../../lib/learningSettings";
+import { usePreferences } from "../../lib/preferences";
+import { useStudySecondsToday } from "../../lib/studyTime";
 import TopicStatusBadge from "../../components/challenge/TopicStatusBadge";
 import "../../components/challenge/challenge.css";
 
@@ -34,6 +37,9 @@ export default function DashboardPage() {
   const [completedLessons, setCompletedLessons] =
     useState<LessonProgress>({});
   const skillProgress = useSkillProgress();
+  const preferences = usePreferences();
+  const minutesToday = Math.floor(useStudySecondsToday() / 60);
+  const goalMinutes = preferences.dailyMinutes;
 
   useEffect(() => {
     setGreeting(greetingFor(new Date().getHours()));
@@ -63,8 +69,11 @@ export default function DashboardPage() {
     (completedCount / totalLessons) * 100
   );
 
-  // The first lesson not finished or skipped yet
-  const nextUp = lessons.find((lesson) => !isDone(lesson.id));
+  // The first lesson not finished or skipped yet, in the order that fits
+  // the learner's goal (e.g. Food before Airport for a culture goal)
+  const nextUp = lessonsInGoalOrder(units, preferences.goal).find(
+    (lesson) => !isDone(lesson.id)
+  );
 
   return (
     <main className="dashboard-page">
@@ -119,6 +128,27 @@ export default function DashboardPage() {
                 : skippedCount > 0
                 ? `${completedCount} of ${totalLessons} lessons done, including ${skippedCount} skipped after a challenge. Keep going!`
                 : `${completedCount} of ${totalLessons} lessons completed. Keep going!`}
+            </p>
+
+            {/* Today's study goal (Settings → Daily Study Goal) */}
+            <div className="progress-label daily-goal-label">
+              <span>Today&apos;s study goal</span>
+              <span>
+                {Math.min(minutesToday, goalMinutes)} / {goalMinutes} min
+                {minutesToday >= goalMinutes ? " ✓" : ""}
+              </span>
+            </div>
+            <div className="progress-track">
+              <div
+                className="progress-fill daily-goal-fill"
+                style={{
+                  width: `${Math.min(100, (minutesToday / goalMinutes) * 100)}%`,
+                }}
+              />
+            </div>
+            <p>
+              Up next follows your {goalLabel(preferences.goal).toLowerCase()}.{" "}
+              <Link href="/settings">Change your settings</Link>
             </p>
           </section>
         </div>

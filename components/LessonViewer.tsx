@@ -1,9 +1,10 @@
 
 "use client";
 
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import Link from "next/link";
 import { completeLesson } from "../lib/lessonProgress";
+import { useShowRomanization } from "../lib/preferences";
 import type { LessonSections } from "../data/lessons";
 import SectionedLesson from "./lesson/SectionedLesson";
 import LessonPhoto from "./lesson/LessonPhoto";
@@ -40,20 +41,8 @@ export default function LessonViewer({
 }: LessonViewerProps) {
   const [currentStep, setCurrentStep] = useState(0);
 
-  const [showRomanization, setShowRomanization] = useState(true);
-
-  useEffect(() => {
-    try {
-      const saved = localStorage.getItem("koreaGoPreferences");
-
-      if (saved) {
-        const preferences = JSON.parse(saved);
-        setShowRomanization(preferences.romanization !== false);
-      }
-    } catch {
-      setShowRomanization(true);
-    }
-  }, []);
+  // Follows "Show Romanization" in Settings.
+  const showRomanization = useShowRomanization();
 
   // Sectioned lessons use their own layout (same romanization setting).
   if (sections) {

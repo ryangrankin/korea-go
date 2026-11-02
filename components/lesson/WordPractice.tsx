@@ -7,12 +7,16 @@
        see the Korean → pick the meaning
        see the meaning → pick the Korean
        hear it        → pick the meaning
-  3. Each new word must be answered right CORRECT_TO_LEARN times.
+  3. Each new word must be answered right a few times (correctToLearn).
      A missed word is shown again right away, then keeps coming back
-     until it has been answered right REPEATS_AFTER_MISS more times.
+     until it has been answered right repeatsAfterMiss more times.
+  How many words at a time, how many right answers, how many choices, and
+  which questions come first all follow the learner's Settings (see
+  lib/learningSettings.ts).
 */
 
 import { useRef, useState } from "react";
+import type { PracticeSettings, QuizKind } from "../../lib/learningSettings";
 import { sayOf, type PracticeWord } from "../../lib/practiceItems";
 import { keepTopInView } from "../../lib/scroll";
 import { speakKorean } from "../../lib/speak";
@@ -22,22 +26,17 @@ import Pup from "../Pup";
 type WordPracticeProps = {
   words: PracticeWord[];
   showRomanization: boolean;
+  settings: PracticeSettings; // from the learner's Settings
   noun?: string; // what to call them on screen, e.g. "letters and words"
   finishLabel: string;
   onFinish: () => void;
 };
 
-// ---------- Settings ----------
-const NEW_AT_ONCE = 3; // how many new words are being learned at the same time
-const CORRECT_TO_LEARN = 2; // right answers needed to learn a new word
-const REPEATS_AFTER_MISS = 3; // right answers needed again after a miss
+// ---------- Spacing ----------
 const GAP_AFTER_RIGHT = 3; // other cards shown before a word comes back
 const GAP_AFTER_MISS = 2;
 
 const PRAISE = ["Nice!", "Great job!", "That's it!", "Perfect!", "You got it!"];
-
-type QuizKind = "meaning" | "korean" | "listen";
-const QUIZ_ORDER: QuizKind[] = ["meaning", "korean", "listen"];
 
 type Card =
   | { kind: "intro"; word: number }
@@ -67,26 +66,30 @@ function insertAt(queue: number[], word: number, gap: number): number[] {
   return copy;
 }
 
-// The right answer plus up to 3 wrong ones, mixed up.
-function pickOptions(words: PracticeWord[], index: number): number[] {
+// The right answer plus wrong ones (optionCount in all), mixed up.
+function pickOptions(words: PracticeWord[], index: number, optionCount: number): number[] {
   const target = words[index];
   const differs = (i: number) =>
     i !== index && words[i].meaning !== target.meaning && words[i].korean !== target.korean;
   const all = words.map((_, i) => i).filter(differs);
   const sameGroup = all.filter((i) => words[i].group === target.group);
   const pool = sameGroup.length >= 2 ? sameGroup : all;
-  return shuffle([index, ...shuffle(pool).slice(0, 3)]);
+  return shuffle([index, ...shuffle(pool).slice(0, optionCount - 1)]);
 }
 
 // Decide what to show next: a new word, or the next word in the queue.
-function nextCard(words: PracticeWord[], progress: Progress): { card: Card | null; progress: Progress } {
+function nextCard(
+  words: PracticeWord[],
+  progress: Progress,
+  settings: PracticeSettings
+): { card: Card | null; progress: Progress } {
   const learning = progress.needed.slice(0, progress.nextNew).filter((n) => n > 0).length;
   const hasNew = progress.nextNew < words.length;
 
-  if (hasNew && (learning < NEW_AT_ONCE || progress.queue.length === 0)) {
+  if (hasNew && (learning < settings.newAtOnce || progress.queue.length === 0)) {
     const word = progress.nextNew;
     const needed = [...progress.needed];
-    needed[word] = CORRECT_TO_LEARN;
+    needed[word] = settings.correctToLearn;
     return {
       card: { kind: "intro", word },
       progress: { ...progress, needed, nextNew: word + 1, queue: insertAt(progress.queue, word, 1) },
@@ -96,9 +99,10 @@ function nextCard(words: PracticeWord[], progress: Progress): { card: Card | nul
   if (progress.queue.length === 0) return { card: null, progress };
 
   const [word, ...rest] = progress.queue;
-  const quiz = QUIZ_ORDER[progress.timesRight[word] % QUIZ_ORDER.length];
+  const order = settings.quizOrder;
+  const quiz = order[progress.timesRight[word] % order.length];
   return {
-    card: { kind: "quiz", word, quiz, options: pickOptions(words, word) },
+    card: { kind: "quiz", word, quiz, options: pickOptions(words, word, settings.optionCount) },
     progress: { ...progress, queue: rest },
   };
 }
@@ -107,6 +111,7 @@ function nextCard(words: PracticeWord[], progress: Progress): { card: Card | nul
 export default function WordPractice({
   words,
   showRomanization,
+  settings,
   noun = "words",
   finishLabel,
   onFinish,
@@ -136,7 +141,7 @@ export default function WordPractice({
     (showRomanization || word.meaning === word.romanization) && word.romanization;
 
   function advance() {
-    const next = nextCard(words, progress);
+    const next = nextCard(words, progress, settings);
     setStarted(true);
     setCard(next.card);
     setProgress(next.progress);
@@ -171,8 +176,8 @@ export default function WordPractice({
     } else {
       setStreak(0);
       if (!missed.includes(word)) setMissed([...missed, word]);
-      timesRight[word] = 0; // start again with the easiest kind of question
-      needed[word] = REPEATS_AFTER_MISS;
+      timesRight[word] = 0; // start again with the first kind of question
+      needed[word] = settings.repeatsAfterMiss;
       queue = insertAt(queue, word, GAP_AFTER_MISS);
     }
     setProgress({ ...progress, needed, timesRight, queue });

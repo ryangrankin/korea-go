@@ -17,8 +17,11 @@ import { useState } from "react";
 import Link from "next/link";
 import { accessoryForLesson } from "../../data/accessories";
 import type { LessonSections } from "../../data/lessons";
+import { goalSuggestion, lessonSettings, settingsSummary } from "../../lib/learningSettings";
 import { completeLesson } from "../../lib/lessonProgress";
+import { usePreferences } from "../../lib/preferences";
 import { usePup } from "../../lib/pup";
+import { useStudySecondsToday, useStudyTimer } from "../../lib/studyTime";
 import HangeulChart from "../HangeulChart";
 import Pup from "../Pup";
 import SpeechNotice from "../SpeechNotice";
@@ -74,6 +77,17 @@ export default function SectionedLesson({
     window.scrollTo({ top: 0, behavior: "smooth" });
   }
 
+  // The learner's Settings shape how this lesson works.
+  const preferences = usePreferences();
+  const settings = lessonSettings(preferences);
+  const suggestion = goalSuggestion(preferences.goal);
+
+  // Count time spent in the lesson toward today's study goal.
+  useStudyTimer(!finished);
+  const minutesToday = Math.floor(useStudySecondsToday() / 60);
+  const goalMinutes = settings.dailyMinutes;
+  const goalMet = minutesToday >= goalMinutes;
+
   function finish() {
     completeLesson(lessonId);
     setFinished(true);
@@ -105,6 +119,15 @@ export default function SectionedLesson({
         {eyebrow && <p className="lesson-eyebrow">{eyebrow}</p>}
         <h1>{title}</h1>
 
+        {/* What the learner's Settings are doing in this lesson */}
+        <p className="lesson-settings">
+          <span>{settingsSummary(preferences)}</span>
+          <span className={goalMet ? "lesson-settings-met" : ""}>
+            Today: {Math.min(minutesToday, goalMinutes)} of {goalMinutes} min{goalMet ? " ✓" : ""}
+          </span>
+          <Link href="/settings">Change</Link>
+        </p>
+
         {/* The pup introduces the lesson */}
         <div className="pup-guide">
           <Pup size={72} />
@@ -119,6 +142,13 @@ export default function SectionedLesson({
             <Pup size={150} preview={reward} className="pup-celebrate" />
             <h2>Lesson complete! 🎉</h2>
             <p>Your progress has been saved.</p>
+
+            {/* Daily study goal */}
+            <p className={`lesson-daily-goal ${goalMet ? "met" : ""}`}>
+              {goalMet
+                ? `You reached today's ${goalMinutes}-minute study goal!`
+                : `${goalMinutes - minutesToday} more ${goalMinutes - minutesToday === 1 ? "minute" : "minutes"} to reach today's ${goalMinutes}-minute goal.`}
+            </p>
 
             {/* The accessory this lesson unlocks */}
             {reward && (
@@ -146,6 +176,13 @@ export default function SectionedLesson({
             ) : (
               <p>You&apos;ve finished every lesson so far. More are coming soon!</p>
             )}
+            {/* Something that fits the learner's goal */}
+            <Link href={suggestion.href} className="lesson-goal-suggestion">
+              <span className="lesson-goal-suggestion-label">For your goal</span>
+              <strong>{suggestion.label} →</strong>
+              <span>{suggestion.why}</span>
+            </Link>
+
             <Link href="/dashboard" className="secondary-button">
               Back to dashboard
             </Link>
@@ -182,6 +219,7 @@ export default function SectionedLesson({
                 section={section}
                 speakers={sections.speakers}
                 showRomanization={showRomanization}
+                settings={settings}
                 nextSectionLabel={nextLabel(index)}
                 onComplete={() => goOnFrom(index)}
               />
