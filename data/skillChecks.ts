@@ -16,6 +16,7 @@
   out of.
 */
 
+import { airportChecks } from "./checks/airport";
 import { foodChecks } from "./checks/food";
 import { greetingsChecks } from "./checks/greetings";
 import { hangeulChecks } from "./checks/hangeul";
@@ -80,7 +81,7 @@ export type SkillTopic = {
 };
 
 // ---------- All topics ----------
-export const skillTopics: SkillTopic[] = [hangeulChecks, greetingsChecks, foodChecks];
+export const skillTopics: SkillTopic[] = [hangeulChecks, greetingsChecks, airportChecks, foodChecks];
 
 export const findTopic = (topicId: string) => skillTopics.find((topic) => topic.id === topicId);
 

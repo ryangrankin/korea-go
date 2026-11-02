@@ -51,7 +51,7 @@ describe("skill check data", () => {
 
   it("the sample lessons have enough questions to test out of", () => {
     const testable = lessons.filter((lesson) => canTestOut(lesson.id)).map((lesson) => lesson.id);
-    for (const id of ["hangeul-1", "greetings-1", "greetings-4", "food-1", "food-7"]) {
+    for (const id of ["hangeul-1", "greetings-1", "greetings-4", "airport-1", "airport-2", "airport-3", "food-1", "food-7"]) {
       expect(testable).toContain(id);
     }
     for (const topic of skillTopics) {
