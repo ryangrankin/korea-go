@@ -6,7 +6,11 @@ import Link from "next/link";
 import BottomNav from "../../components/BottomNav";
 import Avatar from "../../components/Avatar";
 import { uploadMyAvatar } from "../../lib/avatar";
+import { useFriendships } from "../../lib/friends";
+import { useGameStats } from "../../lib/gameScores";
 import { isGuest } from "../../lib/guest";
+import { useLessonProgress } from "../../lib/lessonProgress";
+import { useStudyStreak } from "../../lib/studyTime";
 import { setMyUsername, useMyProfile, USERNAME_PATTERN, USERNAME_RULES } from "../../lib/username";
 
 type Profile = {
@@ -23,6 +27,11 @@ export default function ProfilePage() {
   });
 
   const myProfile = useMyProfile();
+  const lessonsDone = Object.values(useLessonProgress()).filter((done) => done === true).length;
+  const streak = useStudyStreak();
+  const friendships = useFriendships();
+  const friendCount = friendships.status === "ready" ? friendships.friends.length : 0;
+  const gamePoints = useGameStats().totalPoints;
   const username = myProfile === undefined ? undefined : myProfile?.username ?? null;
   const [uploading, setUploading] = useState(false);
   const [photoMessage, setPhotoMessage] = useState<string | null>(null);
@@ -150,12 +159,23 @@ export default function ProfilePage() {
         <section className="profile-section">
           <h2>My Activity</h2>
 
-          <div className="profile-card">
-            <p>
-              Your completed lessons, learning streak,
-              and friends will appear here when
-              account tracking is connected.
-            </p>
+          <div className="profile-card profile-activity">
+            <div>
+              <strong>{lessonsDone}</strong>
+              <span>{lessonsDone === 1 ? "lesson" : "lessons"} completed</span>
+            </div>
+            <div>
+              <strong>{streak > 0 ? `🔥 ${streak}` : "0"}</strong>
+              <span>day streak</span>
+            </div>
+            <div>
+              <strong>{gamePoints.toLocaleString()}</strong>
+              <span>game points</span>
+            </div>
+            <div>
+              <strong>{friendCount}</strong>
+              <span>{friendCount === 1 ? "friend" : "friends"}</span>
+            </div>
           </div>
         </section>
 

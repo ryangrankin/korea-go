@@ -11,6 +11,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { useIncomingRequestCount } from "../lib/friends";
 
 const tabs = [
   { href: "/dashboard", icon: "🏠", label: "Home" },
@@ -22,6 +23,7 @@ const tabs = [
 
 export default function BottomNav() {
   const pathname = usePathname();
+  const requests = useIncomingRequestCount(); // friend requests waiting
 
   // A tab stays active on its inner pages too (e.g. /games/hangeul-match).
   const isActive = (href: string) => pathname === href || pathname.startsWith(`${href}/`);
@@ -43,8 +45,17 @@ export default function BottomNav() {
             >
               <span className="bottom-nav-icon" aria-hidden="true">
                 {tab.icon}
+                {tab.href === "/friends" && requests > 0 && <span className="nav-badge">{requests}</span>}
               </span>
-              <span className="bottom-nav-label">{tab.label}</span>
+              <span className="bottom-nav-label">
+                {tab.label}
+                {tab.href === "/friends" && requests > 0 && (
+                  <span className="visually-hidden">
+                    {" "}
+                    ({requests} friend {requests === 1 ? "request" : "requests"})
+                  </span>
+                )}
+              </span>
             </Link>
           </li>
         ))}
