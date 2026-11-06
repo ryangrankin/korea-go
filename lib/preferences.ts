@@ -84,6 +84,22 @@ export function usePreferences(): Preferences {
   return parsePreferences(snap.slice(newline + 1) || null, snap.slice(0, newline) || null);
 }
 
+// Save choices the same way the Settings page does (merged into what's
+// already saved, so other settings like reminders are kept).
+export function savePreferences(choices: Preferences) {
+  try {
+    const saved = JSON.parse(localStorage.getItem(PREFERENCES_KEY) || "{}");
+    localStorage.setItem(
+      PREFERENCES_KEY,
+      JSON.stringify({ ...saved, ...choices, dailyMinutes: String(choices.dailyMinutes) })
+    );
+    localStorage.setItem(LEVEL_KEY, choices.level);
+    window.dispatchEvent(new StorageEvent("storage"));
+  } catch {
+    // Settings can still be changed later on the Settings page.
+  }
+}
+
 // true unless the learner turned romanization off in Settings.
 export function useShowRomanization(): boolean {
   return usePreferences().romanization;
