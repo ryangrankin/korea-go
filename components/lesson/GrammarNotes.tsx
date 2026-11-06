@@ -19,6 +19,7 @@ export default function GrammarNotes({ notes, showRomanization }: GrammarNotesPr
         <div key={note.title} className="grammar-card">
           <h3 lang="ko">{note.title}</h3>
           <p>{note.explanation}</p>
+
           <ul>
             {note.examples.map((example) => (
               <li key={example.korean}>

@@ -1,5 +1,6 @@
 import { Suspense } from "react";
 import Link from "next/link";
+import BottomNav from "../../../components/BottomNav";
 import { notFound } from "next/navigation";
 import CultureGame from "../../../components/games/CultureGame";
 import DifficultyBadge from "../../../components/games/DifficultyBadge";
@@ -37,13 +38,14 @@ export default function CultureGamePage({ params }: PageProps) {
     <main className="basic-page">
       <div className="basic-container game-container">
         <Link href="/games" className="back-button">
-          ← Back to Games
+          ← Mini Games
         </Link>
 
         <Suspense fallback={<p>Loading game...</p>}>
           <GameContent params={params} />
         </Suspense>
       </div>
+      <BottomNav />
     </main>
   );
 }

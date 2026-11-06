@@ -6,7 +6,9 @@
   Wrong choices show a hint and the learner tries again.
 */
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { progressPercent } from "../../lib/progress";
+import ProgressBar from "../ProgressBar";
 import type { LessonSections, Speaker } from "../../data/lessons";
 import { speakKorean } from "../../lib/speak";
 import { PracticeQuestionCard } from "../PracticeViewer";
@@ -18,14 +20,29 @@ type NavigationGameProps = {
   showRomanization: boolean;
   finishLabel: string;
   onComplete: () => void;
+  onProgress?: (share: number) => void; // 0–1, for the lesson's progress bar
+  romanize?: (option: string) => string | undefined; // how to say a Korean answer choice
 };
 
-export default function NavigationGame({ game, speakers, showRomanization, finishLabel, onComplete }: NavigationGameProps) {
+export default function NavigationGame({
+  game,
+  speakers,
+  showRomanization,
+  finishLabel,
+  onComplete,
+  onProgress,
+  romanize,
+}: NavigationGameProps) {
   const [started, setStarted] = useState(false);
   const [stepIndex, setStepIndex] = useState(0);
 
   const step = game.steps[stepIndex];
   const finished = stepIndex >= game.steps.length;
+
+  // Tell the lesson how far through the game the learner is.
+  useEffect(() => {
+    onProgress?.(stepIndex / game.steps.length);
+  }, [stepIndex, game.steps.length, onProgress]);
 
   if (!started) {
     return (
@@ -53,9 +70,11 @@ export default function NavigationGame({ game, speakers, showRomanization, finis
 
   return (
     <div className="practice-question-card">
-      <p className="practice-count">
-        Step {stepIndex + 1} of {game.steps.length}
-      </p>
+      <ProgressBar
+        label="Game progress"
+        percent={progressPercent(stepIndex, game.steps.length)}
+        detail={`Step ${stepIndex + 1} of ${game.steps.length}`}
+      />
       <p className="game-place">{step.place}</p>
 
       {/* What someone says to you (if anyone) */}
@@ -81,6 +100,7 @@ export default function NavigationGame({ game, speakers, showRomanization, finis
         explanation={step.explanation}
         onOptionClick={speakKorean}
         optionLang="ko"
+        romanize={romanize}
         nextLabel={stepIndex === game.steps.length - 1 ? "Finish ▶" : "Keep going ▶"}
         onDone={() => setStepIndex(stepIndex + 1)}
       />

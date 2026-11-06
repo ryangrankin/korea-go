@@ -5,6 +5,7 @@ import { useState } from "react";
 import Link from "next/link";
 import { completeLesson } from "../lib/lessonProgress";
 import { useShowRomanization } from "../lib/preferences";
+import { progressPercent } from "../lib/progress";
 import type { LessonSections } from "../data/lessons";
 import SectionedLesson from "./lesson/SectionedLesson";
 import LessonPhoto from "./lesson/LessonPhoto";
@@ -26,6 +27,10 @@ type LessonViewerProps = {
   eyebrow?: string; // e.g. "Unit 1 · Lesson 2"
   photo?: { src: string; alt: string }; // the unit's photo, shown as a banner
   nextLesson?: { id: string; title: string };
+  previousLesson?: { id: string; title: string };
+  unit?: { id: string; number: number; title: string; lessonNumber: number; lessonCount: number; lessonIds: string[] };
+  optionRomanization?: Record<string, string>; // how to say each Korean answer choice
+  objectives?: string[]; // what the learner will be able to do (data/objectives.ts)
 };
 
 export default function LessonViewer({
@@ -38,8 +43,13 @@ export default function LessonViewer({
   eyebrow,
   photo,
   nextLesson,
+  previousLesson,
+  unit,
+  optionRomanization = {},
+  objectives = [],
 }: LessonViewerProps) {
   const [currentStep, setCurrentStep] = useState(0);
+  const [furthestStep, setFurthestStep] = useState(0);
 
   // Follows "Show Romanization" in Settings.
   const showRomanization = useShowRomanization();
@@ -57,6 +67,10 @@ export default function LessonViewer({
         sections={sections}
         showRomanization={showRomanization}
         nextLesson={nextLesson}
+        previousLesson={previousLesson}
+        unit={unit}
+        optionRomanization={optionRomanization}
+        objectives={objectives}
       />
     );
   }
@@ -64,17 +78,17 @@ export default function LessonViewer({
   const totalSteps = items.length;
   const isComplete = totalSteps > 0 && currentStep >= totalSteps;
 
-  const progress =
-    totalSteps === 0
-      ? 0
-      : Math.min((currentStep / totalSteps) * 100, 100);
+  // Words viewed so far (the furthest one reached), so going back doesn't shrink it.
+  const progress = progressPercent(furthestStep, totalSteps);
 
   function nextStep() {
     if (currentStep < totalSteps - 1) {
       setCurrentStep(currentStep + 1);
+      setFurthestStep(Math.max(furthestStep, currentStep + 1));
     } else if (totalSteps > 0) {
       completeLesson(lessonId);
       setCurrentStep(totalSteps);
+      setFurthestStep(totalSteps);
     }
   }
 

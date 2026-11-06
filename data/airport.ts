@@ -30,6 +30,7 @@ import type {
   ConversationLine,
   ChoiceQuestion,
   GameStep,
+  GrammarNote,
 } from "./lessons";
 
 // ---------------------------------------------------------------
@@ -56,6 +57,23 @@ const lesson1Words: VocabularyItem[] = [
   { korean: "환승", romanization: "hwanseung", english: "transfer", emoji: "🔁" },
   { korean: "세관", romanization: "segwan", english: "customs", emoji: "🛃" },
   { korean: "게이트", romanization: "geiteu", english: "gate", emoji: "🚪" },
+];
+
+// Telling the look-alike signs apart.
+const lesson1Grammar: GrammarNote[] = [
+  {
+    title: "입 = in, 출 = out",
+    explanation:
+      "Four airport signs look alike, but two small parts tell them apart. 입 means \"in\" and 출 means \"out.\" " +
+      "국 means \"country\" and 구 means \"opening\" (a doorway). So 입국 is coming into the country " +
+      "(arrivals and immigration), 출국 is leaving the country (departures), 입구 is an entrance, and 출구 is an exit.",
+    examples: [
+      { korean: "입국", romanization: "ipguk", english: "in + country → arrivals / entering Korea" },
+      { korean: "출국", romanization: "chulguk", english: "out + country → departures / leaving Korea" },
+      { korean: "입구", romanization: "ipgu", english: "in + opening → entrance" },
+      { korean: "출구", romanization: "chulgu", english: "out + opening → exit" },
+    ],
+  },
 ];
 
 const lesson1Conversation: ConversationLine[] = [
@@ -425,7 +443,7 @@ export const airportUnit: Unit = {
             conversation: lesson1Conversation,
             words: lesson1Words,
             phrases: [],
-            grammar: [],
+            grammar: lesson1Grammar,
             missions: lesson1Missions,
           },
         ],

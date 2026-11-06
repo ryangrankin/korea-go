@@ -3,6 +3,7 @@
 
 import { useEffect, useState, useSyncExternalStore, type ChangeEvent, type FormEvent } from "react";
 import Link from "next/link";
+import BottomNav from "../../components/BottomNav";
 import Avatar from "../../components/Avatar";
 import { uploadMyAvatar } from "../../lib/avatar";
 import { isGuest } from "../../lib/guest";
@@ -162,6 +163,7 @@ export default function ProfilePage() {
           👥 View Friends →
         </Link>
       </div>
+      <BottomNav />
     </main>
   );
 }

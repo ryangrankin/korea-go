@@ -491,6 +491,23 @@ const lesson5Phrases: VocabularyItem[] = [
   { korean: "매운 음식을 좋아하지 않아요.", romanization: "maeun eumsigeul joahaji anayo.", english: "I don't like spicy food.", emoji: "🙅🌶️" },
 ];
 
+// Lesson 7 grammar: reading and saying prices.
+const lesson7Grammar: GrammarNote[] = [
+  {
+    title: "Reading prices: ___ 원",
+    explanation:
+      "Prices are a number, then 원 (won). They use the Sino-Korean numbers: 일 1, 이 2, 삼 3, 사 4, 오 5. " +
+      "천 is 1,000 and 만 is 10,000 — Korean counts big numbers in ten-thousands, so 10,000원 is 만 원 " +
+      "(not \"ten thousand\") and 20,000원 is 이만 원. To ask the price, point and say 이거 얼마예요?",
+    examples: [
+      { korean: "이거 얼마예요?", romanization: "igeo eolmayeyo?", english: "How much is this?" },
+      { korean: "오천 원이에요.", romanization: "ocheon wonieyo.", english: "It's 5,000 won." },
+      { korean: "만 원이에요.", romanization: "man wonieyo.", english: "It's 10,000 won." },
+      { korean: "사천오백 원이에요.", romanization: "sacheon-obaek wonieyo.", english: "It's 4,500 won." },
+    ],
+  },
+];
+
 const lesson5Grammar: GrammarNote[] = [
   {
     title: "-지 않아요 = \"don't\" / \"isn't\"",
@@ -1080,7 +1097,7 @@ export const foodUnit: Unit = {
             conversation: lesson7Conversation,
             words: lesson7Words,
             phrases: lesson7Phrases,
-            grammar: [],
+            grammar: lesson7Grammar,
             missions: lesson7Missions,
           },
         ],

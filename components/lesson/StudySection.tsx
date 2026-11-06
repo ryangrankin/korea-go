@@ -10,7 +10,10 @@
   to go back to it.
 */
 
-import { useState } from "react";
+import { scrollToTop } from "../../lib/scroll";
+import { useEffect, useState } from "react";
+import { progressPercent, studyPartShare } from "../../lib/progress";
+import ProgressBar from "../ProgressBar";
 import type { Speaker, StudySection as StudySectionData } from "../../data/lessons";
 import { speakKorean } from "../../lib/speak";
 import { PracticeQuestionCard } from "../PracticeViewer";
@@ -21,6 +24,14 @@ import WordPractice from "./WordPractice";
 import { orderForPractice, type LessonSettings } from "../../lib/learningSettings";
 import { practiceItems } from "../../lib/practiceItems";
 
+// An icon for each step, so the steps are easy to tell apart at a glance.
+const STEP_ICONS: Record<string, string> = {
+  Conversation: "💬",
+  Words: "📝",
+  Grammar: "📖",
+  Missions: "🎯",
+};
+
 type StudySectionProps = {
   section: StudySectionData;
   speakers: Record<string, Speaker>;
@@ -28,6 +39,8 @@ type StudySectionProps = {
   settings: LessonSettings; // from the learner's Settings
   nextSectionLabel: string;
   onComplete: () => void;
+  onProgress?: (share: number) => void; // 0–1, for the lesson's progress bar
+  romanize?: (option: string) => string | undefined; // how to say a Korean answer choice
 };
 
 export default function StudySection({
@@ -37,6 +50,8 @@ export default function StudySection({
   settings,
   nextSectionLabel,
   onComplete,
+  onProgress,
+  romanize,
 }: StudySectionProps) {
   // Grammar notes come first if the section or the learner's settings ask for it.
   const notesFirst = section.notesFirst || settings.notesFirst;
@@ -62,6 +77,8 @@ export default function StudySection({
   // The furthest step reached so far. Steps up to here can be revisited.
   const [furthest, setFurthest] = useState(0);
   const [missionIndex, setMissionIndex] = useState(0);
+  // Most missions ever finished in this part (so retrying doesn't undo progress).
+  const [bestMissions, setBestMissions] = useState(0);
   // Once the word practice is done, the Words step shows every word instead.
   const [wordsDone, setWordsDone] = useState(false);
   const [practiceRound, setPracticeRound] = useState(0);
@@ -75,12 +92,30 @@ export default function StudySection({
   const goTo = (index: number) => {
     setStep(index);
     setFurthest(Math.max(furthest, index));
-    window.scrollTo({ top: 0, behavior: "smooth" });
+    scrollToTop();
   };
   const goNext = () => goTo(step + 1);
 
   const mission = section.missions[missionIndex];
   const missionsDone = missionIndex >= section.missions.length;
+
+  // Tell the lesson how much of this part is done: steps passed, plus
+  // missions finished once the learner reaches the missions.
+  const missionsStep = steps.indexOf("Missions");
+  const share = studyPartShare(
+    furthest,
+    steps.length,
+    furthest >= missionsStep ? bestMissions : 0,
+    section.missions.length
+  );
+  useEffect(() => {
+    onProgress?.(share);
+  }, [share, onProgress]);
+
+  function finishMission() {
+    setMissionIndex(missionIndex + 1);
+    setBestMissions(Math.max(bestMissions, missionIndex + 1));
+  }
 
   return (
     <div>
@@ -96,7 +131,8 @@ export default function StudySection({
               disabled={index > furthest}
               onClick={() => goTo(index)}
             >
-              {index < furthest && index !== step ? "✓ " : ""}
+              <span className="step-number">{index < furthest && index !== step ? "✓" : index + 1}</span>
+              <span aria-hidden="true">{STEP_ICONS[name]}</span>
               {labels[name]}
             </button>
           </li>
@@ -186,9 +222,11 @@ export default function StudySection({
 
       {stepName === "Missions" && !missionsDone && (
         <div className="practice-question-card">
-          <p className="practice-count">
-            Mission {missionIndex + 1} of {section.missions.length}
-          </p>
+          <ProgressBar
+            label="Missions"
+            percent={progressPercent(missionIndex, section.missions.length)}
+            detail={`Mission ${missionIndex + 1} of ${section.missions.length}`}
+          />
           <h2>{mission.prompt}</h2>
           <PracticeQuestionCard
             // "key" makes a fresh question each time (clears old answers).
@@ -199,7 +237,8 @@ export default function StudySection({
             explanation={mission.explanation}
             onOptionClick={speakKorean}
             optionLang="ko"
-            onDone={() => setMissionIndex(missionIndex + 1)}
+            romanize={romanize}
+            onDone={finishMission}
           />
         </div>
       )}

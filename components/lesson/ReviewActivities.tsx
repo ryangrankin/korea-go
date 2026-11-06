@@ -7,7 +7,12 @@
   Then a final score and a button to finish the lesson.
 */
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { progressPercent } from "../../lib/progress";
+import { vowelStrokes } from "../../data/strokes";
+import AudioButtons from "../AudioButtons";
+import VowelDiagram from "./VowelDiagram";
+import ProgressBar from "../ProgressBar";
 import type { LessonSections } from "../../data/lessons";
 import { speakKorean } from "../../lib/speak";
 import { PracticeQuestionCard } from "../PracticeViewer";
@@ -39,7 +44,11 @@ function Flashcards({ cards, showRomanization, onDone }: { cards: Review["flashc
       >
         {flipped ? (
           <>
-            <span className="flashcard-emoji" aria-hidden="true">{card.emoji}</span>
+            {vowelStrokes[card.korean] ? (
+              <VowelDiagram letter={card.korean} size={96} />
+            ) : (
+              <span className="flashcard-emoji" aria-hidden="true">{card.emoji}</span>
+            )}
             <span className="flashcard-english">{card.english}</span>
             {showRomanization && <span className="romanization">{card.romanization}</span>}
           </>
@@ -51,13 +60,7 @@ function Flashcards({ cards, showRomanization, onDone }: { cards: Review["flashc
         )}
       </button>
 
-      <button
-        type="button"
-        className="secondary-button flashcard-audio"
-        onClick={() => speakKorean(card.say ?? card.example?.korean ?? card.korean)}
-      >
-        🔊 Hear it
-      </button>
+      <AudioButtons text={card.say ?? card.example?.korean ?? card.korean} className="flashcard-audio" />
 
       <div className="lesson-navigation">
         <button type="button" onClick={() => goTo(index - 1)} disabled={index === 0}>
@@ -76,7 +79,15 @@ function Flashcards({ cards, showRomanization, onDone }: { cards: Review["flashc
 }
 
 // ---------- Part B: Listening ----------
-function Listening({ questions, onFinish }: { questions: Review["listening"]; onFinish: (score: number) => void }) {
+function Listening({
+  questions,
+  onFinish,
+  onAnswered,
+}: {
+  questions: Review["listening"];
+  onFinish: (score: number) => void;
+  onAnswered: (count: number) => void; // questions finished so far
+}) {
   const [index, setIndex] = useState(0);
   const [score, setScore] = useState(0);
   const [showText, setShowText] = useState(false);
@@ -87,11 +98,22 @@ function Listening({ questions, onFinish }: { questions: Review["listening"]; on
       <p className="practice-count">
         Question {index + 1} of {questions.length}
       </p>
-      <h2>Listen, then pick the meaning.</h2>
+      <h2>
+        <span aria-hidden="true">🎧</span> Listen, then pick the meaning.
+      </h2>
 
-      <button type="button" className="listen-button" onClick={() => speakKorean(question.prompt)}>
-        🔊 Play
-      </button>
+      <div className="listen-buttons">
+        <button type="button" className="listen-button" onClick={() => speakKorean(question.prompt)}>
+          <span aria-hidden="true">🔊</span> Play
+        </button>
+        <button
+          type="button"
+          className="listen-button listen-button-slow"
+          onClick={() => speakKorean(question.prompt, { slow: true })}
+        >
+          <span aria-hidden="true">🐢</span> Slow
+        </button>
+      </div>
 
       {/* Backup in case the device has no Korean voice */}
       {showText ? (
@@ -113,6 +135,7 @@ function Listening({ questions, onFinish }: { questions: Review["listening"]; on
           const newScore = firstTry ? score + 1 : score;
           setScore(newScore);
           setShowText(false);
+          onAnswered(index + 1);
           if (index === questions.length - 1) onFinish(newScore);
           else setIndex(index + 1);
         }}
@@ -127,12 +150,26 @@ type ReviewActivitiesProps = {
   showRomanization: boolean;
   finishLabel: string;
   onComplete: () => void;
+  onProgress?: (share: number) => void; // 0–1, for the lesson's progress bar
 };
 
-export default function ReviewActivities({ review, showRomanization, finishLabel, onComplete }: ReviewActivitiesProps) {
+export default function ReviewActivities({
+  review,
+  showRomanization,
+  finishLabel,
+  onComplete,
+  onProgress,
+}: ReviewActivitiesProps) {
   const [part, setPart] = useState<"cards" | "listening" | "score">("cards");
   const [score, setScore] = useState(0);
+  const [listened, setListened] = useState(0); // listening questions finished
   const total = review.listening.length;
+
+  // Flashcards are the first quarter; the listening questions are the rest.
+  const share = part === "cards" ? 0 : part === "score" ? 1 : 0.25 + 0.75 * (listened / Math.max(1, total));
+  useEffect(() => {
+    onProgress?.(share);
+  }, [share, onProgress]);
 
   if (part === "cards") {
     return (
@@ -147,8 +184,14 @@ export default function ReviewActivities({ review, showRomanization, finishLabel
     return (
       <>
         <h2 className="section-heading">Part B: Listening</h2>
+        <ProgressBar
+          label="Listening progress"
+          percent={progressPercent(listened, total)}
+          detail={`${listened} of ${total} answered`}
+        />
         <Listening
           questions={review.listening}
+          onAnswered={setListened}
           onFinish={(finalScore) => {
             setScore(finalScore);
             setPart("score");
@@ -173,6 +216,7 @@ export default function ReviewActivities({ review, showRomanization, finishLabel
         className="secondary-button"
         onClick={() => {
           setScore(0);
+          setListened(0);
           setPart("cards");
         }}
       >

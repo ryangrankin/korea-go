@@ -10,6 +10,7 @@
 
 import { useEffect } from "react";
 import { usePathname, useRouter } from "next/navigation";
+import { saveWhenLeaving } from "../lib/accountSync";
 import { isGuest } from "../lib/guest";
 import { supabase } from "../lib/supabase";
 
@@ -25,6 +26,10 @@ export default function AuthGate() {
       if (!data.session) router.replace("/");
     });
   }, [pathname, router]);
+
+  // Save progress when the tab is hidden or closed (logged-in learners only;
+  // saving does nothing for guests).
+  useEffect(() => saveWhenLeaving(), []);
 
   return null;
 }

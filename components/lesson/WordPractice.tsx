@@ -12,14 +12,26 @@
      until it has been answered right repeatsAfterMiss more times.
   How many words at a time, how many right answers, how many choices, and
   which questions come first all follow the learner's Settings (see
-  lib/learningSettings.ts).
+  lib/learningSettings.ts). The rules themselves live in lib/wordPractice.ts.
+  The progress bar counts answered questions, and never goes backwards.
 */
 
 import { useRef, useState } from "react";
-import type { PracticeSettings, QuizKind } from "../../lib/learningSettings";
+import type { PracticeSettings } from "../../lib/learningSettings";
+import {
+  applyAnswer,
+  initialPracticeState,
+  nextCard,
+  practiceProgress,
+  type PracticeCard,
+  type PracticeState,
+} from "../../lib/wordPractice";
 import { sayOf, type PracticeWord } from "../../lib/practiceItems";
 import { keepTopInView } from "../../lib/scroll";
 import { speakKorean } from "../../lib/speak";
+import { vowelStrokes } from "../../data/strokes";
+import AudioButtons from "../AudioButtons";
+import VowelDiagram from "./VowelDiagram";
 import KoreanText from "../KoreanText";
 import Pup from "../Pup";
 
@@ -32,80 +44,7 @@ type WordPracticeProps = {
   onFinish: () => void;
 };
 
-// ---------- Spacing ----------
-const GAP_AFTER_RIGHT = 3; // other cards shown before a word comes back
-const GAP_AFTER_MISS = 2;
-
 const PRAISE = ["Nice!", "Great job!", "That's it!", "Perfect!", "You got it!"];
-
-type Card =
-  | { kind: "intro"; word: number }
-  | { kind: "quiz"; word: number; quiz: QuizKind; options: number[] };
-
-type Progress = {
-  queue: number[]; // words waiting to be quizzed, in order
-  needed: number[]; // right answers each word still needs
-  timesRight: number[]; // right answers so far (picks the question type)
-  nextNew: number; // the next word to introduce
-};
-
-// ---------- Helpers ----------
-function shuffle<T>(items: T[]): T[] {
-  const copy = [...items];
-  for (let i = copy.length - 1; i > 0; i--) {
-    const j = Math.floor(Math.random() * (i + 1));
-    [copy[i], copy[j]] = [copy[j], copy[i]];
-  }
-  return copy;
-}
-
-// Put a word back into the queue, `gap` cards from the front.
-function insertAt(queue: number[], word: number, gap: number): number[] {
-  const copy = [...queue];
-  copy.splice(Math.min(gap, copy.length), 0, word);
-  return copy;
-}
-
-// The right answer plus wrong ones (optionCount in all), mixed up.
-function pickOptions(words: PracticeWord[], index: number, optionCount: number): number[] {
-  const target = words[index];
-  const differs = (i: number) =>
-    i !== index && words[i].meaning !== target.meaning && words[i].korean !== target.korean;
-  const all = words.map((_, i) => i).filter(differs);
-  const sameGroup = all.filter((i) => words[i].group === target.group);
-  const pool = sameGroup.length >= 2 ? sameGroup : all;
-  return shuffle([index, ...shuffle(pool).slice(0, optionCount - 1)]);
-}
-
-// Decide what to show next: a new word, or the next word in the queue.
-function nextCard(
-  words: PracticeWord[],
-  progress: Progress,
-  settings: PracticeSettings
-): { card: Card | null; progress: Progress } {
-  const learning = progress.needed.slice(0, progress.nextNew).filter((n) => n > 0).length;
-  const hasNew = progress.nextNew < words.length;
-
-  if (hasNew && (learning < settings.newAtOnce || progress.queue.length === 0)) {
-    const word = progress.nextNew;
-    const needed = [...progress.needed];
-    needed[word] = settings.correctToLearn;
-    return {
-      card: { kind: "intro", word },
-      progress: { ...progress, needed, nextNew: word + 1, queue: insertAt(progress.queue, word, 1) },
-    };
-  }
-
-  if (progress.queue.length === 0) return { card: null, progress };
-
-  const [word, ...rest] = progress.queue;
-  const order = settings.quizOrder;
-  const quiz = order[progress.timesRight[word] % order.length];
-  return {
-    card: { kind: "quiz", word, quiz, options: pickOptions(words, word, settings.optionCount) },
-    progress: { ...progress, queue: rest },
-  };
-}
 
 // ---------- The component ----------
 export default function WordPractice({
@@ -117,34 +56,32 @@ export default function WordPractice({
   onFinish,
 }: WordPracticeProps) {
   const [started, setStarted] = useState(false);
-  const [card, setCard] = useState<Card | null>(null);
-  const [progress, setProgress] = useState<Progress>({
-    queue: [],
-    needed: words.map(() => 0),
-    timesRight: words.map(() => 0),
-    nextNew: 0,
-  });
+  const [card, setCard] = useState<PracticeCard | null>(null);
+  const [progress, setProgress] = useState<PracticeState>(() => initialPracticeState(words.length));
   const [picked, setPicked] = useState<number | null>(null);
   const [showText, setShowText] = useState(false); // listening backup
   const [streak, setStreak] = useState(0);
   const [bestStreak, setBestStreak] = useState(0);
-  const [answered, setAnswered] = useState(0);
   const [rightCount, setRightCount] = useState(0);
   const [missed, setMissed] = useState<number[]>([]);
   const boxRef = useRef<HTMLDivElement>(null);
 
-  const learned = progress.needed.slice(0, progress.nextNew).filter((n) => n === 0).length;
+  const { answered, learned, remaining, percent } = practiceProgress(progress, words.length, settings);
   const finished = started && card === null;
 
   // Romanization always shows when it IS the meaning (letters).
   const romanizationOf = (word: PracticeWord) =>
     (showRomanization || word.meaning === word.romanization) && word.romanization;
+  // In questions, romanization is a pronunciation hint — but never when it
+  // IS the answer (letters, where the meaning is the sound).
+  const hintFor = (word: PracticeWord) =>
+    showRomanization && word.meaning !== word.romanization ? word.romanization : undefined;
 
   function advance() {
     const next = nextCard(words, progress, settings);
     setStarted(true);
     setCard(next.card);
-    setProgress(next.progress);
+    setProgress(next.state);
     setPicked(null);
     setShowText(false);
     // Play new words and listening questions right away.
@@ -160,27 +97,16 @@ export default function WordPractice({
     const right = option === word;
     setPicked(option);
     speakKorean(sayOf(words[word]));
-    setAnswered(answered + 1);
-
-    const needed = [...progress.needed];
-    const timesRight = [...progress.timesRight];
-    let queue = progress.queue;
 
     if (right) {
       setRightCount(rightCount + 1);
       setStreak(streak + 1);
       setBestStreak(Math.max(bestStreak, streak + 1));
-      timesRight[word] += 1;
-      needed[word] -= 1;
-      if (needed[word] > 0) queue = insertAt(queue, word, GAP_AFTER_RIGHT);
     } else {
       setStreak(0);
       if (!missed.includes(word)) setMissed([...missed, word]);
-      timesRight[word] = 0; // start again with the first kind of question
-      needed[word] = settings.repeatsAfterMiss;
-      queue = insertAt(queue, word, GAP_AFTER_MISS);
     }
-    setProgress({ ...progress, needed, timesRight, queue });
+    setProgress(applyAnswer(progress, word, right, settings, words.length));
   }
 
   // ----- Start screen -----
@@ -252,24 +178,37 @@ export default function WordPractice({
 
   return (
     <div ref={boxRef}>
-      {/* Progress bar and streak */}
+      {/* Progress: questions answered (never goes backwards), and words learned */}
       <div className="wp-header">
-        <div className="lesson-progress-track">
-          <div className="lesson-progress-fill" style={{ width: `${(learned / words.length) * 100}%` }} />
+        <div
+          className="lesson-progress-track"
+          role="progressbar"
+          aria-label="Word practice progress"
+          aria-valuemin={0}
+          aria-valuemax={100}
+          aria-valuenow={percent}
+        >
+          <div className="lesson-progress-fill" style={{ width: `${percent}%` }} />
         </div>
-        <span className="wp-count">
-          {learned}/{words.length}
-        </span>
         {streak >= 2 && <span className="wp-streak">🔥 {streak}</span>}
       </div>
+      <p className="wp-count">
+        {answered} {answered === 1 ? "question" : "questions"} answered
+        {remaining > 0 && ` · about ${remaining} to go`} · {learned} of {words.length} {noun} learned
+      </p>
 
       {/* ----- New word ----- */}
       {card.kind === "intro" && (
         <div className="wp-card">
           <span className="wp-badge">✨ New</span>
-          <div className="wp-big-emoji" aria-hidden="true">{word.emoji}</div>
+          {vowelStrokes[word.korean] ? (
+            <VowelDiagram letter={word.korean} size={110} />
+          ) : (
+            <div className="wp-big-emoji" aria-hidden="true">{word.emoji}</div>
+          )}
           <KoreanText text={word.korean} say={sayOf(word)} className="wp-korean" />
           {romanizationOf(word) && <p className="romanization">{word.romanization}</p>}
+          <AudioButtons text={sayOf(word)} />
           <p className="wp-meaning">{word.english}</p>
           {word.example && (
             <p className="word-example">
@@ -289,6 +228,7 @@ export default function WordPractice({
             <>
               <p className="wp-prompt">What does this mean?</p>
               <KoreanText text={word.korean} say={sayOf(word)} className="wp-korean" />
+              {hintFor(word) && <p className="romanization">{hintFor(word)}</p>}
             </>
           )}
           {card.quiz === "korean" && (
@@ -300,15 +240,27 @@ export default function WordPractice({
           )}
           {card.quiz === "listen" && (
             <>
-              <p className="wp-prompt">Listen. What does it mean?</p>
-              <button
-                type="button"
-                className="wp-listen"
-                onClick={() => speakKorean(sayOf(word))}
-                aria-label="Play the word again"
-              >
-                🔊
-              </button>
+              <p className="wp-prompt">
+                <span aria-hidden="true">🎧</span> Listen. What does it mean?
+              </p>
+              <div className="wp-listen-row">
+                <button
+                  type="button"
+                  className="wp-listen"
+                  onClick={() => speakKorean(sayOf(word))}
+                  aria-label="Play the word again"
+                >
+                  🔊
+                </button>
+                <button
+                  type="button"
+                  className="wp-listen wp-listen-slow"
+                  onClick={() => speakKorean(sayOf(word), { slow: true })}
+                  aria-label="Play the word slowly"
+                >
+                  🐢
+                </button>
+              </div>
               {showText || picked !== null ? (
                 <p className="listen-text" lang="ko">{word.korean}</p>
               ) : (
@@ -325,20 +277,42 @@ export default function WordPractice({
               let state = "";
               if (picked !== null && option === card.word) state = "correct";
               else if (option === picked) state = "wrong";
+              // Korean choices: show how to say them, and let the learner
+              // hear each one (its own 🔊) before choosing.
+              if (card.quiz === "korean") {
+                const romanization = hintFor(optionWord);
+                return (
+                  <div key={option} className="practice-option-row">
+                    <button
+                      type="button"
+                      className={`practice-option ${state}`}
+                      lang="ko"
+                      disabled={picked !== null && state === ""}
+                      onClick={() => answer(option)}
+                    >
+                      {optionWord.korean}
+                      {romanization && <span className="option-romanization">{romanization}</span>}
+                    </button>
+                    <button
+                      type="button"
+                      className="option-audio"
+                      onClick={() => speakKorean(sayOf(optionWord))}
+                      aria-label={`Hear: ${optionWord.korean}`}
+                    >
+                      <span aria-hidden="true">🔊</span>
+                    </button>
+                  </div>
+                );
+              }
               return (
                 <button
                   key={option}
                   type="button"
                   className={`practice-option ${state}`}
-                  lang={card.quiz === "korean" ? "ko" : undefined}
                   disabled={picked !== null && state === ""}
                   onClick={() => answer(option)}
                 >
-                  {card.quiz === "korean" ? (
-                    optionWord.korean
-                  ) : (
-                    optionWord.meaning
-                  )}
+                  {optionWord.meaning}
                 </button>
               );
             })}

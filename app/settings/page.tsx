@@ -3,6 +3,7 @@
 
 import { useEffect, useState } from "react";
 import Link from "next/link";
+import BottomNav from "../../components/BottomNav";
 import { useRouter } from "next/navigation";
 import { supabase } from "../../lib/supabase";
 import { clearLocalProgress, saveProgressNow, saveProgressSoon } from "../../lib/accountSync";
@@ -13,6 +14,7 @@ type Preferences = {
   goal: string;
   feedback: string;
   romanization: boolean;
+  slowAudio: boolean;
   practiceFocus: string;
   dailyMinutes: string;
   reminders: boolean;
@@ -26,6 +28,7 @@ const defaults: Preferences = {
   goal: "Everyday conversation",
   feedback: "Immediate",
   romanization: true,
+  slowAudio: false,
   practiceFocus: "Mixed practice",
   dailyMinutes: "10",
   reminders: false,
@@ -98,7 +101,7 @@ export default function SettingsPage() {
 
         {/* HEADER */}
         <Link href="/dashboard" className="settings-back">
-          ← Back to Dashboard
+          ← Dashboard
         </Link>
 
         <h1>Settings ⚙️</h1>
@@ -191,6 +194,28 @@ export default function SettingsPage() {
                 checked={prefs.romanization}
                 onChange={(e) =>
                   update("romanization", e.target.checked)
+                }
+              />
+            </label>
+
+            <div className="settings-divider" />
+
+            <label className="settings-toggle-row">
+              <span>
+                <strong>Slower Pronunciation</strong>
+                <p className="settings-note">
+                  Play all Korean audio slowly, so each sound is easier to hear.
+                  Pronunciation uses your device&apos;s built-in computer voice
+                  (text-to-speech), not recordings — turn your volume up for the
+                  clearest sound.
+                </p>
+              </span>
+
+              <input
+                type="checkbox"
+                checked={prefs.slowAudio}
+                onChange={(e) =>
+                  update("slowAudio", e.target.checked)
                 }
               />
             </label>
@@ -372,6 +397,7 @@ export default function SettingsPage() {
         </button>
 
       </div>
+      <BottomNav />
     </main>
   );
 }

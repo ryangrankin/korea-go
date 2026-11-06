@@ -43,7 +43,9 @@ const LEVEL_PRACTICE: Record<Level, PracticeSettings> = {
     correctToLearn: 2,
     repeatsAfterMiss: 3,
     optionCount: 3,
-    quizOrder: ["meaning", "korean", "listen"], // recognize first, then recall
+    // Recognize first, then listen; reading-and-choosing Korean comes last,
+    // so beginners aren't asked to read Hangul right away.
+    quizOrder: ["meaning", "listen", "korean"],
   },
   Intermediate: {
     newAtOnce: 4,

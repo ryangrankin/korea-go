@@ -14,6 +14,7 @@ import { usePathname } from "next/navigation";
 
 const tabs = [
   { href: "/dashboard", icon: "🏠", label: "Home" },
+  { href: "/conversation", icon: "💬", label: "Conversation" },
   { href: "/friends", icon: "👥", label: "Friends" },
   { href: "/games", icon: "🎮", label: "Mini Games" },
   { href: "/my-pup", icon: "🐶", label: "My Pup" },

@@ -29,7 +29,7 @@ export default function MyPupPage() {
         <div className="pup-layout">
           {/* The pup, wearing the current outfit */}
           <section className="pup-stage">
-            <Pup size={220} />
+            <Pup size={200} />
             <p className="pup-stage-count">
               {pup.unlocked.length} of {accessories.length} accessories unlocked
             </p>

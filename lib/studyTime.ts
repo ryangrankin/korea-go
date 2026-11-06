@@ -8,10 +8,12 @@
 
 import { useEffect, useSyncExternalStore } from "react";
 import { saveProgressSoon } from "./accountSync";
+import { studyStreak } from "./progress";
 
 const KEY = "koreaGoStudyTime";
 const CHANGE_EVENT = "koreaGoStudyTime";
 const TICK_SECONDS = 15;
+const SAVE_EVERY_TICKS = 4; // save to the account about once a minute, not every tick
 const KEEP_DAYS = 30;
 
 // Today's date in the learner's own time zone, like "2026-11-02".
@@ -26,6 +28,8 @@ function readAll(): Record<string, number> {
   }
 }
 
+let ticksSinceSave = 0;
+
 function addSeconds(seconds: number) {
   try {
     const all = readAll();
@@ -36,7 +40,11 @@ function addSeconds(seconds: number) {
     const trimmed = Object.fromEntries(recent.map((day) => [day, all[day]]));
     localStorage.setItem(KEY, JSON.stringify(trimmed));
     window.dispatchEvent(new Event(CHANGE_EVENT));
-    saveProgressSoon();
+    ticksSinceSave += 1;
+    if (ticksSinceSave >= SAVE_EVERY_TICKS) {
+      ticksSinceSave = 0;
+      saveProgressSoon();
+    }
   } catch {
     // Tracking time is a nice extra; lessons work without it.
   }
@@ -52,6 +60,12 @@ function subscribe(onChange: () => void) {
 }
 
 const todaySeconds = () => readAll()[todayKey()] ?? 0;
+const streakNow = () => studyStreak(readAll(), todayKey());
+
+// Days in a row with at least a minute of lessons (0 during the server render).
+export function useStudyStreak(): number {
+  return useSyncExternalStore(subscribe, streakNow, () => 0);
+}
 
 // Seconds studied today. (0 during the server render.)
 export function useStudySecondsToday(): number {

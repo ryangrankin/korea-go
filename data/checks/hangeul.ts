@@ -43,7 +43,7 @@ export const hangeulChecks: SkillTopic = {
       prompt: "Which vowel sounds like the \"a\" in \"father\"?",
       options: ["ㅏ", "ㅓ", "ㅗ"],
       answer: "ㅏ",
-      explanation: "ㅏ is \"a.\" Its short stroke points right. ㅓ (pointing left) is \"eo,\" and ㅗ (pointing up) is \"o.\"",
+      explanation: "ㅏ is \"a.\" Its short stroke sits on the right. ㅓ (stroke on the left) is \"eo,\" and ㅗ (stroke on top) is \"o.\"",
     },
     {
       id: "hangeul-1-eo",
@@ -53,7 +53,7 @@ export const hangeulChecks: SkillTopic = {
       prompt: "How do you say the vowel ㅓ?",
       options: ["eo, like the u in \"up\"", "o, as in \"go\"", "i, like the ee in \"see\""],
       answer: "eo, like the u in \"up\"",
-      explanation: "ㅓ is \"eo.\" Its short stroke points left, the opposite of ㅏ.",
+      explanation: "ㅓ is \"eo.\" Its short stroke sits on the left, the opposite side from ㅏ.",
     },
     {
       id: "hangeul-1-hear-u",

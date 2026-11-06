@@ -29,6 +29,7 @@ import { DEFAULT_PREFERENCES, savePreferences, type Preferences } from "../../li
 import { speakKorean } from "../../lib/speak";
 import KoreanText from "../KoreanText";
 import Pup from "../Pup";
+import SpeechNotice from "../SpeechNotice";
 import "./onboarding.css";
 
 type Step = "level" | "levelCheck" | "goal" | "focus" | "romanization" | "minutes" | "plan";
@@ -335,6 +336,7 @@ export default function OnboardingQuiz() {
           ← Back to choosing my level
         </button>
       )}
+      <SpeechNotice />
     </div>
   );
 }

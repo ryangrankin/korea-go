@@ -5,6 +5,8 @@
   Tap a card to hear it and reveal its emoji picture and English meaning.
 */
 
+import { vowelStrokes } from "../../data/strokes";
+import VowelDiagram from "./VowelDiagram";
 import { useState } from "react";
 import type { VocabularyItem } from "../../data/lessons";
 import { speakKorean } from "../../lib/speak";
@@ -35,7 +37,12 @@ export default function WordCards({ words, showRomanization }: WordCardsProps) {
             className={`word-card ${isOpen ? "open" : ""}`}
             onClick={() => tapCard(word, index)}
           >
-            <span className="word-emoji" aria-hidden="true">{isOpen ? word.emoji : "❔"}</span>
+            {vowelStrokes[word.korean] ? (
+              // Vowels show how to write them instead of a picture.
+              <VowelDiagram letter={word.korean} size={72} showSteps={isOpen} />
+            ) : (
+              <span className="word-emoji" aria-hidden="true">{isOpen ? word.emoji : "❔"}</span>
+            )}
             <span className="word-korean" lang="ko">
               {word.korean} <span className="korean-text-icon" aria-hidden="true">🔊</span>
             </span>

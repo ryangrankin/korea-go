@@ -10,7 +10,8 @@
 .korean-text {
   border: none;
   background: none;
-  padding: 2px 0;
+  padding: 6px 2px;
+  min-height: 36px;
   font: inherit;
   font-weight: 700;
   color: #1f4f82;
@@ -94,27 +95,47 @@
 .step-tracker {
   display: flex;
   flex-wrap: wrap;
-  gap: 6px;
+  gap: 8px;
   list-style: none;
   margin-bottom: 18px;
 }
 
+/* Each step: number, icon, name — at least 44px tall for fingers */
 .step-tracker button {
-  padding: 4px 10px;
-  border: none;
-  border-radius: 20px;
-  background: #f1f1f1;
-  color: #999;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  min-height: 44px;
+  padding: 8px 14px 8px 8px;
+  border: 2px solid transparent;
+  border-radius: 22px;
+  background: #eef1f5;
+  color: #555;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.step-tracker .step-number {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  background: white;
   font-size: 12px;
+  font-weight: 700;
 }
 
 .step-tracker button:disabled {
   cursor: default;
+  opacity: 0.75;
 }
 
 .step-tracker button.current {
-  background: #f28c28;
-  color: white;
+  border-color: #c4660f;
+  background: #fff1e3;
+  color: #7a3d05;
   font-weight: 700;
 }
 
@@ -171,7 +192,7 @@
 }
 
 .chat-name {
-  color: #888;
+  color: #666;
   font-size: 11px;
   margin-bottom: 2px;
 }
@@ -332,7 +353,7 @@
 }
 
 .flashcard-hint {
-  color: #888;
+  color: #666;
   font-size: 13px;
 }
 
@@ -578,8 +599,9 @@
 }
 
 .wp-count {
+  margin: -6px 0 12px;
   font-size: 13px;
-  color: #666;
+  color: #555;
   font-variant-numeric: tabular-nums;
 }
 
@@ -854,4 +876,24 @@
 .lesson-goal-suggestion span:last-child {
   color: #666;
   font-size: 14px;
+}
+
+/* ---------- Vowel stroke-order diagrams (VowelDiagram.tsx) ---------- */
+.vowel-diagram {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  margin: 0 auto;
+}
+
+.vowel-diagram svg {
+  max-width: 100%;
+  height: auto;
+}
+
+.vowel-diagram figcaption {
+  color: #555;
+  font-size: 12px;
+  text-align: center;
 }

@@ -3,6 +3,7 @@
 
 import { useState } from "react";
 import Link from "next/link";
+import { progressPercent } from "../lib/progress";
 
 export type PracticeQuestion = {
   id: string;
@@ -98,13 +99,15 @@ export default function PracticeViewer({
               Question {currentQuestion + 1} of {questions.length}
             </p>
 
+            {/* Counts questions answered, not the question being shown */}
             <div className="lesson-progress-track">
               <div
                 className="lesson-progress-fill"
                 style={{
-                  width: `${
-                    ((currentQuestion + 1) / questions.length) * 100
-                  }%`,
+                  width: `${progressPercent(
+                    questions.filter((item) => item.id in answers).length,
+                    questions.length
+                  )}%`,
                 }}
               />
             </div>
@@ -162,14 +165,19 @@ export default function PracticeViewer({
   - Wrong answer: shows a hint and lets the learner try again.
   - Right answer: shows an explanation and a "Next" button.
   - onDone(firstTry) says whether it was right on the first try.
+  - onOptionClick: plays an option's audio. Each option gets its own 🔊
+    button, so learners can LISTEN before they CHOOSE (tapping the option
+    itself only chooses it).
+  - romanize: shows how to say each Korean option, under it.
 */
 type PracticeQuestionCardProps = {
   options: string[];
   answer: string;
   hints?: Record<string, string>;
   explanation?: string;
-  onOptionClick?: (option: string) => void; // e.g. play the option's audio
+  onOptionClick?: (option: string) => void; // play the option's audio (its own 🔊 button)
   optionLang?: string; // "ko" when the options are Korean
+  romanize?: (option: string) => string | undefined; // romanization shown under an option
   nextLabel?: string;
   onDone: (firstTry: boolean) => void;
 };
@@ -181,6 +189,7 @@ export function PracticeQuestionCard({
   explanation,
   onOptionClick,
   optionLang,
+  romanize,
   nextLabel = "Next →",
   onDone,
 }: PracticeQuestionCardProps) {
@@ -190,7 +199,6 @@ export function PracticeQuestionCard({
 
   function choose(option: string) {
     if (solved) return;
-    onOptionClick?.(option);
 
     if (option === answer) {
       setSolved(true);
@@ -211,17 +219,30 @@ export function PracticeQuestionCard({
           if (solved && option === answer) state = "correct";
           else if (wrongPicks.includes(option)) state = "wrong";
 
+          const romanization = romanize?.(option);
           return (
-            <button
-              key={option}
-              type="button"
-              lang={optionLang}
-              className={`practice-option ${state}`}
-              onClick={() => choose(option)}
-              disabled={solved && option !== answer}
-            >
-              {option}
-            </button>
+            <div key={option} className="practice-option-row">
+              <button
+                type="button"
+                lang={optionLang}
+                className={`practice-option ${state}`}
+                onClick={() => choose(option)}
+                disabled={solved && option !== answer}
+              >
+                {option}
+                {romanization && <span className="option-romanization">{romanization}</span>}
+              </button>
+              {onOptionClick && (
+                <button
+                  type="button"
+                  className="option-audio"
+                  onClick={() => onOptionClick(option)}
+                  aria-label={`Hear: ${option}`}
+                >
+                  <span aria-hidden="true">🔊</span>
+                </button>
+              )}
+            </div>
           );
         })}
       </div>

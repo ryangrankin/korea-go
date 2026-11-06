@@ -27,12 +27,13 @@ type QuestionCardProps = {
   onAnswer: (answer: Answer) => void;
 };
 
+// Each kind of question, with an icon that shows what it asks you to do.
 const TYPE_LABELS: Record<ChallengeQuestion["type"], string> = {
-  choice: "Quick question",
-  scenario: "In real life",
-  listening: "Listen",
-  match: "Match",
-  order: "Build the sentence",
+  choice: "❓ Quick question",
+  scenario: "🗺️ In real life",
+  listening: "🎧 Listening",
+  match: "🔗 Match",
+  order: "🧩 Build the sentence",
 };
 
 export default function QuestionCard({ prepared, answer, onAnswer }: QuestionCardProps) {
@@ -119,9 +120,18 @@ function PickInput({
 
       {question.type === "listening" && question.audio && (
         <div className="challenge-listen">
-          <button type="button" className="challenge-play" onClick={() => speakKorean(question.audio!)}>
-            <span aria-hidden="true">🔊</span> Play
-          </button>
+          <div className="listen-buttons">
+            <button type="button" className="challenge-play" onClick={() => speakKorean(question.audio!)}>
+              <span aria-hidden="true">🔊</span> Play
+            </button>
+            <button
+              type="button"
+              className="challenge-play challenge-play-slow"
+              onClick={() => speakKorean(question.audio!, { slow: true })}
+            >
+              <span aria-hidden="true">🐢</span> Slow
+            </button>
+          </div>
           {showText || answered ? (
             <p className="challenge-korean" lang="ko">
               {question.audio}

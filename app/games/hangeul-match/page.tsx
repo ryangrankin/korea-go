@@ -1,4 +1,5 @@
 import Link from "next/link";
+import BottomNav from "../../../components/BottomNav";
 import HangeulMatch from "../../../components/games/HangeulMatch";
 
 export default function HangeulMatchPage() {
@@ -12,6 +13,7 @@ export default function HangeulMatchPage() {
         <h1>Hangeul Match 가</h1>
         <HangeulMatch />
       </div>
+      <BottomNav />
     </main>
   );
 }

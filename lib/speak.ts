@@ -1,15 +1,34 @@
 /*
   SPEAK KOREAN OUT LOUD
   Uses the browser's built-in voice (the Web Speech API, "speechSynthesis").
-  No audio files needed. If the device has no Korean voice, we send a
-  "korea-go-no-voice" message, and the SpeechNotice component shows a
-  friendly note on screen instead of failing silently.
+  This is COMPUTER-GENERATED speech (text-to-speech), not recordings of a
+  native speaker — the app says so to learners (components/AudioNotice.tsx).
+  Volume is set to the maximum the voice allows; the device volume does
+  the rest. Only one clip plays at a time (each new one stops the last).
+
+  - speakKorean(text):                 normal learning speed (or slower, if
+                                       "Slower pronunciation" is on in Settings)
+  - speakKorean(text, { slow: true }): extra slow, for the 🐢 buttons
+
+  If the device has no Korean voice, we send a "korea-go-no-voice" message,
+  and the SpeechNotice component shows a friendly note instead of failing
+  silently.
 */
 
 export const NO_VOICE_EVENT = "korea-go-no-voice";
 
-// Slightly slower than normal speed (1 = normal) so beginners can follow.
-const SPEAKING_RATE = 0.8;
+// Speeds (1 = the voice's normal speed).
+const NORMAL_RATE = 0.85; // a little slower than everyday speech, for learners
+const SLOW_RATE = 0.55; // 🐢 slow replay, to hear each sound
+
+// "Slower pronunciation" in Settings makes every clip slow.
+function prefersSlowAudio(): boolean {
+  try {
+    return JSON.parse(localStorage.getItem("koreaGoPreferences") || "{}").slowAudio === true;
+  } catch {
+    return false;
+  }
+}
 
 // Tell the rest of the app that Korean audio isn't available.
 function reportNoVoice(reason: string) {
@@ -39,7 +58,7 @@ function waitForVoices(): Promise<void> {
 }
 
 // Main function: say this Korean text out loud.
-export async function speakKorean(text: string) {
+export async function speakKorean(text: string, options: { slow?: boolean } = {}) {
   if (typeof window === "undefined") return;
 
   if (!("speechSynthesis" in window)) {
@@ -68,6 +87,8 @@ export async function speakKorean(text: string) {
   const utterance = new SpeechSynthesisUtterance(cleanText);
   utterance.lang = "ko-KR";
   utterance.voice = voice;
-  utterance.rate = SPEAKING_RATE;
+  utterance.rate = options.slow || prefersSlowAudio() ? SLOW_RATE : NORMAL_RATE;
+  utterance.volume = 1; // the loudest the voice allows
+  utterance.pitch = 1;
   window.speechSynthesis.speak(utterance);
 }

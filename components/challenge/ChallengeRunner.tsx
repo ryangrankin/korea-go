@@ -21,6 +21,7 @@ import {
   type ChallengeQuestion,
 } from "../../data/skillChecks";
 import { pickTopicQuestions, scoreChallenge, shuffle, type Answer, type ChallengeResult } from "../../lib/skillChecks";
+import { progressPercent } from "../../lib/progress";
 import { keepTopInView } from "../../lib/scroll";
 import { recordTestOut, recordTopicCheck, useSkillProgress } from "../../lib/skillProgress";
 import Pup from "../Pup";
@@ -107,6 +108,8 @@ export default function ChallengeRunner(props: ChallengeRunnerProps) {
   }
 
   const current = prepared[index];
+  // Questions answered so far in this run (each question's first answer counts).
+  const answeredCount = prepared.filter((item) => item.question.id in answers).length;
 
   return (
     <main className="basic-page">
@@ -175,9 +178,13 @@ export default function ChallengeRunner(props: ChallengeRunnerProps) {
                 aria-label="Challenge progress"
                 aria-valuemin={0}
                 aria-valuemax={prepared.length}
-                aria-valuenow={index}
+                aria-valuenow={answeredCount}
               >
-                <div className="lesson-progress-fill" style={{ width: `${(index / prepared.length) * 100}%` }} />
+                {/* Counts answered questions, so it fills as soon as each one is answered */}
+                <div
+                  className="lesson-progress-fill"
+                  style={{ width: `${progressPercent(answeredCount, prepared.length)}%` }}
+                />
               </div>
             </div>
 

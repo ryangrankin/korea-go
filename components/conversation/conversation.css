@@ -1,0 +1,610 @@
+/*
+  CONVERSATION TAB
+  A chat-app look (teal speaker bubbles, word tiles) so it feels different
+  from the lesson pages, while using the app's fonts, buttons and spacing.
+*/
+
+.convo-page {
+  background: #eef8f6;
+}
+
+.convo-container h1 {
+  margin-bottom: 12px;
+}
+
+.convo-page .english {
+  display: block;
+  color: #555;
+  font-size: 14px;
+  margin-top: 2px;
+}
+
+.convo-page .romanization {
+  display: block;
+  color: #666;
+  font-size: 13px;
+  font-style: italic;
+}
+
+/* ----- Scenario picker ----- */
+.convo-scenarios {
+  display: grid;
+  gap: 12px;
+  margin-top: 16px;
+}
+
+.convo-scenario {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 16px;
+  border-radius: 18px;
+  border: 2px solid #cdeae4;
+  background: #ffffff;
+  color: inherit;
+  text-decoration: none;
+  box-shadow: 0 2px 8px rgba(20, 90, 80, 0.06);
+  transition: border-color 0.2s ease, transform 0.2s ease;
+}
+
+.convo-scenario:hover {
+  border-color: #2a9d8f;
+  transform: translateY(-1px);
+}
+
+.convo-scenario:focus-visible {
+  outline: 3px solid #2a9d8f;
+  outline-offset: 2px;
+}
+
+.convo-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  width: 56px;
+  height: 56px;
+  border-radius: 16px;
+  background: #e0f4f1;
+  font-size: 30px;
+}
+
+.convo-scenario-text {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  flex: 1;
+  min-width: 0;
+}
+
+.convo-scenario-text strong {
+  font-size: 17px;
+}
+
+.convo-scenario-text span,
+.convo-scenario-text small {
+  color: #555;
+  font-size: 14px;
+}
+
+.convo-scenario-text small {
+  font-size: 13px;
+  color: #666;
+}
+
+.convo-scenario-text .convo-done-badge {
+  color: #1f7a6f;
+  font-weight: 600;
+}
+
+/* ----- Cards (intro, vocab, completion) ----- */
+.convo-card {
+  padding: 20px;
+  border-radius: 20px;
+  background: #ffffff;
+  box-shadow: 0 2px 10px rgba(20, 90, 80, 0.08);
+}
+
+.convo-card h2 {
+  margin: 0 0 8px;
+  font-size: 22px;
+}
+
+.convo-card h3 {
+  margin: 16px 0 8px;
+  font-size: 16px;
+}
+
+.convo-card .practice-next-button {
+  width: 100%;
+  margin-top: 16px;
+}
+
+.convo-intro-head {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin-bottom: 12px;
+}
+
+.convo-meta {
+  margin: 0;
+  color: #1f7a6f;
+  font-size: 13px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.convo-goals {
+  display: grid;
+  gap: 10px;
+  margin: 14px 0;
+}
+
+.convo-goals div {
+  padding: 12px 14px;
+  border-radius: 14px;
+  background: #f1faf8;
+}
+
+.convo-goals dt {
+  font-weight: 700;
+  margin-bottom: 4px;
+}
+
+.convo-goals dd {
+  margin: 0;
+}
+
+.convo-steps {
+  margin: 8px 0 0;
+  padding-left: 22px;
+  color: #444;
+}
+
+.convo-steps li {
+  margin: 4px 0;
+}
+
+.convo-help {
+  color: #555;
+  font-size: 15px;
+}
+
+.convo-vocab {
+  display: grid;
+  gap: 8px;
+  margin: 12px 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.convo-vocab li {
+  display: grid;
+  grid-template-columns: minmax(80px, auto) 1fr auto;
+  grid-template-areas:
+    "korean english audio"
+    "roman english audio";
+  align-items: center;
+  column-gap: 12px;
+  padding: 10px 12px;
+  border-radius: 14px;
+  background: #f6fbfa;
+}
+
+.convo-vocab-korean {
+  grid-area: korean;
+  font-size: 20px;
+  font-weight: 700;
+}
+
+.convo-vocab .romanization {
+  grid-area: roman;
+}
+
+.convo-vocab .english {
+  grid-area: english;
+  margin: 0;
+}
+
+.convo-vocab .audio-buttons {
+  grid-area: audio;
+}
+
+.convo-done {
+  text-align: center;
+}
+
+.convo-done .wp-stats {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+  margin: 16px 0;
+}
+
+.convo-done .wp-stats div {
+  display: flex;
+  flex-direction: column;
+  padding: 12px;
+  border-radius: 14px;
+  background: #f1faf8;
+}
+
+.convo-done .wp-stats strong {
+  font-size: 24px;
+}
+
+.convo-done .wp-stats span {
+  font-size: 13px;
+  color: #666;
+}
+
+.convo-built {
+  display: grid;
+  gap: 6px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  text-align: left;
+}
+
+.convo-built li {
+  padding: 10px 14px;
+  border-radius: 14px;
+  background: #e0f4f1;
+  font-size: 18px;
+}
+
+.convo-back {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 10px;
+  min-height: 48px;
+  text-decoration: none;
+}
+
+/* ----- Chat ----- */
+.convo-chat-wrap {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.convo-toggles {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  justify-content: flex-end;
+}
+
+.convo-toggles label {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  min-height: 40px;
+  padding: 6px 12px;
+  border-radius: 999px;
+  background: #ffffff;
+  border: 1px solid #cdeae4;
+  font-size: 14px;
+  cursor: pointer;
+}
+
+.convo-toggles input {
+  width: 18px;
+  height: 18px;
+  accent-color: #2a9d8f;
+}
+
+.convo-chat {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 14px;
+  border-radius: 20px;
+  background: #ffffff;
+  box-shadow: 0 2px 10px rgba(20, 90, 80, 0.08);
+}
+
+.convo-row {
+  display: flex;
+  align-items: flex-end;
+  gap: 8px;
+}
+
+.convo-learner {
+  justify-content: flex-end;
+}
+
+.convo-avatar {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: #e0f4f1;
+  font-size: 22px;
+}
+
+.convo-bubble {
+  max-width: 82%;
+  padding: 10px 14px;
+  border-radius: 18px;
+}
+
+.convo-bubble p {
+  margin: 0;
+}
+
+.convo-speaker .convo-bubble {
+  background: #e0f4f1;
+  border-bottom-left-radius: 6px;
+}
+
+.convo-learner .convo-bubble {
+  background: #3976b8;
+  color: #ffffff;
+  border-bottom-right-radius: 6px;
+}
+
+.convo-learner:not(.valid) .convo-bubble {
+  background: #eef1f5;
+  color: #333;
+  border: 2px dashed #b7c3d0;
+}
+
+.convo-name {
+  font-size: 12px;
+  font-weight: 700;
+  opacity: 0.75;
+  margin-bottom: 2px !important;
+}
+
+.convo-page .convo-korean {
+  padding: 0;
+  color: inherit;
+  font-size: 19px;
+  font-weight: 600;
+  line-height: 1.4;
+}
+
+.convo-note {
+  margin-top: 6px !important;
+  font-size: 13px;
+  color: #1f5f57;
+}
+
+/* ----- Feedback ----- */
+.convo-feedback {
+  padding: 12px 16px;
+  border-radius: 16px;
+  border-left: 5px solid #2a9d8f;
+  background: #ffffff;
+}
+
+.convo-feedback p {
+  margin: 4px 0;
+}
+
+.convo-feedback-title {
+  font-weight: 700;
+}
+
+.convo-feedback.valid {
+  border-left-color: #2a9d8f;
+  background: #effaf7;
+}
+
+.convo-feedback.invalid {
+  border-left-color: #e08a1e;
+  background: #fff7ec;
+}
+
+.convo-feedback.incomplete {
+  border-left-color: #3976b8;
+  background: #eef5fc;
+}
+
+.convo-feedback.unrecognized {
+  border-left-color: #8a8fa3;
+  background: #f5f6f9;
+}
+
+.convo-corrected {
+  font-size: 17px;
+}
+
+/* ----- Sentence builder ----- */
+.convo-builder {
+  padding: 16px;
+  border-radius: 20px;
+  background: #ffffff;
+  box-shadow: 0 2px 10px rgba(20, 90, 80, 0.08);
+}
+
+.convo-task {
+  margin: 0 0 6px;
+  font-size: 16px;
+}
+
+.convo-hint {
+  margin: 0 0 10px;
+  padding: 8px 12px;
+  border-radius: 12px;
+  background: #fff9e6;
+  font-size: 14px;
+  color: #5a4a12;
+}
+
+.convo-hint-examples {
+  display: block;
+  margin-top: 2px;
+  font-weight: 600;
+}
+
+.convo-sentence {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 6px;
+  min-height: 64px;
+  padding: 10px;
+  border-radius: 16px;
+  border: 2px dashed #9fd6cd;
+  background: #f6fbfa;
+}
+
+.convo-placeholder {
+  color: #666;
+  font-size: 14px;
+}
+
+.convo-preview {
+  margin: 6px 4px 0;
+  color: #1f5f57;
+  font-size: 15px;
+}
+
+.convo-bank {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin: 14px 0;
+}
+
+.convo-tile {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-width: 48px;
+  min-height: 48px;
+  padding: 6px 14px;
+  border-radius: 14px;
+  border: 2px solid #cdeae4;
+  border-bottom-width: 4px;
+  background: #ffffff;
+  color: #1d2b2a;
+  font-family: inherit;
+  font-size: 19px;
+  font-weight: 600;
+  line-height: 1.2;
+  cursor: pointer;
+  transition: transform 0.1s ease, border-color 0.2s ease;
+}
+
+.convo-tile small {
+  font-size: 11px;
+  font-weight: 500;
+  color: #666;
+}
+
+.convo-tile:hover {
+  border-color: #2a9d8f;
+}
+
+.convo-tile:active {
+  transform: translateY(2px);
+}
+
+.convo-tile:focus-visible {
+  outline: 3px solid #2a9d8f;
+  outline-offset: 2px;
+}
+
+.convo-tile.in-sentence {
+  background: #2a9d8f;
+  border-color: #1f7a6f;
+  color: #ffffff;
+}
+
+.convo-tile.in-sentence::after {
+  content: " ×";
+  font-size: 13px;
+  opacity: 0.8;
+}
+
+.convo-tile.in-sentence {
+  flex-direction: row;
+}
+
+.convo-tile.attached {
+  margin-left: -4px;
+}
+
+.convo-actions {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 8px;
+  margin-bottom: 10px;
+}
+
+.convo-actions .secondary-button {
+  min-height: 44px;
+  margin: 0;
+}
+
+.convo-actions .secondary-button:disabled,
+.convo-builder .practice-next-button:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+}
+
+.convo-builder .practice-next-button {
+  width: 100%;
+  background: #2a9d8f;
+}
+
+.convo-count {
+  margin: 8px 0 0;
+  text-align: center;
+  font-size: 13px;
+  color: #666;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .convo-scenario,
+  .convo-tile {
+    transition: none;
+  }
+  .convo-scenario:hover,
+  .convo-tile:active {
+    transform: none;
+  }
+}
+
+/* Tablets and laptops: scenarios side by side, chat and builder side by side */
+@media (min-width: 600px) {
+  .convo-scenarios {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .convo-goals {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+@media (min-width: 1100px) {
+  .convo-scenarios {
+    grid-template-columns: repeat(3, 1fr);
+  }
+  .convo-chat-wrap {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    align-items: start;
+  }
+  .convo-chat-wrap > * {
+    grid-column: 1 / -1;
+  }
+  .convo-chat-wrap > .convo-chat {
+    grid-column: 1;
+    grid-row: 2 / span 3;
+  }
+  .convo-chat-wrap > .convo-feedback,
+  .convo-chat-wrap > .convo-builder {
+    grid-column: 2;
+  }
+}

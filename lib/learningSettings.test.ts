@@ -14,6 +14,8 @@ describe("proficiency level", () => {
     expect(practice.newAtOnce).toBe(3);
     expect(practice.optionCount).toBe(3);
     expect(practice.quizOrder[0]).toBe("meaning");
+    // Choosing between Korean words (reading Hangul) comes last for beginners
+    expect(practice.quizOrder.at(-1)).toBe("korean");
     expect(hideEnglish).toBe(false);
   });
 

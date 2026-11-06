@@ -54,16 +54,32 @@ const lesson1Words: VocabularyItem[] = [
 
 const lesson1Phrases: VocabularyItem[] = [
   { korean: "안녕하세요.", romanization: "annyeonghaseyo.", english: "Hello.", emoji: "👋" },
-  { korean: "안녕히 가세요.", romanization: "annyeonghi gaseyo.", english: "Goodbye (said to the person who is LEAVING).", emoji: "🚶‍♀️👋" },
-  { korean: "안녕히 계세요.", romanization: "annyeonghi gyeseyo.", english: "Goodbye (said to the person who is STAYING).", emoji: "🧍👋" },
+  { korean: "안녕히 가세요.", romanization: "annyeonghi gaseyo.", english: "Goodbye — say it to someone who is LEAVING (\"go well\").", emoji: "🚶‍♀️👋" },
+  { korean: "안녕히 계세요.", romanization: "annyeonghi gyeseyo.", english: "Goodbye — say it when YOU leave and they STAY (\"stay well\").", emoji: "🧍👋" },
   { korean: "죄송합니다.", romanization: "joesonghamnida.", english: "I'm sorry.", emoji: "🙇" },
+];
+
+// Grammar: why there are two goodbyes.
+const lesson1Grammar: GrammarNote[] = [
+  {
+    title: "Two ways to say goodbye",
+    explanation:
+      "Korean chooses the goodbye by who is leaving. 가세요 comes from 가다 (to go): " +
+      "안녕히 가세요 means \"go in peace\" — say it to someone who is LEAVING. " +
+      "계세요 comes from 계시다 (a polite word for \"to stay\"): 안녕히 계세요 means \"stay in peace\" — " +
+      "say it when YOU are the one leaving and the other person stays. If you're both leaving, say 안녕히 가세요 to each other.",
+    examples: [
+      { korean: "안녕히 가세요.", romanization: "annyeonghi gaseyo.", english: "Go well — to someone who is leaving." },
+      { korean: "안녕히 계세요.", romanization: "annyeonghi gyeseyo.", english: "Stay well — to someone who is staying (you're leaving)." },
+    ],
+  },
 ];
 
 const lesson1Conversation: ConversationLine[] = [
   { speaker: "staff", korean: "안녕하세요.", romanization: "annyeonghaseyo.", english: "Hello.", emoji: "👋" },
   { speaker: "traveler", korean: "안녕하세요.", romanization: "annyeonghaseyo.", english: "Hello.", emoji: "👋" },
-  { speaker: "traveler", korean: "안녕히 계세요.", romanization: "annyeonghi gyeseyo.", english: "Goodbye. (Emma is leaving; the staff member stays.)", emoji: "🧍👋" },
-  { speaker: "staff", korean: "안녕히 가세요.", romanization: "annyeonghi gaseyo.", english: "Goodbye. (The staff member stays; Emma is leaving.)", emoji: "🚶‍♀️👋" },
+  { speaker: "traveler", korean: "안녕히 계세요.", romanization: "annyeonghi gyeseyo.", english: "Goodbye. (Emma is leaving, so she tells the staff member, who stays, \"stay well.\")", emoji: "🧍👋" },
+  { speaker: "staff", korean: "안녕히 가세요.", romanization: "annyeonghi gaseyo.", english: "Goodbye. (Emma is leaving, so the staff member tells her \"go well.\")", emoji: "🚶‍♀️👋" },
 ];
 
 const lesson1Missions: ChoiceQuestion[] = [
@@ -78,7 +94,7 @@ const lesson1Missions: ChoiceQuestion[] = [
     },
   },
   {
-    prompt: "🧍➡️🚶‍♀️ You are LEAVING the info desk. The staff member is STAYING at the desk. Say goodbye.",
+    prompt: "🚪 You're done at the info desk and you walk away. The staff member STAYS at the desk. Say goodbye.",
     options: ["안녕히 가세요.", "안녕히 계세요.", "안녕하세요."],
     answer: "안녕히 계세요.",
     explanation: "계세요 comes from \"to stay.\" You say 안녕히 계세요 (\"stay well\") to the person who stays behind.",
@@ -549,7 +565,7 @@ export const greetingsUnit: Unit = {
             conversation: lesson1Conversation,
             words: lesson1Words,
             phrases: lesson1Phrases,
-            grammar: [],
+            grammar: lesson1Grammar,
             missions: lesson1Missions,
           },
         ],

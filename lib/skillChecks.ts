@@ -140,8 +140,8 @@ export const STATUS_LABELS: Record<TopicStatus, { icon: string; label: string }>
   mastered: { icon: "🏆", label: "Mastered" },
   ready: { icon: "✅", label: "Ready to go" },
   practice: { icon: "🔁", label: "Needs practice" },
-  learning: { icon: "📘", label: "In progress" },
-  new: { icon: "○", label: "Not assessed" },
+  learning: { icon: "📈", label: "In progress" },
+  new: { icon: "⚪", label: "Not assessed" },
 };
 
 // - Needs practice: the latest skill check didn't pass (retaking it

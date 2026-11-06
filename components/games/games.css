@@ -11,7 +11,7 @@
 
 .match-set-sub {
   display: block;
-  color: #888;
+  color: #666;
   font-size: 12px;
   font-weight: 400;
 }
@@ -192,7 +192,7 @@
 }
 
 .arcade-card .arcade-meta {
-  color: #888;
+  color: #666;
   font-size: 12px;
 }
 
@@ -288,7 +288,7 @@
 }
 
 .culture-credit {
-  color: #888;
+  color: #666;
   font-size: 11px;
 }
 
@@ -542,7 +542,7 @@
 }
 
 .builder-placeholder {
-  color: #999;
+  color: #666;
   font-size: 14px;
 }
 
@@ -671,5 +671,12 @@
     max-width: 720px;
     margin-left: auto;
     margin-right: auto;
+  }
+}
+
+/* Tablets: two game cards per row */
+@media (min-width: 600px) and (max-width: 899px) {
+  .arcade-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 }

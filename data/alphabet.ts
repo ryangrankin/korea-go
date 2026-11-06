@@ -32,10 +32,10 @@ import type { Unit, VocabularyItem, GrammarNote, ChoiceQuestion, GameStep } from
 // LESSON 1 — Simple vowels
 // ===============================================================
 const lesson1Letters: VocabularyItem[] = [
-  { korean: "ㅏ", romanization: "a", english: "a as in father · short stroke points right", emoji: "➡️", say: "아" },
-  { korean: "ㅓ", romanization: "eo", english: "eo, like the u in up · short stroke points left", emoji: "⬅️", say: "어" },
-  { korean: "ㅗ", romanization: "o", english: "o as in go (round your lips) · stroke points up", emoji: "⬆️", say: "오" },
-  { korean: "ㅜ", romanization: "u", english: "u as in moon · stroke points down", emoji: "⬇️", say: "우" },
+  { korean: "ㅏ", romanization: "a", english: "a as in father · short stroke sits on the right", say: "아" },
+  { korean: "ㅓ", romanization: "eo", english: "eo, like the u in up · short stroke sits on the left", say: "어" },
+  { korean: "ㅗ", romanization: "o", english: "o as in go (round your lips) · short stroke sits on top", say: "오" },
+  { korean: "ㅜ", romanization: "u", english: "u as in moon · short stroke sits underneath", say: "우" },
   { korean: "ㅡ", romanization: "eu", english: "eu — say \"oo\" with a flat smile, lips not rounded", emoji: "😬", say: "으" },
   { korean: "ㅣ", romanization: "i", english: "i, like the ee in see · one tall line", emoji: "📏", say: "이" },
 ];
@@ -65,14 +65,16 @@ const lesson1Notes: GrammarNote[] = [
   {
     title: "Follow the short stroke",
     explanation:
-      "Four vowels are a long line plus a short stroke. Look where the short stroke points: " +
+      "Four vowels are a long line plus a short stroke. Look at which side the short stroke sits on: " +
       "right ㅏ (a), left ㅓ (eo), up ㅗ (o), down ㅜ (u). " +
-      "Two vowels have no short stroke at all: the flat line ㅡ (eu) and the tall line ㅣ (i).",
+      "Two vowels have no short stroke at all: the flat line ㅡ (eu) and the tall line ㅣ (i). " +
+      "This is about WHERE the short stroke sits, not which way you draw it. Every stroke is written " +
+      "top to bottom or left to right — the numbered arrows on each letter card show the order.",
     examples: [
-      { korean: "아", romanization: "a", english: "stroke points right" },
-      { korean: "어", romanization: "eo", english: "stroke points left" },
-      { korean: "오", romanization: "o", english: "stroke points up" },
-      { korean: "우", romanization: "u", english: "stroke points down" },
+      { korean: "아", romanization: "a", english: "short stroke on the right" },
+      { korean: "어", romanization: "eo", english: "short stroke on the left" },
+      { korean: "오", romanization: "o", english: "short stroke on top" },
+      { korean: "우", romanization: "u", english: "short stroke underneath" },
     ],
   },
 ];
@@ -82,29 +84,29 @@ const lesson1Missions: ChoiceQuestion[] = [
     prompt: "Which one says \"a\" (as in father)?",
     options: ["아", "어", "오"],
     answer: "아",
-    explanation: "ㅏ — the short stroke points right.",
+    explanation: "ㅏ — the short stroke sits on the right.",
     hints: {
-      "어": "The stroke on ㅓ points left. That's \"eo.\"",
-      "오": "The stroke on ㅗ points up. That's \"o.\"",
+      "어": "The short stroke on ㅓ is on the left. That's \"eo.\"",
+      "오": "The short stroke on ㅗ is on top. That's \"o.\"",
     },
   },
   {
-    prompt: "Which one says \"u\" (as in moon)? Hint: the short stroke points DOWN.",
+    prompt: "Which one says \"u\" (as in moon)? Hint: the short stroke sits UNDERNEATH.",
     options: ["오", "우", "으"],
     answer: "우",
-    explanation: "ㅜ — the short stroke points down.",
+    explanation: "ㅜ — the short stroke sits underneath.",
     hints: {
-      "오": "The stroke on ㅗ points up. That's \"o.\"",
+      "오": "The short stroke on ㅗ is on top. That's \"o.\"",
       "으": "ㅡ has no short stroke. That's \"eu.\"",
     },
   },
   {
-    prompt: "Which one says \"eo\" (like the u in up)? Hint: the short stroke points LEFT.",
+    prompt: "Which one says \"eo\" (like the u in up)? Hint: the short stroke sits on the LEFT.",
     options: ["아", "어", "여"],
     answer: "어",
-    explanation: "ㅓ — the short stroke points left.",
+    explanation: "ㅓ — the short stroke sits on the left.",
     hints: {
-      "아": "The stroke on ㅏ points right. That's \"a.\"",
+      "아": "The short stroke on ㅏ is on the right. That's \"a.\"",
       "여": "Two strokes add a y — that's \"yeo.\" You want just one stroke.",
     },
   },
@@ -124,8 +126,8 @@ const lesson1Missions: ChoiceQuestion[] = [
     answer: "오이",
     explanation: "오 (o) + 이 (i) = 오이, cucumber.",
     hints: {
-      "아이": "That's \"a-i\" — child! The first stroke should point up.",
-      "우이": "The first stroke points down — that's \"u.\" You want \"o.\"",
+      "아이": "That's \"a-i\" — child! The first vowel's short stroke should be on top.",
+      "우이": "The first vowel's short stroke is underneath — that's \"u.\" You want \"o.\"",
     },
   },
 ];
@@ -134,10 +136,10 @@ const lesson1Missions: ChoiceQuestion[] = [
 // LESSON 2 — Y vowels, ㅐ and ㅔ
 // ===============================================================
 const lesson2Letters: VocabularyItem[] = [
-  { korean: "ㅑ", romanization: "ya", english: "ya as in yard · ㅏ + one more stroke", emoji: "➡️➡️", say: "야" },
-  { korean: "ㅕ", romanization: "yeo", english: "yeo, like the yu in yum · ㅓ + one more stroke", emoji: "⬅️⬅️", say: "여" },
-  { korean: "ㅛ", romanization: "yo", english: "yo as in yoga · ㅗ + one more stroke", emoji: "⬆️⬆️", say: "요" },
-  { korean: "ㅠ", romanization: "yu", english: "yu as in you · ㅜ + one more stroke", emoji: "⬇️⬇️", say: "유" },
+  { korean: "ㅑ", romanization: "ya", english: "ya as in yard · ㅏ + one more stroke", say: "야" },
+  { korean: "ㅕ", romanization: "yeo", english: "yeo, like the yu in yum · ㅓ + one more stroke", say: "여" },
+  { korean: "ㅛ", romanization: "yo", english: "yo as in yoga · ㅗ + one more stroke", say: "요" },
+  { korean: "ㅠ", romanization: "yu", english: "yu as in you · ㅜ + one more stroke", say: "유" },
   { korean: "ㅐ", romanization: "ae", english: "ae, like the e in egg", emoji: "🥚", say: "애" },
   { korean: "ㅔ", romanization: "e", english: "e as in bed · sounds almost the same as ㅐ", emoji: "🛏️", say: "에" },
 ];
@@ -183,7 +185,7 @@ const lesson2Missions: ChoiceQuestion[] = [
     explanation: "ㅑ = ㅏ (a) + one more stroke → ya.",
     hints: {
       "아": "Only one stroke, so no y. That's \"a.\"",
-      "여": "Those strokes point left — that's \"yeo.\"",
+      "여": "Those strokes are on the left — that's \"yeo.\"",
     },
   },
   {
@@ -193,7 +195,7 @@ const lesson2Missions: ChoiceQuestion[] = [
     explanation: "ㅛ = ㅗ (o) + one more stroke → yo.",
     hints: {
       "오": "Only one stroke, so no y. That's \"o.\"",
-      "유": "Close! But those strokes point down — that's \"yu.\"",
+      "유": "Close! But those strokes are underneath — that's \"yu.\"",
     },
   },
   {
@@ -212,7 +214,7 @@ const lesson2Missions: ChoiceQuestion[] = [
     answer: "여우",
     explanation: "여 (yeo) + 우 (u) = 여우, fox.",
     hints: {
-      "요우": "요 is \"yo.\" The first syllable should be \"yeo\" (strokes point left).",
+      "요우": "요 is \"yo.\" The first syllable should be \"yeo\" (strokes on the left).",
       "여유": "The second syllable has two strokes — that's \"yu.\" You want \"u.\"",
     },
   },
@@ -220,9 +222,9 @@ const lesson2Missions: ChoiceQuestion[] = [
     prompt: "Which one is ㅐ (ae)? Hint: it looks like ㅏ + ㅣ.",
     options: ["에", "애", "아"],
     answer: "애",
-    explanation: "ㅐ = ㅏ + ㅣ, so the little stroke points right, between the two lines.",
+    explanation: "ㅐ = ㅏ + ㅣ, so the little stroke sticks out to the right, between the two lines.",
     hints: {
-      "에": "That's ㅔ (e) = ㅓ + ㅣ. The little stroke points left.",
+      "에": "That's ㅔ (e) = ㅓ + ㅣ. The little stroke is on the left.",
       "아": "That's just ㅏ (a). ㅐ has a second tall line.",
     },
   },
@@ -489,8 +491,8 @@ const lesson5Missions: ChoiceQuestion[] = [
     answer: "고",
     explanation: "ㄱ on top, ㅗ underneath = 고 (go).",
     hints: {
-      "거": "That's ㄱ + ㅓ (geo). Look for the stroke pointing up.",
-      "구": "That's ㄱ + ㅜ (gu). The stroke points down — you want up.",
+      "거": "That's ㄱ + ㅓ (geo). Look for the short stroke on top.",
+      "구": "That's ㄱ + ㅜ (gu). The short stroke is underneath — you want it on top.",
     },
   },
   {
@@ -540,7 +542,7 @@ const lesson5Missions: ChoiceQuestion[] = [
     explanation: "서 (seo) + 울 (ul) = 서울.",
     hints: {
       "소울": "소울 (so-ul) means soul! Seoul starts with ㅓ (eo).",
-      "서올": "올 is \"ol.\" You want 울 (ul), with the stroke pointing down.",
+      "서올": "올 is \"ol.\" You want 울 (ul), with the short stroke underneath.",
     },
   },
 ];
