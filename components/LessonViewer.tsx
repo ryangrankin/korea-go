@@ -1,13 +1,14 @@
 
 "use client";
 
-import { useState, type CSSProperties } from "react";
+import { useState } from "react";
 import Link from "next/link";
 import { completeLesson } from "../lib/lessonProgress";
 import { useShowRomanization } from "../lib/preferences";
 import { progressPercent } from "../lib/progress";
 import type { LessonSections } from "../data/lessons";
 import SectionedLesson from "./lesson/SectionedLesson";
+import LessonPhoto from "./lesson/LessonPhoto";
 import LessonTestOutBar from "./challenge/LessonTestOutBar";
 
 type LessonViewerProps = {
@@ -24,7 +25,7 @@ type LessonViewerProps = {
   // Lessons with sections (conversation, missions, game, review)
   sections?: LessonSections;
   eyebrow?: string; // e.g. "Unit 1 · Lesson 2"
-  photo?: string; // the unit's photo, faded behind the page
+  photo?: { src: string; alt: string }; // the unit's photo, shown as a banner
   nextLesson?: { id: string; title: string };
   previousLesson?: { id: string; title: string };
   unit?: { id: string; number: number; title: string; lessonNumber: number; lessonCount: number; lessonIds: string[] };
@@ -95,20 +96,14 @@ export default function LessonViewer({
     setCurrentStep((previous) => Math.max(previous - 1, 0));
   }
 
-  // The unit's photo, faded behind the whole page (see .lesson-photo-page in globals.css)
-  const photoStyle = photo
-    ? ({ "--lesson-photo": `url("${photo}")` } as CSSProperties)
-    : undefined;
-
   return (
-    <main
-      className={photo ? "basic-page lesson-photo-page" : "basic-page"}
-      style={photoStyle}
-    >
+    <main className="basic-page">
       <div className="basic-container">
         <Link href="/dashboard" className="back-button">
           ← Dashboard
         </Link>
+
+        {photo && <LessonPhoto {...photo} />}
 
         <h1>{title}</h1>
         <p>{description}</p>

@@ -14,7 +14,7 @@
 */
 
 import { scrollToTop } from "../../lib/scroll";
-import { useCallback, useMemo, useState, type CSSProperties } from "react";
+import { useCallback, useMemo, useState } from "react";
 import Link from "next/link";
 import { accessoryForLesson } from "../../data/accessories";
 import type { LessonSections } from "../../data/lessons";
@@ -35,6 +35,7 @@ import SpeechNotice from "../SpeechNotice";
 import StudySection from "./StudySection";
 import NavigationGame from "./NavigationGame";
 import ReviewActivities from "./ReviewActivities";
+import LessonPhoto from "./LessonPhoto";
 import LessonTestOutBar from "../challenge/LessonTestOutBar";
 import "./lesson.css";
 
@@ -44,7 +45,7 @@ type SectionedLessonProps = {
   title: string;
   description: string;
   eyebrow?: string; // e.g. "Unit 1 · Lesson 2"
-  photo?: string; // the unit's photo, faded behind the page
+  photo?: { src: string; alt: string }; // the unit's photo, shown as a banner
   sections: LessonSections;
   showRomanization: boolean;
   nextLesson?: { id: string; title: string };
@@ -170,16 +171,8 @@ export default function SectionedLesson({
       </h2>
     );
 
-  // The unit's photo, faded behind the whole page (see .lesson-photo-page in globals.css)
-  const photoStyle = photo
-    ? ({ "--lesson-photo": `url("${photo}")` } as CSSProperties)
-    : undefined;
-
   return (
-    <main
-      className={`basic-page lesson-page${photo ? " lesson-photo-page" : ""}`}
-      style={photoStyle}
-    >
+    <main className="basic-page lesson-page">
       <div className="basic-container lesson-sections-container">
         {/* Where am I? Dashboard › Unit › Lesson (each part links back) */}
         <nav className="lesson-breadcrumb" aria-label="Breadcrumb">
@@ -197,6 +190,8 @@ export default function SectionedLesson({
             </>
           )}
         </nav>
+
+        {photo && <LessonPhoto {...photo} />}
 
         {!unit && eyebrow && <p className="lesson-eyebrow">{eyebrow}</p>}
         <h1>{title}</h1>
