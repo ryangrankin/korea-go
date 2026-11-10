@@ -292,17 +292,9 @@ export default function DashboardPage() {
                         />
                       </div>
 
-                      {/* Topic status, and the skill check for this unit */}
+                      {/* How the learner is doing on this unit's topic */}
                       <div className="unit-skill-row">
                         <TopicStatusBadge status={status} />
-                        {topic && (
-                          <Link
-                            href={`/skill-checks/${topic.id}`}
-                            className="unit-challenge-link"
-                          >
-                            Challenge yourself →
-                          </Link>
-                        )}
                       </div>
                     </div>
 
@@ -364,6 +356,13 @@ export default function DashboardPage() {
                       );
                     })}
                   </ol>
+
+                  {/* The unit's skill check, after all its lessons */}
+                  {topic && (
+                    <Link href={`/skill-checks/${topic.id}`} className="unit-challenge-link">
+                      <span aria-hidden="true">💪</span> Challenge yourself: {unit.title} skill check →
+                    </Link>
+                  )}
                 </div>
               );
             })}

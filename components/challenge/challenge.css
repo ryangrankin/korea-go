@@ -543,11 +543,32 @@
   margin-top: 10px;
 }
 
+/* Under the unit's lesson list */
 .unit-challenge-link {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  min-height: 44px;
+  margin-top: 10px;
+  padding: 10px 14px;
+  border: 1px dashed #f28c28;
+  border-radius: 12px;
+  background: #fffaf3;
   color: #b35d00;
-  font-size: 13px;
+  font-size: 14px;
   font-weight: 700;
+  text-align: center;
   text-decoration: none;
+}
+
+.unit-challenge-link:hover {
+  background: #fff1e0;
+}
+
+.unit-challenge-link:focus-visible {
+  outline: 3px solid #f28c28;
+  outline-offset: 2px;
 }
 
 .unit-lesson.skipped .unit-lesson-number {
