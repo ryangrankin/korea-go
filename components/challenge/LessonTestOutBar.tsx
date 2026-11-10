@@ -1,7 +1,7 @@
 "use client";
 
 /*
-  LessonTestOutBar: the strip at the top of a lesson that offers
+  LessonTestOutBar: the strip at the bottom of a lesson that offers
   "Test out" (if the lesson has enough questions), or says the lesson was
   skipped, with a way to put it back on the learner's path.
 */
@@ -9,6 +9,7 @@
 import Link from "next/link";
 import { useLessonProgress } from "../../lib/lessonProgress";
 import { unskipLesson, useSkillProgress } from "../../lib/skillProgress";
+import "./challenge.css";
 
 export default function LessonTestOutBar({ lessonId, canTestOut }: { lessonId: string; canTestOut: boolean }) {
   const completed = useLessonProgress();

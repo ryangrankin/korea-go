@@ -492,7 +492,7 @@
   text-decoration: none;
 }
 
-/* ---------- Lesson page: test out / skipped strip ---------- */
+/* ---------- Lesson page: test out / skipped strip (bottom of the lesson) ---------- */
 
 .testout-bar {
   display: flex;
@@ -500,7 +500,7 @@
   align-items: center;
   justify-content: space-between;
   gap: 6px 12px;
-  margin: 0 0 20px;
+  margin: 20px 0;
   padding: 12px 16px;
   border: 1px dashed #f28c28;
   border-radius: 14px;

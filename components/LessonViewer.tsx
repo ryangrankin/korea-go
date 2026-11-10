@@ -107,7 +107,6 @@ export default function LessonViewer({
 
         <h1>{title}</h1>
         <p>{description}</p>
-        <LessonTestOutBar lessonId={lessonId} canTestOut={canTestOut} />
 
         {/* LESSON PROGRESS */}
         <div className="lesson-progress-track">
@@ -184,6 +183,9 @@ export default function LessonViewer({
             </div>
           </>
         )}
+
+        {/* Already know it? Test out, at the end of the lesson */}
+        <LessonTestOutBar lessonId={lessonId} canTestOut={canTestOut} />
       </div>
     </main>
   );

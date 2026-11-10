@@ -223,8 +223,6 @@ export default function SectionedLesson({
           </div>
         </div>
 
-        {!finished && <LessonTestOutBar lessonId={lessonId} canTestOut={canTestOut} />}
-
         {/* Lesson complete */}
         {finished && (
           <div className="lesson-content-card lesson-complete">
@@ -396,6 +394,9 @@ export default function SectionedLesson({
             </div>
           )}
         </div>
+
+        {/* Already know it? Test out (or undo a skip), after the lesson */}
+        {!finished && <LessonTestOutBar lessonId={lessonId} canTestOut={canTestOut} />}
 
         {/* Move between lessons without going back to the dashboard */}
         <nav className="lesson-footer-nav" aria-label="Lessons">
