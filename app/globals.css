@@ -2709,6 +2709,35 @@ body {
   background: #f4f7fb;
 }
 
+/* Each unit's photo behind its lessons, faded with the page tint so text stays
+   easy to read (same idea as the dashboard). The lesson's breadcrumb link to
+   its unit ("/dashboard#unit-2") tells us which unit we're in. */
+.lesson-page:has(.lesson-breadcrumb a[href$="#unit-0"]) { --lesson-photo: url("/lesson-photos/hangeul.jpg"); }
+.lesson-page:has(.lesson-breadcrumb a[href$="#unit-1"]) { --lesson-photo: url("/lesson-photos/greetings.jpg"); }
+.lesson-page:has(.lesson-breadcrumb a[href$="#unit-2"]) { --lesson-photo: url("/lesson-photos/airport.jpg"); }
+.lesson-page:has(.lesson-breadcrumb a[href$="#unit-3"]) { --lesson-photo: url("/lesson-photos/food.jpg"); }
+
+.lesson-page {
+  position: relative;
+  isolation: isolate; /* keeps the photo behind the page, not behind <body> */
+  --lesson-photo: none;
+}
+
+.lesson-page::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  background:
+    linear-gradient(rgba(244, 247, 251, 0.85), rgba(244, 247, 251, 0.85)),
+    var(--lesson-photo) center / cover no-repeat;
+}
+
+/* The photo is now the background, so hide the old strip at the top */
+.lesson-page .lesson-photo {
+  display: none;
+}
+
 .lesson-page .lesson-content-card,
 .lesson-page .practice-question-card,
 .lesson-page .wp-card,
