@@ -546,10 +546,7 @@ export const greetingsUnit: Unit = {
   icon: "👋",
   image: "/units/greetings.svg",
   color: "#9b7bd4",
-  photo: {
-    src: "/lesson-photos/greetings.jpg",
-    alt: "A brightly painted Korean pavilion above a row of palms",
-  },
+  photo: "/lesson-photos/greetings.jpg",
 
   lessons: [
     {

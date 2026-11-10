@@ -2709,6 +2709,23 @@ body {
   background: #f4f7fb;
 }
 
+/* The unit's photo behind a lesson, faded with the page tint so text stays easy
+   to read (same idea as the dashboard). Each lesson sets --lesson-photo. */
+.lesson-photo-page {
+  position: relative;
+  isolation: isolate;
+}
+
+.lesson-photo-page::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  background:
+    linear-gradient(rgba(244, 247, 251, 0.85), rgba(244, 247, 251, 0.85)),
+    var(--lesson-photo) center / cover no-repeat;
+}
+
 .lesson-page .lesson-content-card,
 .lesson-page .practice-question-card,
 .lesson-page .wp-card,
