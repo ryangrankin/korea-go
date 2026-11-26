@@ -26,12 +26,23 @@ export const viewport: Viewport = {
   viewportFit: "cover",
 };
 
+// Runs before the page is drawn, so a learner who turned Background Photos off
+// in Settings never sees a photo flash on first. See [data-background-photos] in globals.css.
+const backgroundPhotosScript = `try {
+  var prefs = JSON.parse(localStorage.getItem("koreaGoPreferences") || "{}");
+  document.documentElement.dataset.backgroundPhotos = prefs.backgroundPhotos === false ? "off" : "on";
+} catch (e) {}`;
+
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
     <html
       lang="en"
       className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
+      suppressHydrationWarning // the script below adds data-background-photos
     >
+      <head>
+        <script dangerouslySetInnerHTML={{ __html: backgroundPhotosScript }} />
+      </head>
       <body className="min-h-full flex flex-col">
         <AuthGate />
         {children}

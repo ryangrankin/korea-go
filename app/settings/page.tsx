@@ -21,6 +21,7 @@ type Preferences = {
   reminderFrequency: string;
   reminderTime: string;
   streakReminders: boolean;
+  backgroundPhotos: boolean;
 };
 
 const defaults: Preferences = {
@@ -35,6 +36,7 @@ const defaults: Preferences = {
   reminderFrequency: "Daily",
   reminderTime: "18:00",
   streakReminders: false,
+  backgroundPhotos: true,
 };
 
 export default function SettingsPage() {
@@ -86,6 +88,11 @@ export default function SettingsPage() {
 
     if (key === "reminders") {
       localStorage.setItem("koreaGoReminders", String(value));
+    }
+
+    // Show or hide the photos right away (app/layout.tsx does this on every page load)
+    if (key === "backgroundPhotos") {
+      document.documentElement.dataset.backgroundPhotos = value ? "on" : "off";
     }
 
     saveProgressSoon();
@@ -279,6 +286,36 @@ export default function SettingsPage() {
               <option value="15">15 minutes</option>
               <option value="20">20 minutes</option>
             </select>
+
+          </div>
+        </details>
+
+        {/* APPEARANCE */}
+        <details className="settings-accordion">
+          <summary>
+            <span>🎨 Appearance</span>
+            <span className="accordion-arrow">⌄</span>
+          </summary>
+
+          <div className="accordion-content">
+
+            <label className="settings-toggle-row">
+              <span>
+                <strong>Background Photos</strong>
+                <p className="settings-note">
+                  Show a faded photo of Korea behind the dashboard and lessons.
+                  Turn off for a plain background.
+                </p>
+              </span>
+
+              <input
+                type="checkbox"
+                checked={prefs.backgroundPhotos}
+                onChange={(e) =>
+                  update("backgroundPhotos", e.target.checked)
+                }
+              />
+            </label>
 
           </div>
         </details>
