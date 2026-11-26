@@ -2733,6 +2733,12 @@ body {
     var(--lesson-photo) center / cover no-repeat;
 }
 
+/* Settings › Appearance › Background Photos turned off: plain page instead */
+:root[data-background-photos="off"] .dashboard-page::before,
+:root[data-background-photos="off"] .lesson-page::before {
+  display: none;
+}
+
 /* The photo is now the background, so hide the old strip at the top */
 .lesson-page .lesson-photo {
   display: none;
